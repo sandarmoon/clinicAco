@@ -7,7 +7,7 @@
 
          
             <h3 class="mb-0">Owner List</h3>
-            <a class="btn btn-outline-primary btn-sm float-right " href="<?php echo e(route('owners.create')); ?>"><i class="ni ni-fat-add"></i></a>
+            <a class="btn btn-outline-primary btn-sm float-right " href="<?php echo e(route('owners.create')); ?>">Add Owner</a>
         
 
           <?php if( Session::has("success") ): ?>

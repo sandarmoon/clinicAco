@@ -8,7 +8,7 @@
 
          
             <h3 class="mb-0">Owner List</h3>
-            <a class="btn btn-outline-primary btn-sm float-right " href="{{route('owners.create')}}"><i class="ni ni-fat-add"></i></a>
+            <a class="btn btn-primary btn-sm float-right " href="{{route('owners.create')}}">Add Owner</a>
         
 
           @if( Session::has("success") )

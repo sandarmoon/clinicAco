@@ -5,7 +5,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header border-0">
-          <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#exampleModal">
+          <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal">
             Add Reception
           </button>
           <h3 class="mb-0">Receptions</h3>

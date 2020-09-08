@@ -7,7 +7,7 @@
         <div class="card-header border-0">
 
           <h3 class="mb-0">Doctor List</h3>
-            <a class="btn btn-outline-primary btn-sm float-right " href="{{route('doctor.create')}}"><i class="ni ni-fat-add"></i></a>
+            <a class="btn btn-primary btn-sm float-right " href="{{route('doctor.create')}}">Add Doctor</a>
 
           @if( Session::has("success") )
           <div class="alert alert-success alert-block" role="alert">

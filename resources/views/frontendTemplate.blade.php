@@ -180,35 +180,35 @@
           </li>
            <li class="nav-item">
             <a class="nav-link " href="{{route('owners.index')}}">
-              <i class="ni ni-pin-3 text-orange"></i> Owners
+              <i class="ni ni-glasses-2 text-orange"></i> Owners
             </a>
           </li>
 
           <li class="nav-item">
             <a class="nav-link " href="{{route('doctor.index')}}">
-              <i class="ni ni-planet text-blue"></i> Doctor
+              <i class="ni ni-hat-3 text-blue"></i> Doctor
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('reception.index')}}">
-              <i class="ni ni-single-02 text-yellow"></i> Reception
+              <i class="ni ni-circle-08 text-yellow"></i> Reception
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('patient.index')}}">
-              <i class="ni ni-planet text-blue"></i> patient
+              <i class="ni ni-circle-08 text-blue"></i> Patient
             </a>
           </li>
          
          
           <li class="nav-item">
             <a class="nav-link " href="{{route('appointpatient')}}">
-              <i class="ni ni-pin-3 text-orange"></i> Appointpatient
+              <i class="ni ni-watch-time text-orange"></i> Appointpatient
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{route('treatment.index')}}">
-              <i class="ni ni-pin-3 text-orange"></i> Treatment
+              <i class="ni ni-align-left-2 text-orange"></i> Treatment
             </a>
           </li>
            

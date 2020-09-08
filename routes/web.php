@@ -16,7 +16,7 @@
 // });
 
 // login page
-Route::get('/', 'ExpenseController@index');
+Route::get('/', 'ExpenseController@index')->middleware('auth');
 
 // medicines
 Route::resource('/medicine','MedicineController');

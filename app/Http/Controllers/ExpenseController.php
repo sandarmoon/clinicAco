@@ -194,8 +194,9 @@ class ExpenseController extends Controller
 
         $totalIncome = Treatment::whereDate('created_at', '>=', $date_from)
             ->whereDate('created_at', '<=', $date_to)
-            ->sum('charges')
-            ->toArray();
+         ->sum('charges');
+            // ->get();
+            //dd($totalIncome);
 
        return response()->json(['totalExpense'=>$totalexpense,'totalIncome'=>$totalIncome]);
     }

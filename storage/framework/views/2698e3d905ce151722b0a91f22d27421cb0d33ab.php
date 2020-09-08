@@ -6,8 +6,15 @@
         <div class="card-header border-0">
 
           <h3 class="mb-0">Doctor List</h3>
+            <a class="btn btn-outline-primary btn-sm float-right " href="<?php echo e(route('doctor.create')); ?>"><i class="ni ni-fat-add"></i></a>
 
-          <div class="alert alert-success success d-none" role="alert"></div>
+          <?php if( Session::has("success") ): ?>
+          <div class="alert alert-success alert-block" role="alert">
+              <button class="close" data-dismiss="alert"></button>
+              <?php echo e(Session::get("success")); ?>
+
+          </div>
+          <?php endif; ?>
         </div>
         <div class="table-responsive p-3">
           <table class="table align-items-center table-white table-flush"  id="doctorTable">
@@ -75,12 +82,12 @@
           function getData(){
             var i=1;
                 $('#doctorTable').DataTable({
-                
+                "serverSide": true,
                 "processing": true,
                 destroy:true,
                 "sort":false,
                 pagingType: 'full_numbers',
-                 pageLength: 5,
+                 pageLength: 10,
                  language: {
                    oPaginate: {
                      sNext: '<i class="fa fa-forward"></i>',
@@ -89,9 +96,9 @@
                      sLast: '<i class="fa fa-step-forward"></i>'
                      }
                    } ,
-                   "serverSide": true,
-                   "stateSave": true,  //restore table state on page reload,
-                 "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                   
+                   
+                 
                 "ajax": "<?php echo e(route('getDoctor')); ?>",
                 "columns":[
 

@@ -5,7 +5,10 @@
       <div class="card">
         <div class="card-header border-0">
 
-          <h3 class="mb-0">Doctor List</h3>
+         
+            <h3 class="mb-0">Owner List</h3>
+            <a class="btn btn-outline-primary btn-sm float-right " href="<?php echo e(route('owners.create')); ?>"><i class="ni ni-fat-add"></i></a>
+        
 
           <?php if( Session::has("success") ): ?>
           <div class="alert alert-success alert-block" role="alert">
@@ -83,10 +86,11 @@
             $('#ownerTable').DataTable({
             
             "processing": true,
+            "serverSide": true,
             destroy:true,
             "sort":false,
             pagingType: 'full_numbers',
-             pageLength: 5,
+             pageLength: 10,
              language: {
                oPaginate: {
                  sNext: '<i class="fa fa-forward"></i>',
@@ -95,9 +99,8 @@
                  sLast: '<i class="fa fa-step-forward"></i>'
                  }
                } ,
-               "serverSide": true,
-               "stateSave": true,  //restore table state on page reload,
-             "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+               
+             
             "ajax": "<?php echo e(route('getOwners')); ?>",
             "columns":[
 

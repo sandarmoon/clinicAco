@@ -9,7 +9,7 @@
             Add Reception
           </button>
           <h3 class="mb-0">Receptions</h3>
-          <div class="alert alert-primary success d-none my-3" role="alert"></div>
+          <div class="alert alert-success success d-none my-3" role="alert"></div>
         </div>
         <div class="card-body">
           <div class="table-responsive" >

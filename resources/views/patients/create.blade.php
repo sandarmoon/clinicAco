@@ -1,6 +1,6 @@
 @extends('frontendTemplate')
 @section('content')
-	
+
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -170,7 +170,7 @@
               @php
               $dlength=count($doctors);
               @endphp
-              @if($dlength>1)
+              @if($dlength>=1)
               <div class="form-group my-3">
                 <label for="doctor">doctor</label><br>
                 <select name="doctor"  id="doctor" class="form-control">

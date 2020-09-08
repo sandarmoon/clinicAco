@@ -27,6 +27,7 @@ class PatientController extends Controller
     public function create()
     {
         $doctors=Doctor::where('owner_id',1)->get();
+        
         return view('patients.create',compact('doctors'));
     }
 
@@ -96,6 +97,7 @@ class PatientController extends Controller
         $treatment->doctor_id=$doctor_id;
 
      }
+     $treatment->charges=0;
      $treatment->save();
      return redirect()->route('patient.index');
 

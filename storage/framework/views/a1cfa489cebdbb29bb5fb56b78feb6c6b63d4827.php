@@ -1,5 +1,5 @@
 <?php $__env->startSection('content'); ?>
-	
+
 <div class="row">
   <div class="col-12">
     <div class="card">
@@ -302,7 +302,7 @@ unset($__errorArgs, $__bag); ?>
               <?php
               $dlength=count($doctors);
               ?>
-              <?php if($dlength>1): ?>
+              <?php if($dlength>=1): ?>
               <div class="form-group my-3">
                 <label for="doctor">doctor</label><br>
                 <select name="doctor"  id="doctor" class="form-control">

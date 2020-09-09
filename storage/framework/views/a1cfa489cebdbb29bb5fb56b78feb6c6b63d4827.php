@@ -299,23 +299,10 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
               </div>
-              <?php
-              $dlength=count($doctors);
-              ?>
-              <?php if($dlength>=1): ?>
-              <div class="form-group my-3">
-                <label for="doctor">doctor</label><br>
-                <select name="doctor"  id="doctor" class="form-control">
-              <?php $__currentLoopData = $doctors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <option value="<?php echo e($row->id); ?>"><?php echo e($row->user->name); ?></option>
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
-                <?php endif; ?>
-                
-              </div>
+             
             </div>
           </div>
-          <input type="submit" class="btn btn-primary" value="submit">
+          <input type="submit" class="btn btn-primary" value="Add New Patient">
         </form>
       </div>
     </div>

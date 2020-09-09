@@ -167,7 +167,7 @@
                 </span>
                 @enderror
               </div>
-              @php
+             {{-- @php
               $dlength=count($doctors);
               @endphp
               @if($dlength>=1)
@@ -180,10 +180,10 @@
                 </select>
                 @endif
                 
-              </div>
+              </div>--}}
             </div>
           </div>
-          <input type="submit" class="btn btn-primary" value="submit">
+          <input type="submit" class="btn btn-primary" value="Add New Patient">
         </form>
       </div>
     </div>

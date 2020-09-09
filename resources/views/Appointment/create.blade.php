@@ -180,7 +180,9 @@
    <div class="col">
       <div class="card shadow">
         <div class="card-header border-0">
+
           <h3 class="mb-0">Appointment List</h3>
+          <a href="{{route('noappointment.create')}}" class="btn btn-outline-danger float-right">Add Patient(NB)</a>
         </div>
         <div class="table-responsive p-2">
           <table class="table align-items-center table-flush appointmentTable">
@@ -364,7 +366,7 @@
        //new patient start
 
        $('.appointmentTable').on('click','.newPatient',function(){
-        window.location.href="/noappointment/create";
+        window.location.href="/patient/create";
        })
       
    })

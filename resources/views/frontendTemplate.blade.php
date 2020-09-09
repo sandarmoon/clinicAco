@@ -380,6 +380,7 @@
   <script type="text/javascript" src=""></script>
   <script src="{{asset('template/table/datatables/icon.js')}}"></script>
   <script src="{{asset('dist/js/select2.min.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
   <script>
 

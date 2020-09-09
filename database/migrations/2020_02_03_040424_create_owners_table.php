@@ -25,6 +25,7 @@ class CreateOwnersTable extends Migration
             $table->string('clinic_time')->nullable();
             $table->string('address')->nullable();
             $table->string('phone')->nullable();
+            $table->softDeletes();
             $table->timestamps();
 
                 $table->foreign('user_id')

@@ -39,6 +39,15 @@ class PatientController extends Controller
      */ 
     public function store(Request $request)
     {
+        $characters = '0123456789';
+        $string = '';
+         $max = strlen($characters) - 1;
+
+         for ($i = 0; $i < 5; $i++){
+              $string .= $characters[mt_rand(0, $max)];
+         }
+         $prn=$string;
+
         $request->validate([
             'name'=>'required',
             'fathername'=>'required',
@@ -72,6 +81,7 @@ class PatientController extends Controller
     //dd($path);
 
      $patient=new Patient;
+     $patient->PRN=$prn;
      $patient->name= request('name');
      $patient->fathername=request('fathername');
      $patient->age=request('age');
@@ -89,17 +99,17 @@ class PatientController extends Controller
      $patient->reception_id=1;
      $patient->save();
 
-     $treatment=new Treatment;
-     $treatment->patient_id=$patient->id;
-     if(request('dcotor')){
-        $treatment->doctor_id=request('doctor');
-     }else{
-        $treatment->doctor_id=$doctor_id;
+     // $treatment=new Treatment;
+     // $treatment->patient_id=$patient->id;
+     // if(request('dcotor')){
+     //    $treatment->doctor_id=request('doctor');
+     // }else{
+     //    $treatment->doctor_id=$doctor_id;
 
-     }
-     $treatment->charges=0;
-     $treatment->save();
-     return redirect()->route('patient.index');
+     // }
+     // $treatment->charges=0;
+     // $treatment->save();
+     // return redirect()->route('patient.index');
 
     }
 

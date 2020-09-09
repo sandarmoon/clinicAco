@@ -76,7 +76,21 @@ Route::resource('/expense','ExpenseController');
 Route::get('/getExpense','ExpenseController@getExpense')->name('getExpense');
 Route::post('/searchReport','ExpenseController@searchReport')->name('searchReport');
 
-Route::get('/appointpatient','AppointmentController@index')->name('appointpatient');
+Route::get('/appointpatient','AppointmentController@appointpatient')->name('appointpatient');
 
 Route::get('/appointpatienthistory/{treatment_id}/{patient_id}','AppointmentController@patient')->name('appointpatienthistory');
 Route::post('/appmedicine','AppointmentController@getmedicine')->name('appmedicine');
+
+
+Route::get('appointment/create','AppointmentController@create')->name('appointment.create');
+
+Route::post('/getToken','AppointmentController@getToken')->name('getToken');
+
+Route::post('appointment/store','AppointmentController@store')->name('appointment.store');
+
+Route::get('/getAppointment','AppointmentController@getAppointment')->name('getAppointment');
+
+Route::post('/searchPRN','AppointmentController@searchPRN')->name('searchPRN');
+Route::post('/confirmAppoints','AppointmentController@confirmAppoints')->name('confirmAppoints');
+Route::get('/noappointment/create','AppointmentController@noappointment')->name('noappointment.create');
+Route::post('/noappointmentStore','AppointmentController@noappointmentStore')->name('noappointmentStore');

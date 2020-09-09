@@ -255,15 +255,29 @@
             var date=$('input[name="A_date"]').val();
            // console.log(value);
 
-              
-
-                $.post('/getToken/',{date:date,id:value},function(res){
+              $.ajax({
+                  url:"/getToken",
+                  data:{date:date,id:value},
+                  type:"POST",
+                  success:function(res){
                     if(res){
-                      $('.token').html(res);
-                      $('input[name="token"]').val(res);
-                      
-                    }
+                        $('.token').html(res);
+                        $('input[name="token"]').val(res);
+                        
+                      }
+                  },
+                  error:function(error){
+                    console.log(error);
+                  }
                 })
+
+                // $.post('/getToken/',{date:date,id:value},function(res){
+                //     if(res){
+                //       $('.token').html(res);
+                //       $('input[name="token"]').val(res);
+                      
+                //     }
+                // })
                
           });
        
@@ -319,8 +333,13 @@
           var doctor=$('.oldPatient').data('doctor');
           var appointment=$('.oldPatient').data('id');
           var html='';
-          $.post('/searchPRN',{PRN:value},function(res){
-             if(res){
+
+          $.ajax({
+            url:"/searchPRN",
+            data:{PRN:value},
+            type:"POST",
+            success:function(res){
+              if(res){
               
               var patient=JSON.parse(res);
               var file=JSON.parse(patient.file);
@@ -347,7 +366,41 @@
                     </div>`;
                     $('.result').html(html);
              }
+            },
+            error:function(error){
+              console.log(error);
+            }
           })
+
+          // $.post('/searchPRN',{PRN:value},function(res){
+          //    if(res){
+              
+          //     var patient=JSON.parse(res);
+          //     var file=JSON.parse(patient.file);
+          //     $('.addTreatment').attr('data-patient',patient.id);
+          //     $('.addTreatment').attr('data-doctor',doctor);
+          //     $('.addTreatment').attr('data-appoint',appointment);
+          //     $('.addTreatment').prop('disabled',false);
+
+          //     html =`<div class="card mb-3">
+          //             <div class="row no-gutters">
+          //               <div class="col-md-4">
+          //                 <img src="/${file[0]}" class="card-img" alt="...">
+          //               </div>
+          //               <div class="col-md-8">
+          //                 <div class="card-body">
+          //                   <h5 class="card-title">Patient Name:${patient.name}</h5>
+          //                   <p>Age:${patient.age}<p>
+          //                   <p>Allergy:${patient.allergy}<p>
+                            
+          //                   <p class="card-text"><small class="text-muted">created at:${moment(patient.created_at).format('Y-M-D')}</small></p>
+          //                 </div>
+          //               </div>
+          //             </div>
+          //           </div>`;
+          //           $('.result').html(html);
+          //    }
+          // })
        })
 
        $('.addTreatment').click(function(){
@@ -355,12 +408,26 @@
         var patient=$(this).data('patient');
         var appointment=$(this).data('appoint');
          console.log(doctor,patient,appointment);
-        $.post('/confirmAppoints',{doctor:doctor,patient:patient,a:appointment},function(res){
-          if(res){
-             $('#patientNo').modal('hide');
-             $(".appointmentTable").DataTable().ajax.reload();
-          }
-        })
+         $.ajax({
+            url:"/confirmAppoints",
+            data:{doctor:doctor,patient:patient,a:appointment},
+            type:"POST",
+            success:function(res){
+              if(res){
+                 $('#patientNo').modal('hide');
+                 $(".appointmentTable").DataTable().ajax.reload();
+              }
+            },
+            error:function(error){
+              console.log(error);
+            }
+          })
+        // $.post('/confirmAppoints',{doctor:doctor,patient:patient,a:appointment},function(res){
+        //   if(res){
+        //      $('#patientNo').modal('hide');
+        //      $(".appointmentTable").DataTable().ajax.reload();
+        //   }
+        // })
        })
 
        //new patient start

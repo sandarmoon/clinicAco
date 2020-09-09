@@ -195,6 +195,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link " href="{{route('appointment.create')}}">
+              <i class="ni ni-circle-08 text-yellow"></i> Booking
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link " href="{{route('patient.index')}}">
               <i class="ni ni-circle-08 text-blue"></i> Patient
             </a>

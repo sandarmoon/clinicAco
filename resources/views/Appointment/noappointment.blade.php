@@ -236,16 +236,30 @@
         var date=$('input[name="A_Date"]').val();
        // console.log(value);
 
-          
-
-            $.post('/getToken/',{date:date,id:value},function(res){
-              console.log(res);
-                if(res){
+          $.ajax({
+            url:"/getToken",
+            data:{date:date,id:value},
+            type:"POST",
+            success:function(res){
+              if(res){
                   $('.token').html(res);
                   $('input[name="token"]').val(res);
                   
                 }
-            })
+            },
+            error:function(error){
+              console.log(error);
+            }
+          })
+
+            // $.post('/getToken/',{date:date,id:value},function(res){
+            //   console.log(res);
+            //     if(res){
+            //       $('.token').html(res);
+            //       $('input[name="token"]').val(res);
+                  
+            //     }
+            // })
            
       });
   })

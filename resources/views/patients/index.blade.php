@@ -18,6 +18,7 @@
                     <tr>
                       <th>No</th>
                       <th>Name</th>
+                      <th>PRN</th>
                       <th>Father Name</th>
                       <th>Age</th>
                       <th>Action</th>
@@ -29,6 +30,7 @@
                     <tr>
                         <td>{{$i++}}</td>
                         <td>{{$patient->name}}</td>
+                        <td>{{$patient->PRN}}</td>
                         <td>{{$patient->fatherName}}</td>
                         <td>{{$patient->age}}</td>
                         <td><a href="{{route('patient.edit',$patient->id)}}"><i class="btn fas fa-edit text-white"  style="background-color: #825ee4"></i></a>

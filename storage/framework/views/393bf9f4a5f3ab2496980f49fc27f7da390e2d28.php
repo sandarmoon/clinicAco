@@ -17,6 +17,7 @@
                     <tr>
                       <th>No</th>
                       <th>Name</th>
+                      <th>PRN</th>
                       <th>Father Name</th>
                       <th>Age</th>
                       <th>Action</th>
@@ -28,6 +29,7 @@
                     <tr>
                         <td><?php echo e($i++); ?></td>
                         <td><?php echo e($patient->name); ?></td>
+                        <td><?php echo e($patient->PRN); ?></td>
                         <td><?php echo e($patient->fatherName); ?></td>
                         <td><?php echo e($patient->age); ?></td>
                         <td><a href="<?php echo e(route('patient.edit',$patient->id)); ?>"><i class="btn fas fa-edit text-white"  style="background-color: #825ee4"></i></a>

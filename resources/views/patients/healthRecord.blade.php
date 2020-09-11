@@ -125,8 +125,8 @@ foreach($treatments as $treatment)
          </div>
       </div>
    </div>
-   <div class="col-xl-8">
-      <div class="card">
+   <div class="col-xl-8 mb-3">
+      <div class="card h-100">
          <div class="card-header bg-transparent">
             <div class="row align-items-center">
                <div class="col">
@@ -134,6 +134,8 @@ foreach($treatments as $treatment)
                   <button class="btn btn-outline-danger btn-sm float-right doctorChange">Changing Doctor</button>
                   <h5 class="text-uppercase text-muted ls-1 mb-1">Doctor Examination</h5>
                 @endrole
+                <h3 class="mb-0">Doctor Examination</h3>
+
                   
                </div>
             </div>

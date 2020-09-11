@@ -138,7 +138,7 @@ class TreatmentController extends Controller
             $doctor_id=$doctor->id;
             $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)->first();
             if($assignedDoc!=null){
-                
+
 
                 $patientinfo=Treatment::with('patient')->first();
                     // dd($patientinfo);
@@ -149,9 +149,15 @@ class TreatmentController extends Controller
 
                      $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
                      
-                      $uniquedoctorT = Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get()->unique('doctor_id');
-                    
+                     //  $uniquedoctorT = Treatment::where('patient_id',$id)->
+                     // whereNotNull('gc_level')->
+                     //  orderBy('created_at','ASC')->get()->unique('doctor_id');
 
+                      $uniquedoctorT = Treatment::where('patient_id',$id)->
+                     whereNotNull('gc_level')->
+                      orderBy('created_at','ASC')->get()->unique('doctor_id');
+                    
+                      // dd($uniquedoctorT);
                     $treatments=Treatment::where('patient_id','=',$id)
                                  ->get();
                     return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));

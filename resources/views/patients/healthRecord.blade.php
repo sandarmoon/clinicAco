@@ -131,6 +131,7 @@ foreach($treatments as $treatment)
             <div class="row align-items-center">
                <div class="col">
                 @role('Doctor')
+                
                   <button class="btn btn-outline-danger btn-sm float-right doctorChange">Changing Doctor</button>
                   <h5 class="text-uppercase text-muted ls-1 mb-1">Doctor Examination</h5>
                 @endrole

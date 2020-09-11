@@ -133,14 +133,25 @@ class TreatmentController extends Controller
         $doctors=Doctor::all();
          $user=Auth::user();
 
+         //Note:: doctor assigned and old assigned filter
         if($user->hasRole('Doctor')){
            $doctor=Doctor::where('user_id',$user->id)->first();
             $doctor_id=$doctor->id;
-            $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)->first();
+            $lastassginP=Referreddoctor::
+                        where('patient_id',$id)
+                        ->orderBy('created_at','DESC')->first();
+            $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)
+                        ->where('patient_id',$id)
+                        ->orderBy('created_at','DESC')->first();
+
+            
+            // dd($assignedDoc);
             if($assignedDoc!=null){
 
+                if($lastassginP->to_doctor_id == $assignedDoc->to_doctor_id){
+                    // dd("yes You are last assigned");
 
-                $patientinfo=Treatment::with('patient')->first();
+                    $patientinfo=Treatment::with('patient')->first();
                     // dd($patientinfo);
                     
                     $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
@@ -162,7 +173,48 @@ class TreatmentController extends Controller
                                  ->get();
                     return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
 
+                }else{
+                    // dd("no your are not last assgined but old assigned!");
+                    if($assignedDoc->status==0){
+
+                       $removeDate=$assignedDoc->created_at;
+                       $uniquedoctorT=
+                       Treatment::whereDate('created_at','<',$removeDate)
+                        ->where('patient_id',$id)
+                        ->orderBy('created_at','ASC')
+                        ->get()->unique('doctor_id');
+
+                        $patientinfo=Treatment::with('patient')->first();
+                    // dd($patientinfo);
+                    
+                    $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
+
+                     
+
+                     $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
+                     
+                     //  $uniquedoctorT = Treatment::where('patient_id',$id)->
+                     // whereNotNull('gc_level')->
+                     //  orderBy('created_at','ASC')->get()->unique('doctor_id');
+
+                     //  $uniquedoctorT = Treatment::where('patient_id',$id)->
+                     // whereNotNull('gc_level')->
+                     //  orderBy('created_at','ASC')->get()->unique('doctor_id');
+                    
+                      // dd($uniquedoctorT);
+                    $treatments=Treatment::where('patient_id','=',$id)
+                                 ->get();
+                    return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
+
+                        return view('patients.healthRecord',compact('treatments','doctors'));
+                    }
+                }
+
+
+                
+
             }else{
+                //doctor whos is not assgned by other doctor
                 $treatments=Treatment::where('patient_id','=',$id)
                 ->where('doctor_id','=',$doctor_id)
                 ->get();
@@ -173,7 +225,7 @@ class TreatmentController extends Controller
 
         
         }
-        // patient>id=$id
+        // patient>id=$id and recption counter can see it!
         $patientinfo=Treatment::with('patient')->first();
         // dd($patientinfo);
         

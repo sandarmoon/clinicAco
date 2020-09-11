@@ -1,7 +1,47 @@
+<?php $__env->startSection('style'); ?>
+<style>
+  /*.select2-dropdown {
+   top: 22px !important;
+   left: 8px !important;
+  }*/
+  .select2-container .select2-selection--single {
+    
+    height: 45px!important;
+    
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 37px!important;
+    /* position: absolute; */
+    /* top: 1px; */
+    /* right: 1px; */
+    /* width: 20px; */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #8898aa !important;
+    line-height: 42px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff!important;
+    border: 1px solid #8898aa!important;
+    border-radius: 4px!important;
+}
+.select2-container{
+ width: 100%!important;
+ }
+ .select2-search--dropdown .select2-search__field {
+ width: 100%important;
+ }
+</style>
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
 <?php
 $file=json_decode($treatments[0]->patient->file,true);
+$clinic_name=$treatments[0]->patient->reception->owner->clinic_name;
 
 $finalMedication=[];
 $medications=[];
@@ -89,7 +129,9 @@ foreach($treatments as $treatment)
          <div class="card-header bg-transparent">
             <div class="row align-items-center">
                <div class="col">
+                  <button class="btn btn-outline-danger btn-sm float-right doctorChange">Changing Doctor</button>
                   <h5 class="text-uppercase text-muted ls-1 mb-1">Doctor Examination</h5>
+
                   
                </div>
             </div>
@@ -229,15 +271,15 @@ foreach($treatments as $treatment)
                		
                	<?php $__currentLoopData = $finalMedication; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <tr>
-                     <th scope="col"><?php echo e($value['visitdate']); ?></th>
-                     <th scope="col"><?php echo e($value['med_name']==null? '-':$value['med_name']); ?></th>
-                     <th scope="col"><?php echo e($value['med_type']==null? '-':$value['med_type']); ?></th>
-                     <th scope="col"><?php echo e($value['med_chemical']==null? '-':$value['med_chemical']); ?></th>
-                     <th scope="col"><?php echo e($value['tab']==null? '-':$value['tab']); ?></th></th>
-                     <th scope="col"><?php echo e($value['interval']==null? '-':$value['interval']); ?></th>
-                     <th scope="col"><?php echo e($value['type']==null? '-':$value['type']); ?></th>
-                     <th scope="col"><?php echo e($value['meal']==null? '-':$value['meal']); ?></th>
-                     <th scope="col"><?php echo e($value['during']==null? '-':$value['during']); ?></th>
+                     <td scope="col"><?php echo e($value['visitdate']); ?></td>
+                     <td scope="col"><?php echo e($value['med_name']==null? '-':$value['med_name']); ?></td>
+                     <td scope="col"><?php echo e($value['med_type']==null? '-':$value['med_type']); ?></td>
+                     <td class="my-td" scope="col"><?php echo e($value['med_chemical']==null? '-':$value['med_chemical']); ?></td>
+                     <td scope="col"><?php echo e($value['tab']==null? '-':$value['tab']); ?></th></td>
+                     <td scope="col"><?php echo e($value['interval']==null? '-':$value['interval']); ?></td>
+                     <td scope="col"><?php echo e($value['type']==null? '-':$value['type']); ?></td>
+                     <td scope="col"><?php echo e($value['meal']==null? '-':$value['meal']); ?></td>
+                     <td class="my-td" scope="col"><?php echo e($value['during']==null? '-':$value['during']); ?></td>
                   </tr>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                   
@@ -247,6 +289,62 @@ foreach($treatments as $treatment)
       </div>
    </div>
 </div>
+<!-- modal start here -->
+<!-- Modal -->
+<div class="modal fade"  id="doctor_change_modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="max-height: 800px">
+
+        <h3 class="modal-title" id="exampleModalLabel">
+           <?php echo e($clinic_name); ?> Clinic
+        </h3>
+        <!-- <h5 class="mr-4"><?php echo e(date('Y:m:d')); ?></h5> -->
+        
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+          <span aria-hidden="true">&times;</span>
+        </button>
+
+      </div>
+      
+      <div class="modal-body" >
+        <form id="changeDoctorForm" action="" method="post" enctype="multipart/form-data"> 
+            <div>
+                  <div class="form-group" >
+                   <label for="exampleFormControlSelect1">From Who</label>
+                   <input type="text" class="form-control" value="<?php echo e($treatments[0]->doctor->user->name); ?>" readonly="readonly" >
+                 </div>
+                 <input type="hidden" name="patient_id" value="<?php echo e($treatments[0]->patient_id); ?>">
+                 <input type="hidden" name="fromDoctor" value="<?php echo e($treatments[0]->doctor_id); ?>">
+                 <div class="form-group">
+                    <label for="exampleFormControlSelect1">To Whom</label><br/>
+                   <select class="col-12 form-control" name="toDoctor" id="changingDoc">
+                     <?php $__currentLoopData = $doctors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                     <option value="<?php echo e($d->id); ?>" <?php echo e(($treatments[0]->doctor_id==$d->id) ? "disabled":''); ?>><?php echo e($d->user->name); ?>
+
+                     </option>
+                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                   </select>
+                 </div>
+                 <div class="form-group">
+                  <label for="" class="form-control-label">Reason For Changing</label>
+                      <div class="input-group">
+                        <textarea class="form-control" name="reason" aria-label="With textarea"></textarea>
+                      </div>
+                  </div>
+            </div>
+         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary btn-DoctorChange">Save changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
@@ -254,6 +352,19 @@ foreach($treatments as $treatment)
    // Call the dataTables jQuery plugin
 $(document).ready(function() {
 
+// ajax _token
+      $.ajaxSetup({
+         headers: {
+             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+         }
+      });
+
+
+
+
+$('#changingDoc').select2({
+   dropdownParent: $('#doctor_change_modal')
+});
    
   $('.dataTable').DataTable(
    {
@@ -292,6 +403,30 @@ $(document).ready(function() {
 
   }
  );
+
+  $('.doctorChange').click(function(){
+      $('#doctor_change_modal').modal('show');
+  })
+
+  $('#changeDoctorForm').submit(function(e){
+   e.preventDefault();
+   alert('helo');
+      var formData=$(this).serialize();
+      console.log(formData);
+      
+      $.ajax({
+         url:"<?php echo e(route('referredDoctor.store')); ?>",
+         type:"POST",
+         data:formData,
+         processData: false,
+         success:function(data){
+            console.log(data);
+         },
+         error:function(data){
+            console.log(data);
+         }
+      })
+  })
 
 
 });

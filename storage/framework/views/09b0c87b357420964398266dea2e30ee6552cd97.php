@@ -62,7 +62,7 @@
 		                   }
 		                 } ,
 		                 "serverSide": true,
-		                 "stateSave": true,  //restore table state on page reload,
+		                 
 		               "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
 		              "ajax": "<?php echo e(route('getTreatments')); ?>",
 		              
@@ -75,7 +75,7 @@
 		                   {"data":"patient.id",
 		                   render:function(data){
 		                   	return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
-		                        <button class="btn btn-warning btn-sm d-inline-block btnDetail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
+		                        <button class="btn btn-warning btn-sm d-inline-block btn-Detail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
 		                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>`
 		                   }}
 		                   
@@ -88,8 +88,9 @@
 		           });
 		     }
 
-		     $('#treatmentTable tbody').on('click','.btnDetail',function(){
+		     $('#treatmentTable tbody').on('click','.btn-Detail',function(){
 		     	var id=$(this).data('id');
+		     	console.log(id);
 		     	location.href='/treatment/'+id;
 		     })
 	} );

@@ -17,4 +17,11 @@ class Patient extends Model
     {
     	return $this->hasMany('App\Treatment');
     }
+
+    public function referredPatient(){
+    	return $this->hasMany('App\Referreddoctor','patient_id');
+    }
+    public function reception(){
+    	return $this->belongsTo('App\Reception');
+    }
 }

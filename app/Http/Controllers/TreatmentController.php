@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Treatment;
 use App\Patient;
+use App\Referreddoctor;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\TreatmentResource;
+use Auth;
+use App\Doctor;
 class TreatmentController extends Controller
 {
     /**
@@ -16,8 +19,29 @@ class TreatmentController extends Controller
      */
     public function index()
     {
-        $treatments=Treatment::all();
-        return view('treatment.index',compact('treatments'));
+        $user=Auth::user();
+        if($user->hasRole('Doctor')){
+           $doctor=Doctor::where('user_id',$user->id)->first();
+            $doctor_id=$doctor->id;
+            $treatments=Treatment::where('doctor_id',$doctor_id)->get();
+            // dd($treatments);
+        
+        }
+
+        if($user->hasRole('Reception')){
+            $treatments=Treatment::all();
+            // dd($treatments);
+            
+        }
+        // dd($treatments);
+         return view('treatment.index',compact('treatments'));
+        // start here
+        // $id=Auth::user()->id;
+        // $doctor=Doctor::where('user_id',$id)->first();
+        // $doctor_id=$doctor->id;
+        // $treatments=Treatment::where('doctor_id',$doctor_id)->get();
+        // dd($treatments);
+        // return view('treatment.index',compact('treatments'));
     }
 
     /**
@@ -49,12 +73,124 @@ class TreatmentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        // dd($id);
-        $treatments=Treatment::where('patient_id',$id)->get();
+    // public function show($id)
+    // {
+       
+    //      // doctor must login first for only doctor use
+    //     // $user_id=Auth::user()->id;
+    //     // $doctor=Doctor::where('user_id',$user_id)->first();
+    //     // $doctor_id=$doctor->id;
+    //     $doctors=Doctor::all();
+    //     $user=Auth::user();
+    //     if($user->hasRole('Doctor')){
+    //        $doctor=Doctor::where('user_id',$user->id)->first();
+    //         $doctor_id=$doctor->id;
+    //         $treatments=Treatment::where('patient_id','=',$id)
+    //             ->where('doctor_id','=',$doctor_id)
+    //             ->get();
+    //         // dd($treatments);
         
-        return view('patients.healthRecord',compact('treatments'));
+    //     }else{
+    //         $treatments=Treatment::where('patient_id','=',$id)
+    //             ->get();
+    //         // dd($treatments);
+            
+    //     }
+
+        
+
+         
+
+        
+    //     // $treatments=Treatment::where('patient_id','=',$id)
+    //     //         ->where('doctor_id','=',$doctor_id)
+    //     //         ->get();
+    //             // dd($treatments);
+        
+    //     return view('patients.healthRecord',compact('treatments','doctors'));
+    // }
+
+    // public function show22($id){
+    //     // patient>id=$id
+    //     $patientinfo=Treatment::with('patient')->first();
+    //     // dd($patientinfo);
+        
+    //     $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
+
+    //      $uniquedoctorT = Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get()->unique('doctor_id');
+
+    //      $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
+         
+
+        
+
+    //     $treatments=Treatment::where('patient_id','=',$id)
+    //                  ->get();
+    //                  return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
+    // }
+
+     public function show($id){
+        $doctors=Doctor::all();
+         $user=Auth::user();
+
+        if($user->hasRole('Doctor')){
+           $doctor=Doctor::where('user_id',$user->id)->first();
+            $doctor_id=$doctor->id;
+            $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)->first();
+            if($assignedDoc!=null){
+                
+
+                $patientinfo=Treatment::with('patient')->first();
+                    // dd($patientinfo);
+                    
+                    $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
+
+                     
+
+                     $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
+                     
+                      $uniquedoctorT = Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get()->unique('doctor_id');
+                    
+
+                    $treatments=Treatment::where('patient_id','=',$id)
+                                 ->get();
+                    return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
+
+            }else{
+                $treatments=Treatment::where('patient_id','=',$id)
+                ->where('doctor_id','=',$doctor_id)
+                ->get();
+                return view('patients.healthRecord',compact('treatments','doctors'));
+            }
+           
+
+
+        
+        }
+        // patient>id=$id
+        $patientinfo=Treatment::with('patient')->first();
+        // dd($patientinfo);
+        
+        $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
+
+         
+
+         $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
+         
+          $uniquedoctorT = Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get()->unique('doctor_id');
+        
+
+        $treatments=Treatment::where('patient_id','=',$id)
+                     ->get();
+                     return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
+    }
+
+    public function patientRecordD($did,$pid){
+        $doctors=Doctor::all();
+       $treatments=Treatment::where('patient_id','=',$pid)
+                ->where('doctor_id','=',$did)
+                ->get();
+                 return view('patients.healthRecord',compact('treatments','doctors'));
     }
 
     /**
@@ -152,7 +288,19 @@ class TreatmentController extends Controller
     }
 
     public function getTreatments(){
-        $treatments=Treatment::all();
+        // $treatments=Treatment::all();
+        $user=Auth::user();
+        if($user->hasRole('Doctor')){
+           $doctor=Doctor::where('user_id',$user->id)->first();
+            $doctor_id=$doctor->id;
+            $treatments=Treatment::where('doctor_id',$doctor_id)->get();
+            // dd($treatments);
+        
+        }else{
+            $treatments=Treatment::all();
+            // dd($treatments);
+            
+        }
         $treatments=TreatmentResource::collection($treatments);
          $treatments=Datatables::of($treatments)
                 ->addIndexColumn()

@@ -16,4 +16,12 @@ class Doctor extends Model
     public function owner(){
         return $this->belongsTo('App\Owner');
     }
+
+    public function referredBy(){
+    	return $this->hasMany('App\Referreddoctor','from_doctor_id');
+    }
+
+    public function referredFrom(){
+    	return $this->hasMany('App\Referreddoctor','to_doctor_id');
+    }
 }

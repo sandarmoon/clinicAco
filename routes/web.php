@@ -17,6 +17,9 @@
 
 // login page
 Route::get('/', 'ExpenseController@index')->middleware('auth');
+Route::get('/h', function(){
+	return view('patients.healthRecordHome');
+});
 
 // medicines
 Route::resource('/medicine','MedicineController');
@@ -28,6 +31,8 @@ Route::resource('/medicineType','MedicineTypeController');
 Route::resource('/treatment','TreatmentController');
 
 Route::get('/getTreatments','TreatmentController@getTreatments')->name('getTreatments');
+
+Route::resource('/referredDoctor','ReferredDoctorController');
 
 
 
@@ -92,5 +97,12 @@ Route::get('/getAppointment','AppointmentController@getAppointment')->name('getA
 
 Route::post('/searchPRN','AppointmentController@searchPRN')->name('searchPRN');
 Route::post('/confirmAppoints','AppointmentController@confirmAppoints')->name('confirmAppoints');
+
 Route::get('/noappointment/create','AppointmentController@noappointment')->name('noappointment.create');
+
 Route::post('/noappointmentStore','AppointmentController@noappointmentStore')->name('noappointmentStore');
+
+Route::delete('/appointmentCancel/{id}','AppointmentController@appointmentCancel')->name('appointmentCancel');
+
+// treatment record
+Route::get('/patientRecordD/{did}/{pid}','TreatmentController@patientRecordD')->name('patientRecordD');

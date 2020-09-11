@@ -210,7 +210,16 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
+        <div class="modal-title justify-content-between" >
+          <h3 >
+          <?php echo e($r_user->owner->clinic_name); ?>
+
+
+          </h3>
+          <h5 class="text-muted"><?php echo e(date('Y-M-D')); ?></h5>
+        </div>
+        
+
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -317,7 +326,7 @@
                 {"data":"appointment.A_Date"},
                 {"data":"appointment.TokenNo"},
                 {"data":"appointment",render:function(data){
-                  return `<button class="btn btn-outline-primary oldPatient" data-id="${data.id}" data-doctor=${data.doctor_id}>Old Patient</button><button class="btn btn-outline-info newPatient">New Patient</button><button class="btn btn-outline-danger">Cancel</button>`
+                  return `<button class="btn btn-outline-primary oldPatient" data-id="${data.id}" data-doctor=${data.doctor_id}>Old Patient</button><button class="btn btn-outline-info newPatient">New Patient</button><button data-id="${data.id}" class="btn btn-outline-danger btn-cancel">Cancel</button>`
                 }}],
                 info:false
             } );
@@ -434,6 +443,27 @@
 
        $('.appointmentTable').on('click','.newPatient',function(){
         window.location.href="/patient/create";
+       })
+
+        $('.appointmentTable').on('click','.btn-cancel',function(){
+          var id=$(this).data('id');
+          var url="<?php echo e(URL('appointmentCancel')); ?>";
+          url=url+'/'+id;
+           $.ajax({
+            url:url,
+            data:{ _token:'<?php echo e(csrf_token()); ?>',_method:"DELETE"},
+            type:"POST",
+            success:function(res){
+              if(res){
+                 $('#patientNo').modal('hide');
+                 $(".appointmentTable").DataTable().ajax.reload();
+              }
+            },
+            error:function(error){
+              console.log(error);
+            }
+          })
+        // window.location.href="/patient/create";
        })
       
    })

@@ -218,4 +218,10 @@ class AppointmentController extends Controller
      $treatment->save();
      return redirect()->route('appointment.create');
     }
+
+    public function appointmentCancel($id){
+        $appointment=Appointment::find($id);
+        $appointment->delete();
+        return response()->json(['success'=>'Successfully deleted']);
+    }
 }

@@ -25,6 +25,7 @@
   <link href="<?php echo e(asset('template/assets/img/brand/favicon.png')); ?>" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital@1&display=swap" rel="stylesheet">
 
   <!-- Icons -->
   <link href="<?php echo e(asset('template/assets/js/plugins/nucleo/css/nucleo.css')); ?>" rel="stylesheet" />
@@ -216,6 +217,8 @@
               <i class="ni ni-align-left-2 text-orange"></i> Treatment
             </a>
           </li>
+
+          
            
           
           <li class="nav-item">
@@ -385,7 +388,8 @@
   <!-- <script src="<?php echo e(asset('template/table/js/demo/datatables-demo.js')); ?>"></script> -->
   <script type="text/javascript" src=""></script>
   <script src="<?php echo e(asset('template/table/datatables/icon.js')); ?>"></script>
-  <script src="<?php echo e(asset('dist/js/select2.min.js')); ?>"></script>
+  <!-- <script src="<?php echo e(asset('dist/js/select2.min.js')); ?>"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 
   <script>

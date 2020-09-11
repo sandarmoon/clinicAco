@@ -52,7 +52,7 @@ class ReferredDoctorController extends Controller
 
             Referreddoctor::create([
                 'from_doctor_id'=>$fromDoctor,
-                'to_doctor_id'=>$fromDoctor,
+                'to_doctor_id'=>$toDoctor,
                 'patient_id'=>$patient_id,
                 'reason'=>$reason
              ]);

@@ -189,7 +189,7 @@ elseif($user->hasRole('Reception')){
                            $removeDate=$assignedDoc->created_at;
                            // dd($removeDate);
                            $uniquedoctorT=
-                           Treatment::whereDate('created_at','<',$removeDate)
+                           Treatment::whereDate('created_at','<=',$removeDate)
                         ->where('patient_id',$id)
                         ->orderBy('created_at','DESC')
                         ->get()->unique('doctor_id');
@@ -358,7 +358,7 @@ elseif($user->hasRole('Reception')){
                             $removeDate=$assignedDoc->created_at;
                              $treatments=Treatment::where('patient_id','=',$pid)
                             ->where('doctor_id','=',$did)
-                            ->where('created_at','<',$removeDate)
+                            ->where('created_at','<=',$removeDate)
                             ->orderBy('id','desc')
                             ->get();
                              return view('patients.healthRecord',compact('treatments','doctors'));

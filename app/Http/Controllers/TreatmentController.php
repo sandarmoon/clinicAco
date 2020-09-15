@@ -187,12 +187,13 @@ elseif($user->hasRole('Reception')){
 
                          $status=$assignedDoc->status;
                            $removeDate=$assignedDoc->created_at;
-                           dd($removeDate);
+                            dd($assignedDoc);
                            $uniquedoctorT=
                            Treatment::whereDate('created_at','<=',$removeDate)
                         ->where('patient_id',$id)
                         ->orderBy('created_at','DESC')
                         ->get()->unique('doctor_id');
+
                             dd($uniquedoctorT);
 
                             $patientinfo=Treatment::with('patient')->first();

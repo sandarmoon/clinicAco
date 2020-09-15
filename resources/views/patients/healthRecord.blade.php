@@ -132,7 +132,11 @@ foreach($treatments as $treatment)
                <div class="col">
                 @role('Doctor')
                 
-                  <button class="btn btn-outline-danger btn-sm float-right doctorChange">Changing Doctor</button>
+                
+
+                  <button class="
+                  {{isset($status) ?'d-none':''}}
+                  btn btn-outline-danger btn-sm float-right doctorChange">Changing Doctor</button>
                   <h5 class="text-uppercase text-muted ls-1 mb-1">Doctor Examination</h5>
                 @endrole
                 <h3 class="mb-0">Doctor Examination</h3>
@@ -318,6 +322,7 @@ foreach($treatments as $treatment)
                  <div class="form-group">
                     <label for="exampleFormControlSelect1">To Whom</label><br/>
                    <select class="col-12 form-control" name="toDoctor" id="changingDoc">
+                    <option value="">Choose Doctor</option>
                      @foreach($doctors as $d)
                      <option value="{{$d->id}}" {{($treatments[0]->doctor_id==$d->id) ? "disabled":'' }}>{{$d->user->name}}
                      </option>
@@ -406,7 +411,7 @@ $('#changingDoc').select2({
 
   $('#changeDoctorForm').submit(function(e){
    e.preventDefault();
-   alert('helo');
+   // alert('helo');
       var formData=$(this).serialize();
       console.log(formData);
       
@@ -416,7 +421,7 @@ $('#changingDoc').select2({
          data:formData,
          processData: false,
          success:function(data){
-            console.log(data);
+            $('#doctor_change_modal').modal('hide');
          },
          error:function(data){
             console.log(data);

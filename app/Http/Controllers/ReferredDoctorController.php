@@ -35,6 +35,7 @@ class ReferredDoctorController extends Controller
      */
     public function store(Request $request)
     {
+        
          $fromDoctor=$request->fromDoctor;
          $toDoctor=$request->toDoctor;
 

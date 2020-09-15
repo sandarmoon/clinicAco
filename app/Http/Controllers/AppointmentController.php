@@ -112,6 +112,7 @@ class AppointmentController extends Controller
     }
 
     public function confirmAppoints(Request $request){
+        // dd($request);
         $doctor_id=$request->doctor;
         $patient=$request->patient;
         $appointment=$request->a;
@@ -119,11 +120,16 @@ class AppointmentController extends Controller
        $appointment->status=1;
        $appointment->save();
 
-      $treatment=new Treatment;
-         $treatment->patient_id=$patient;
-         $treatment->doctor_id=$doctor_id;
-         $treatment->charges=0;
-         $treatment->save();
+      // $treatment=new Treatment;
+      //    $treatment->patient_id=$patient;
+      //    $treatment->doctor_id=$doctor_id;
+      //    $treatment->charges=0;
+      //    $treatment->save();
+       Treatment::create([
+            'patient_id'=>$patient,
+            'doctor_id'=>$doctor_id,
+            'charges'=>0
+            ]);
 
          return response()->json([
                 'success' => 'added Successfully'

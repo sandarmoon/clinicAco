@@ -241,7 +241,7 @@
 
                 <div class=" text-right">
                   <!-- <input type="submit" value="Submit Now!" class="btn btn-sm btn-primary AddNew"/>or -->
-                  <a href="#!" class="">Skip</a>
+                  <!-- <a href="#!" class="">Skip</a> -->
                 </div>
                 
               </form>

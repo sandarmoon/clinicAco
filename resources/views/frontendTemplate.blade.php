@@ -92,7 +92,8 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="../index.html">
-        <img src="{{asset('template/assets/img/brand/blue.png')}}" class="navbar-brand-img" alt="...">
+        <img src="{{asset('template/assets/img/theme/l03.png')}}" class="navbar-brand-img" alt="..." >
+        <span class="heading">Gp Clinic</span>
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">

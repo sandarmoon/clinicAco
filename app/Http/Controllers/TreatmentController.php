@@ -23,15 +23,20 @@ class TreatmentController extends Controller
         if($user->hasRole('Doctor')){
            $doctor=Doctor::where('user_id',$user->id)->first();
             $doctor_id=$doctor->id;
-            $treatments=Treatment::where('doctor_id',$doctor_id)->get();
-            // dd($treatments);
+            // $treatments=Treatment::where('doctor_id',$doctor_id)->get();
+            $treatments=Treatment::where('doctor_id',$doctor_id)->
+                     whereNotNull('gc_level')->
+                      orderBy('created_at','ASC')->get()->unique('patient_id');
+            // dd('no');
         
         }
-
-        if($user->hasRole('Reception')){
-            $treatments=Treatment::all();
+elseif($user->hasRole('Reception')){
+            $treatments=Treatment::whereNotNull('gc_level')->
+                      orderBy('created_at','ASC')->get()->unique('patient_id');
             // dd($treatments);
             
+        }else{
+            $treatments=[];
         }
         // dd($treatments);
          return view('treatment.index',compact('treatments'));
@@ -135,6 +140,7 @@ class TreatmentController extends Controller
 
          //Note:: doctor assigned and old assigned filter
         if($user->hasRole('Doctor')){
+            // dd('yes you are doctor');
            $doctor=Doctor::where('user_id',$user->id)->first();
             $doctor_id=$doctor->id;
             $lastassginP=Referreddoctor::
@@ -143,13 +149,15 @@ class TreatmentController extends Controller
             $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)
                         ->where('patient_id',$id)
                         ->orderBy('created_at','DESC')->first();
-
+             // dd($lastassginP);
             
-            // dd($assignedDoc);
-            if($assignedDoc!=null){
+              // dd($assignedDoc);//null  mean that you are not assigned by someone
+            if($assignedDoc!=null){ 
+                 // dd('helo1');//This login doctor is assigned by someoone
 
                 if($lastassginP->to_doctor_id == $assignedDoc->to_doctor_id){
-                    // dd("yes You are last assigned");
+                      // dd('helo2');
+                    // dd("yes You are lastest assigned");
 
                     $patientinfo=Treatment::with('patient')->first();
                     // dd($patientinfo);
@@ -166,7 +174,7 @@ class TreatmentController extends Controller
 
                       $uniquedoctorT = Treatment::where('patient_id',$id)->
                      whereNotNull('gc_level')->
-                      orderBy('created_at','ASC')->get()->unique('doctor_id');
+                      orderBy('created_at','DESC')->get()->unique('doctor_id');
                     
                       // dd($uniquedoctorT);
                     $treatments=Treatment::where('patient_id','=',$id)
@@ -174,47 +182,97 @@ class TreatmentController extends Controller
                     return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
 
                 }else{
-                    // dd("no your are not last assgined but old assigned!");
-                    if($assignedDoc->status==0){
+                       // dd('helo3');
+                      if($assignedDoc->status==0){
 
-                       $removeDate=$assignedDoc->created_at;
-                       $uniquedoctorT=
-                       Treatment::whereDate('created_at','<',$removeDate)
+                         $status=$assignedDoc->status;
+                           $removeDate=$assignedDoc->created_at;
+                           // dd($removeDate);
+                           $uniquedoctorT=
+                           Treatment::whereDate('created_at','<=',$removeDate)
                         ->where('patient_id',$id)
-                        ->orderBy('created_at','ASC')
+                        ->orderBy('created_at','DESC')
                         ->get()->unique('doctor_id');
+                            // dd($uniquedoctorT);
 
-                        $patientinfo=Treatment::with('patient')->first();
-                    // dd($patientinfo);
+                            $patientinfo=Treatment::with('patient')->first();
+                        // dd($patientinfo);
+                        
+                        $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
+
+                         
+
+                         $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
+                         
+                         //  $uniquedoctorT = Treatment::where('patient_id',$id)->
+                         // whereNotNull('gc_level')->
+                         //  orderBy('created_at','ASC')->get()->unique('doctor_id');
+
+                         //  $uniquedoctorT = Treatment::where('patient_id',$id)->
+                         // whereNotNull('gc_level')->
+                         //  orderBy('created_at','ASC')->get()->unique('doctor_id');
+                        
+                          // dd($uniquedoctorT);
+                        $treatments=Treatment::where('patient_id','=',$id)
+                                     ->get();
+                        return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
+
+                      }else{
+                        dd('no it is not');
+                      }
+                    // dd("no your are not last assgined but old assigned!");
+                    // if($lastassginP0->status==$assignedDoc->status){
+                    //     $status=$assignedDoc->status;
+                    //    $removeDate=$assignedDoc->created_at;
+                    //    $uniquedoctorT=
+                    //    Treatment::whereDate('created_at','<',$removeDate)
+                    //     ->where('patient_id',$id)
+                    //     ->orderBy('created_at','ASC')
+                    //     ->get()->unique('doctor_id');
+
+                    //     $patientinfo=Treatment::with('patient')->first();
+                    // // dd($patientinfo);
                     
-                    $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
+                    // $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
 
                      
 
-                     $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
+                    //  $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
                      
-                     //  $uniquedoctorT = Treatment::where('patient_id',$id)->
-                     // whereNotNull('gc_level')->
-                     //  orderBy('created_at','ASC')->get()->unique('doctor_id');
+                    //  //  $uniquedoctorT = Treatment::where('patient_id',$id)->
+                    //  // whereNotNull('gc_level')->
+                    //  //  orderBy('created_at','ASC')->get()->unique('doctor_id');
 
-                     //  $uniquedoctorT = Treatment::where('patient_id',$id)->
-                     // whereNotNull('gc_level')->
-                     //  orderBy('created_at','ASC')->get()->unique('doctor_id');
+                    //  //  $uniquedoctorT = Treatment::where('patient_id',$id)->
+                    //  // whereNotNull('gc_level')->
+                    //  //  orderBy('created_at','ASC')->get()->unique('doctor_id');
                     
-                      // dd($uniquedoctorT);
-                    $treatments=Treatment::where('patient_id','=',$id)
-                                 ->get();
-                    return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
+                    //   // dd($uniquedoctorT);
+                    // $treatments=Treatment::where('patient_id','=',$id)
+                    //              ->get();
+                    // return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
 
-                        return view('patients.healthRecord',compact('treatments','doctors'));
-                    }
+                    //     // return view('patients.healthRecord',compact('treatments','doctors','status'));
+                    // }
                 }
 
 
                 
 
             }else{
+                // dd('yew you. are not asigned');
                 //doctor whos is not assgned by other doctor
+
+                // $lastassginP=Referreddoctor::
+                //         where('patient_id',$id)
+                //         ->orderBy('created_at','DESC')->first();
+            // $assignedDoc=Referreddoctor::where('from_doctor_id',$doctor_id)
+            //             ->where('patient_id',$id)
+            //             ->orderBy('created_at','DESC')->first();
+
+
+
+
                 $treatments=Treatment::where('patient_id','=',$id)
                 ->where('doctor_id','=',$doctor_id)
                 ->get();
@@ -235,21 +293,89 @@ class TreatmentController extends Controller
 
          $medicinerecord=Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get();
          
-          $uniquedoctorT = Treatment::where('patient_id',$id)->orderBy('created_at','ASC')->get()->unique('doctor_id');
+          $uniquedoctorT = Treatment::where('patient_id',$id)
+            ->whereNotNull('gc_level')
+            ->orderBy('created_at','ASC')->get()->unique('doctor_id');
         
 
         $treatments=Treatment::where('patient_id','=',$id)
                      ->get();
+
                      return view('patients.healthRecordHome',compact('treatments','patientinfo','chargeDoctor','uniquedoctorT'));
+
     }
 
-    public function patientRecordD($did,$pid){
+    // public function patientRecordD($did,$pid){
+    //      $user=Auth::user();
+    //     $doctors=Doctor::all();
+    //     $lastassginP=Referreddoctor::
+    //                     where('patient_id',$pid)
+    //                     ->orderBy('id','DESC')->first();
+
+    //     $assignedDoc=Referreddoctor::where('to_doctor_id',$did)
+    //                 ->where('patient_id',$pid)
+    //                 ->orderBy('created_at','DESC')->first();
+
+    //                 // $removeDate=$assignedDoc->created_at;
+    //                  dd($assignedDoc);
+
+    //                 if($assignedDoc->to_doctor_id==$lastassginP->to_doctor_id && $assignedDoc->status==1){
+    //                     dd('yes');
+    //                 }else{
+    //                     dd('no');
+    //                 }
+
+    //    $treatments=Treatment::where('patient_id','=',$pid)
+    //             ->where('doctor_id','=',$did)
+    //             ->get();
+    //              return view('patients.healthRecord',compact('treatments','doctors'));
+    // }
+
+
+     public function patientRecordD($did,$pid){
         $doctors=Doctor::all();
-       $treatments=Treatment::where('patient_id','=',$pid)
+          $user=Auth::user();
+          if($user->hasRole('Doctor')){
+             $doctor=Doctor::where('user_id',$user->id)->first();
+            $doctor_id=$doctor->id;
+            $lastassginP=Referreddoctor::
+                        where('patient_id',$pid)
+                        ->orderBy('id','DESC')->first();
+             $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)
+                    ->where('patient_id',$pid)
+                    ->orderBy('created_at','DESC')->first();
+
+                    if($assignedDoc!=null){ 
+                 // dd('helo1');//This login doctor is assigned by someoone
+
+                        if($lastassginP->to_doctor_id == $assignedDoc->to_doctor_id){
+                             $treatments=Treatment::where('patient_id','=',$pid)
+                            ->where('doctor_id','=',$did)
+                            ->orderBy('id','desc')
+                            ->get();
+                             return view('patients.healthRecord',compact('treatments','doctors'));
+                         }else{
+                            $removeDate=$assignedDoc->created_at;
+                             $treatments=Treatment::where('patient_id','=',$pid)
+                            ->where('doctor_id','=',$did)
+                            ->where('created_at','<=',$removeDate)
+                            ->orderBy('id','desc')
+                            ->get();
+                             return view('patients.healthRecord',compact('treatments','doctors'));
+                         }
+                    }
+
+
+          }else{
+            $treatments=Treatment::where('patient_id','=',$pid)
                 ->where('doctor_id','=',$did)
+                ->orderBy('id','desc')
                 ->get();
                  return view('patients.healthRecord',compact('treatments','doctors'));
+          }
+
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -289,6 +415,8 @@ class TreatmentController extends Controller
                 $file->move($upload_dir, $name);
                $path[] = $upload_dir . $name;
             }
+        }else{
+            $path=null;
         }
         //dd(request('temperature'));
         $treatment=Treatment::find($id); 
@@ -351,14 +479,20 @@ class TreatmentController extends Controller
         if($user->hasRole('Doctor')){
            $doctor=Doctor::where('user_id',$user->id)->first();
             $doctor_id=$doctor->id;
-            $treatments=Treatment::where('doctor_id',$doctor_id)->get();
+            // $treatments=Treatment::where('doctor_id',$doctor_id)->get();
             // dd($treatments);
+            $treatments=Treatment::where('doctor_id',$doctor_id)->
+                     whereNotNull('gc_level')->
+                      orderBy('created_at','ASC')->get()->unique('patient_id');
         
         }else{
-            $treatments=Treatment::all();
+             $treatments=Treatment::whereNotNull('gc_level')->
+                      orderBy('created_at','ASC')->get()->unique('patient_id');
             // dd($treatments);
+           
             
         }
+
         $treatments=TreatmentResource::collection($treatments);
          $treatments=Datatables::of($treatments)
                 ->addIndexColumn()

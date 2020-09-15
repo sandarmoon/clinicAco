@@ -87,10 +87,10 @@
                   <p class="card-text"><strong>Temperature:</strong>{{$treatment->temperature}} </p>
                   <p class="card-text"><strong>Blood pressure:</strong>{{$treatment->bp}} </p>
                   <p class="card-text"><strong>RB2:</strong>{{$treatment->rbs}} </p>
-                  <p class="card-text"><strong>Diagnosis:</strong>{{$treatment->diagnosis}}}} </p>
-                  <p class="card-text"><strong>Body Weight:</strong>{{$treatment->body_weight}}}} </p>
-                  <p class="card-text"><strong>Next Visit Date:</strong>{{$treatment->next_visit_date}}}} </p>
-                  <p class="card-text"><strong>relevant_info:</strong>{{$treatment->relevant_info}}}} </p>
+                  <p class="card-text"><strong>Diagnosis:</strong>{{$treatment->diagnosis}} </p>
+                  <p class="card-text"><strong>Body Weight:</strong>{{$treatment->body_weight}} </p>
+                  <p class="card-text"><strong>Next Visit Date:</strong>{{$treatment->next_visit_date}} </p>
+                  <p class="card-text"><strong>relevant_info:</strong>{{$treatment->relevant_info}} </p>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12">
                   <div class="row my-5">

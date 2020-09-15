@@ -17,8 +17,8 @@
 
 // login page
 Route::get('/', 'ExpenseController@index')->middleware('auth');
-Route::get('/h', function(){
-	return view('patients.healthRecordHome');
+Route::get('/p', function(){
+	return view('pDetail');
 });
 
 // medicines

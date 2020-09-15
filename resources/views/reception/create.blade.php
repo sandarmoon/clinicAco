@@ -54,21 +54,23 @@
         <div class="row register-form">
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                          <label for="form-control-label">Name</label>
                                             <input type="text" class="form-control" placeholder="Name *" value="" name="name" id="editname"/>
                                             <span class="Ename error d-block" ></span>
                                         </div>
                                         <div class="form-group">
+                                          <label for="form-control-label">Address</label>
                                             <textarea  class="form-control" placeholder="Address *" value="" name="address" id="editaddres" ></textarea>
                                             <span class="Eaddress error d-block" ></span>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <input type="password" class="form-control" placeholder="Password *" value=""  name="password" id="editpassword" readonly />
                                             <input type="password" class="form-control" placeholder="Password *" value=""  name="newpassword" id="resetpassword" />
                                             <input type="checkbox" class="reset" >resetpassword
 
 
                                             <span class="Epassword error d-block" ></span>
-                                        </div>
+                                        </div> -->
                                         <div class="form-group">
                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
                                                 <li class="nav-item">
@@ -101,19 +103,23 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                          <label for="form-control-label">Email</label>
                                             <input type="email" class="form-control" placeholder="Your Email *" value="" name="email" id="editemail" />
                                             <span class="Eemail error d-block" ></span>
                                         </div>
                                         <div class="form-group">
+                                          <label for="form-control-label">Phone</label>
                                             <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" name="phoneno" id="editphoneno"/>
                                             <span class="Ephone error d-block" ></span>
                                         </div>
                                         
                                         <div class="form-group">
+                                          <label for="form-control-label">Education</label>
                                             <input type="text" class="form-control" placeholder="Education *" value="" name="education" id="editeducation" />
                                             <span class="Eeducation error d-block" ></span>
                                         </div>
                                         <div class="form-group my-5">
+                                          <label for="form-control-label">Gender</label>
                                             <div class="maxl">
                                                 <label class="radio inline"> 
                                                     <input type="radio" name="gender" class="gender-male" value="male" checked>

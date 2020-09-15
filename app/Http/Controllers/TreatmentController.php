@@ -185,16 +185,21 @@ elseif($user->hasRole('Reception')){
                        // dd('helo3');
                       if($assignedDoc->status==0){
 
+                        $dolastassgin=Referreddoctor::where('from_doctor_id',$assignedDoc->to_doctor_id)
+                        ->where('patient_id',$assignedDoc->patient_id)
+                        ->orderBy('created_at','DESC')
+                        ->first();
+                        // dd($dolastassgin);
                          $status=$assignedDoc->status;
-                           $removeDate=$assignedDoc->created_at;
-                            dd($assignedDoc);
+                           $removeDate=$dolastassgin->created_at;
+                            // dd($assignedDoc);
                            $uniquedoctorT=
                            Treatment::whereDate('created_at','<=',$removeDate)
                         ->where('patient_id',$id)
                         ->orderBy('created_at','DESC')
                         ->get()->unique('doctor_id');
 
-                            dd($uniquedoctorT);
+                            // dd($uniquedoctorT);
 
                             $patientinfo=Treatment::with('patient')->first();
                         // dd($patientinfo);
@@ -356,12 +361,21 @@ elseif($user->hasRole('Reception')){
                             ->get();
                              return view('patients.healthRecord',compact('treatments','doctors'));
                          }else{
-                            $removeDate=$assignedDoc->created_at;
+
+                            
+
+                            $dolastassgin=Referreddoctor::where('from_doctor_id',$assignedDoc->to_doctor_id)
+                                ->where('patient_id',$assignedDoc->patient_id)
+                                ->orderBy('created_at','DESC')
+                                ->first();
+                                 $removeDate=$dolastassgin->created_at;
+                             // dd($dolastassgin);
                              $treatments=Treatment::where('patient_id','=',$pid)
                             ->where('doctor_id','=',$did)
-                            ->where('created_at','<',$removeDate)
-                            ->orderBy('id','desc')
+                            ->whereDate('created_at','<=',$removeDate)
+                             ->orderBy('id','desc')
                             ->get();
+                            // dd($treatments);
                              return view('patients.healthRecord',compact('treatments','doctors'));
                          }
                     }

@@ -159,8 +159,8 @@ elseif($user->hasRole('Reception')){
                       // dd('helo2');
                     // dd("yes You are lastest assigned");
 
-                    $patientinfo=Treatment::with('patient')->first();
-                    // dd($patientinfo);
+                    $patientinfo=Treatment::with('patient')->where('patient_id',$id)->first();
+                     // dd($patientinfo);
                     
                     $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
 
@@ -201,7 +201,9 @@ elseif($user->hasRole('Reception')){
 
                             // dd($uniquedoctorT);
 
-                            $patientinfo=Treatment::with('patient')->first();
+                            $patientinfo=Treatment::with('patient')
+                            ->where('patient_id',$id)
+                            ->first();
                         // dd($patientinfo);
                         
                         $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();
@@ -290,7 +292,9 @@ elseif($user->hasRole('Reception')){
         
         }
         // patient>id=$id and recption counter can see it!
-        $patientinfo=Treatment::with('patient')->first();
+        $patientinfo=Treatment::with('patient')
+        ->where('patient_id',$id)
+        ->first();
         // dd($patientinfo);
         
         $chargeDoctor = Treatment::select('doctor_id')->where('patient_id',$id)->distinct()->get();

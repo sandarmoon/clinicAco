@@ -24,4 +24,11 @@ class Doctor extends Model
     public function referredFrom(){
     	return $this->hasMany('App\Referreddoctor','to_doctor_id');
     }
+
+    public function treatments(){
+        return $this->hasMany('App\Treatment');
+    }
+    public function appointments(){
+        return $this->hasMany('App\Appointment');
+    }
 }

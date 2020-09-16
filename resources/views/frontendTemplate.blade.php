@@ -73,6 +73,13 @@
     
      white-space: unset;
     }
+    #more  {display:  none;}
+    body{
+      min-height: 100vh;
+    }
+    #page-content{
+      flex:1 0 auto;
+    }
     
   </style>
   @yield('style')
@@ -111,8 +118,8 @@
         <li class="nav-item dropdown">
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
-              <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="{{asset('template/assets/img/theme/team-1-800x800.jpg')}}">
+              <span class="">
+                {{Auth::check() ? Auth::user()->name: ''}}
               </span>
             </div>
           </a>
@@ -120,7 +127,7 @@
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
-            <a href="./examples/profile.html" class="dropdown-item">
+            <!-- <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
             </a>
@@ -134,13 +141,18 @@
             </a>
             <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-support-16"></i>
-              <span>Support</span>
+              <span>Support</span> -->
             </a>
             <div class="dropdown-divider"></div>
-            <a href="#!" class="dropdown-item">
-              <i class="ni ni-user-run"></i>
-              <span>Logout</span>
-            </a>
+             <a class="nav-link" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        <i class="ni ni-key-25 text-info"></i> {{ __('Logout') }}
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
           </div>
         </li>
       </ul>
@@ -150,9 +162,8 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="../index.html">
-                <img src="{{asset('template/assets/img/brand/blue.png')}}">
-              </a>
+              <img src="{{asset('template/assets/img/theme/l03.png')}}" class="navbar-brand-img" alt="..." >
+              <span class="heading">Gp Clinic</span>
             </div>
             <div class="col-6 collapse-close">
               <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
@@ -265,7 +276,7 @@
       </div>
     </div>
   </nav>
-  <div class="main-content">
+  <div class="main-content" >
     <!-- Navbar -->
     <nav class="navbar navbar-top navbar-expand-lg navbar-dark" id="navbar-main">
       <div class="container-fluid">
@@ -287,11 +298,12 @@
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
-                <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="{{asset('template/assets/img/theme/team-4-800x800.jpg')}}">
-                </span>
+                <!-- <span class="avatar avatar-sm rounded-circle">
+
+                  <img alt="Image placeholder" src="">
+                </span> -->
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                  <span class="mb-0 text-sm  font-weight-bold">{{Auth::check() ? Auth::user()->name:'unknow'}}</span>
                 </div>
               </div>
             </a>
@@ -299,27 +311,61 @@
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
-              <a href="../examples/profile.html" class="dropdown-item">
+             {{-- @if(Auth::check())
+              @php 
+              $rolename=Auth::user()->roles[0];
+              $id=Auth::user()->id;
+              $url='';@endphp
+
+              @if($rolename=='owner')
+              @php @endphp
+
+             <a href="{{route('owners.show',Auth::user()->owners[0]->user_id)}}" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="../examples/profile.html" class="dropdown-item">
+              <a href="{{route('owners.edit',Auth::user()->id)}}" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
-                <span>Settings</span>
+                <span>Edit Profile</span>
               </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-calendar-grid-58"></i>
-                <span>Activity</span>
+             
+              @elseif($rolename=='doctor')
+              
+              <a href="{{route('doctor.show',Auth::user()->id)}}" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
               </a>
-              <a href="../examples/profile.html" class="dropdown-item">
-                <i class="ni ni-support-16"></i>
-                <span>Support</span>
+              <a href="{{route('doctor.edit',Auth::user()->id)}}" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Edit Profile</span>
               </a>
+              
+             @else
+             <a href="{{route('reception.show',Auth::user()->id)}}" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
+              </a>
+             @endif
+
+           
+           
+           
+
+              
+              
+              
+              @endif--}}
               <div class="dropdown-divider"></div>
-              <a href="#!" class="dropdown-item">
-                <i class="ni ni-user-run"></i>
+              <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                       <i class="ni ni-user-run"></i>
                 <span>Logout</span>
-              </a>
+                                    </a>
+
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
             </div>
           </li>
         </ul>
@@ -340,7 +386,7 @@
       @yield('content')
      
       <!-- Footer -->
-      <footer class="footer">
+      <!-- <footer class="footer">
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
@@ -364,7 +410,7 @@
             </ul>
           </div>
         </div>
-      </footer>
+      </footer> -->
     </div>
   </div>
   <!--   Core   -->

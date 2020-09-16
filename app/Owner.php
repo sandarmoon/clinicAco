@@ -22,4 +22,12 @@ class Owner extends Model
     public function user(){
     	return $this->belongsTo('App\User');
     }
+
+    public function treatments(){
+        return $this->hasManyThrough('App\Treatment','App\Doctor');
+    }
+
+     public function appointments(){
+        return $this->hasManyThrough('App\Appointment','App\Doctor');
+    }
 }

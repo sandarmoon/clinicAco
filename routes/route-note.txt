@@ -1,0 +1,40 @@
+for owner
+
+Route::get('/', 'ExpenseController@index')->middleware('auth');
+
+Route::resource('/medicine','MedicineController');
+Route::resource('/medicineType','MedicineTypeController');
+Route::resource('/treatment','TreatmentController');
+Route::get('/getTreatments','TreatmentController@getTreatments')->name('getTreatments');
+
+
+
+
+
+==========================================================================================================================
+
+for reception
+Route::resource('/medicine','MedicineController');
+Route::resource('/medicineType','MedicineTypeController');
+Route::resource('/treatment','TreatmentController');
+Route::get('/getTreatments','TreatmentController@getTreatments')->name('getTreatments');
+
+
+==========================================================================================================================
+
+for doctor
+Route::resource('/medicine','MedicineController');
+Route::resource('/medicineType','MedicineTypeController');
+Route::resource('/treatment','TreatmentController');
+Route::get('/getTreatments','TreatmentController@getTreatments')->name('getTreatments');
+Route::resource('/referredDoctor','ReferredDoctorController');
+
+
+==========================================================================================================================
+
+for admin
+Route::resource('/medicine','MedicineController');
+Route::resource('/medicineType','MedicineTypeController');
+Route::resource('/treatment','TreatmentController');
+Route::get('/getTreatments','TreatmentController@getTreatments')->name('getTreatments');
+==========================================================================================================================

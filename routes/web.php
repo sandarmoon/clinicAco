@@ -17,8 +17,10 @@
 
 // login page
 Route::get('/', 'ExpenseController@index')->middleware('auth');
-Route::get('/p', function(){
-	return view('pDetail');
+Route::get('/ddashboard', 'DoctorController@dashboard')->name('ddashboard');
+Route::get('/rdashboard', 'ReceptionController@dashboard')->name('rdashboard');
+Route::get('/t', function(){
+	return view('timeline');
 });
 
 // medicines
@@ -106,3 +108,4 @@ Route::delete('/appointmentCancel/{id}','AppointmentController@appointmentCancel
 
 // treatment record
 Route::get('/patientRecordD/{did}/{pid}','TreatmentController@patientRecordD')->name('patientRecordD');
+

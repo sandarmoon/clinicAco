@@ -18,4 +18,8 @@ class Reception extends Model
     public function owner(){
     	return $this->belongsTo('App\Owner');
     }
+
+     public function appointments(){
+        return $this->hasManyThrough('App\Appointment','App\Doctor','App\Owner');
+    }
 }

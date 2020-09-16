@@ -26,5 +26,9 @@ class Treatment extends Model
     {
      return $this->belongsTo('App\Doctor');
     }
+
+    public function owner(){
+      return $this->hasManyThrough('App\Owner','App\Doctor');
+    }
 }
 

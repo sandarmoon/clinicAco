@@ -21,10 +21,25 @@ class AppointmentController extends Controller
     }
     public function appointpatient()
     {
-    	//$patients=Patient::whereDate('created_at', Carbon::today())->get();
-        $treatments=Treatment::where('gc_level',null)->get();
+        $user1=Auth::user()->id;
+        $user=Auth::user();
 
-    	//dd($treatments);
+         //Note:: doctor assigned and old assigned filter
+        if($user->hasRole('Doctor')){
+
+            $doctor=Doctor::where('user_id',$user1)->first();
+            //$patients=Patient::whereDate('created_at', Carbon::today())->get();
+            $treatments=Treatment::whereDate('created_at',Carbon::today())
+            ->where('doctor_id','=',$doctor->id)
+            ->where('gc_level',null)->get();
+
+        }else{
+            $treatments=Treatment::whereDate('created_at',Carbon::today())
+            ->where('gc_level',null)->get();
+        }
+        
+
+    	 // dd($treatments);
     	 return view('Appointment.index',compact('treatments'));
     }
     public function patient(Request $request)

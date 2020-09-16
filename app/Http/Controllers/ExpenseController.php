@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Expense;
 use App\Treatment;
+use App\Owner;
 use Carbon;
 use DB;
+use Auth;
 
 class ExpenseController extends Controller
 {
@@ -17,7 +19,15 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        return view('expense.index');
+       $id= Auth::user()->id;
+
+        $survey=Owner::withCount(['doctors','receptions','treatments','appointments'=> function($q) {
+            $q->where('status',0);
+        }])
+        ->where('user_id',$id)
+        ->get();
+    
+        return view('expense.index',compact('survey'));
     }
 
     /**

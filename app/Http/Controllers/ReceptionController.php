@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Reception;
+use App\Doctor;
+use App\Treatment;
+use App\Appointment;
+use App\Patient;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UserResource;
 use Auth;
+use Carbon\Carbon;
 
 
 //use Spatie\Permission\Traits\HasRoles;
@@ -23,6 +28,51 @@ class ReceptionController extends Controller
     public function index()
     {
          return view('reception.create');
+    }
+
+    public function dashboard(){
+         $id= Auth::user()->id;
+         $r=Reception::where('user_id',$id)->first();
+         $owner_id=$r->owner_id;
+      
+
+        $survey=Doctor::with(['treatments'=>function($t){
+            $t->whereNotNull('gc_level')->orderBy('created_at', 'DESC');
+        },'appointments'=>function($a){
+            $a->where('status',0)
+            ->orderBy('TokenNo', 'ASC')
+
+        ->orderBy('A_Date', 'ASC');
+
+
+        },'user'])
+        ->withCount(['treatments'=>function($q1){
+            $q1->whereNotNull('gc_level');
+        },'appointments'=> function($q) {
+            $q->where('status',0);
+        }])
+        ->where('owner_id',$owner_id)
+        ->get();
+
+        $patientlists=Patient::withcount('treatments')
+        ->where('reception_id',$r->id)->
+        get();
+
+        $patients=Treatment::whereNotNull('gc_level')->
+                      orderBy('created_at','ASC') ->limit(8)->get()->unique('patient_id');
+         // dd($patientlist);
+
+        $wpatients=Treatment::with('patient','doctor','doctor.user')
+        ->whereNull('gc_level')
+        ->whereDate('created_at', Carbon::today())->get();
+        $survey1=Appointment::with('doctor','doctor.user')
+        ->where('status',0)
+        ->get();
+        // dd($survey);
+          // dd($wpatients);
+
+        return view('reception.rdashboard',compact('survey','survey1','wpatients','patients','patientlists'));
+        
     }
 
     /**

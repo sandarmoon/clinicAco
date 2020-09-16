@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Doctor;
 use App\User;
+use App\Treatment;
+use App\Appointment;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\DoctorResource;
 use DB;
 use Auth;
+use Carbon\Carbon;
 
 
 class DoctorController extends Controller
@@ -23,6 +26,46 @@ class DoctorController extends Controller
     {
         
         return view('doctor.index');
+    }
+
+    public function dashboard(){
+        $id= Auth::user()->id;
+       $doctor_id=Doctor::where('user_id',$id)->first();
+
+        $survey=Doctor::with(['treatments'=>function($t){
+            $t->whereNotNull('gc_level')->orderBy('created_at', 'DESC');
+        },'appointments'=>function($a){
+            $a->where('status',0)
+            ->orderBy('TokenNo', 'ASC')
+        ->orderBy('A_Date', 'ASC');
+
+
+        },'referredFrom.patient'=>function($q5) use ($id){
+           
+           $q5->where('status','1');
+        }])
+        ->withCount(['treatments'=>function($q1){
+            $q1->whereNotNull('gc_level');
+        },'appointments'=> function($q) {
+            $q->where('status',0);
+        },'referredBy','referredFrom'=>function($q2) use ($id){
+           
+           $q2->where('status','1');
+        }])
+        ->where('user_id',$id)
+        ->get();
+
+        $wpatients=Treatment::with('patient')
+        ->whereNull('gc_level')
+        ->where('doctor_id',$doctor_id->id)
+        ->whereDate('created_at', Carbon::today())->get();
+        // $survey=Appointment::where('doctor_id',$doctor_id->id)
+        // ->where('status',0)
+        // ->get();
+        // dd($survey);
+         // dd($todayPatient);
+
+        return view('doctor.doctordashboard',compact('survey','wpatients'));
     }
 
     public function getDoctor(){

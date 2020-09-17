@@ -344,7 +344,7 @@ div.dataTables_wrapper div.dataTables_filter input {
                         <td><?php echo e($a->PRN); ?></td>
                         <td><?php echo e($a->phoneno); ?></td>
                         
-                        <td><?php echo e($a->treatments_count); ?></td>
+                        <td><?php echo e(count($a->treatments)); ?></td>
                        
                       </tr>
                       

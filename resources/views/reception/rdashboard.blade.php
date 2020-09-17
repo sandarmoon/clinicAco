@@ -355,7 +355,7 @@ div.dataTables_wrapper div.dataTables_filter input {
                         <td>{{$a->PRN}}</td>
                         <td>{{$a->phoneno}}</td>
                         
-                        <td>{{$a->treatments_count}}</td>
+                        <td>{{count($a->treatments)}}</td>
                        
                       </tr>
                       

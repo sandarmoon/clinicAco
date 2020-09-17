@@ -211,7 +211,13 @@
             </a>
           </li>
           @endrole
+
           @role('Super_Admin')
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('dashboard')}}">
+              <i class="ni ni-glasses-2 text-orange"></i> Dashboard
+            </a>
+          </li>
            <li class="nav-item">
             <a class="nav-link " href="{{route('owners.index')}}">
               <i class="ni ni-glasses-2 text-orange"></i> Owners

@@ -311,18 +311,21 @@ div.dataTables_wrapper div.dataTables_filter input {
                     <tbody >
                  
                      
-                    
+                    @foreach($survey[0]->treatments as $t)
                     @if(!empty($survey[0]->referredFrom))
                     @foreach($survey[0]->referredFrom  as $a)
                     
                       <tr>
                         <td>{{$a->patient !=null ? $a->patient->name:''}}</td>
                         <td>{{$a->patient !=null ? $a->patient->PRN:''}}</td>
+                        @if($t->patient_id == $a->patient->id)
                         <td><a class="btn btn-info btn-sm" href="{{route('treatment.show',$a->patient_id)}}">Detail</a></td>
+                        @endif
                       </tr>
                       
                      @endforeach
                      @endif
+                     @endforeach
                     
                       
                     </tbody>

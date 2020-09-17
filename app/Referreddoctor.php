@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Doctor;
+use App\Treatment;
 class Referreddoctor extends Model
 {
     use SoftDeletes;
@@ -21,4 +22,6 @@ class Referreddoctor extends Model
     public function toDoctor(){
     	return $this->belongsTo('App\Doctor','to_doctor_id');
     }
+
+    
 }

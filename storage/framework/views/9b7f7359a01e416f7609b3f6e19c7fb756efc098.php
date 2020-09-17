@@ -305,18 +305,21 @@ div.dataTables_wrapper div.dataTables_filter input {
                     <tbody >
                  
                      
-                    
+                    <?php $__currentLoopData = $survey[0]->treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if(!empty($survey[0]->referredFrom)): ?>
                     <?php $__currentLoopData = $survey[0]->referredFrom; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     
                       <tr>
                         <td><?php echo e($a->patient !=null ? $a->patient->name:''); ?></td>
                         <td><?php echo e($a->patient !=null ? $a->patient->PRN:''); ?></td>
+                        <?php if($t->patient_id == $a->patient->id): ?>
                         <td><a class="btn btn-info btn-sm" href="<?php echo e(route('treatment.show',$a->patient_id)); ?>">Detail</a></td>
+                        <?php endif; ?>
                       </tr>
                       
                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                      <?php endif; ?>
+                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     
                       
                     </tbody>

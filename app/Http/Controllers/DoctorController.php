@@ -44,7 +44,9 @@ class DoctorController extends Controller
         ->orderBy('A_Date', 'ASC');
 
 
-        },'referredFrom.patient'])
+        },'referredFrom.patient.treatments'=>function($e){
+            $e->whereNotNull('gc_level');
+        }])
         ->withCount(['treatments'=>function($q1){
             $q1->whereNotNull('gc_level');
         },'appointments'=> function($q) {
@@ -64,7 +66,7 @@ class DoctorController extends Controller
         // $survey=Appointment::where('doctor_id',$doctor_id->id)
         // ->where('status',0)
         // ->get();
-         // dd($survey);
+          //dd($survey);
           // dd($wpatients);
 
         return view('doctor.doctordashboard',compact('survey','wpatients'));

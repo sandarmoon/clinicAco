@@ -60,8 +60,8 @@ class ReceptionController extends Controller
         get();
 
         $patients=Treatment::whereNotNull('gc_level')->
-                      orderBy('created_at','ASC') ->get()->unique('patient_id');
-          dd($patientlists);
+                      orderBy('created_at','DESC') ->get()->unique('patient_id');
+          // dd($patientlists);
 
         $wpatients=Treatment::with('patient','doctor','doctor.user')
         ->whereNull('gc_level')

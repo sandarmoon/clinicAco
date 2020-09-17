@@ -213,7 +213,13 @@
             </a>
           </li>
           <?php endif; ?>
+
           <?php if(auth()->check() && auth()->user()->hasRole('Super_Admin')): ?>
+          <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('dashboard')); ?>">
+              <i class="ni ni-glasses-2 text-orange"></i> Dashboard
+            </a>
+          </li>
            <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('owners.index')); ?>">
               <i class="ni ni-glasses-2 text-orange"></i> Owners
@@ -397,6 +403,7 @@
              <?php endif; ?>
 
               <?php endif; ?>
+              
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                                        onclick="event.preventDefault();

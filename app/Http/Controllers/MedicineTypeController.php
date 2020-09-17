@@ -18,7 +18,7 @@ class MedicineTypeController extends Controller
     {
         $medTypes=Medicinetype::simplePaginate(15);
        //  return view('medicinetype.index1',compact('medTypes'));
-       return view('medicinetype.index1',compact('medTypes'));;
+       return view('medicinetype.index',compact('medTypes'));;
     }
 
     public function getMedicineType()

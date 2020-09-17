@@ -20,7 +20,7 @@ class MedicineController extends Controller
         $medicines =Medicine::orderBy('id','DESC')->get();
         $medTypes=Medicinetype::all();
         //return view('medicine.index',compact('medicines','medTypes'));
-        return view('medicine.index1',compact('medicines','medTypes'));
+        return view('medicine.index',compact('medicines','medTypes'));
     }
 
     /**

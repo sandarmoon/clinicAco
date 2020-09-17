@@ -96,7 +96,7 @@ class PatientController extends Controller
      $patient->allergy=request('allergy');
      $patient->job=request('job');
      $patient->file=json_encode($path);
-     $patient->reception_id=1;
+     $patient->reception_id=Auth::user()->receptions[0]->id;
      $patient->save();
 
      // $treatment=new Treatment;

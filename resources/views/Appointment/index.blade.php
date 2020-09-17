@@ -17,7 +17,9 @@
                   <th>Name</th>
                   <th>Father Name</th>
                   <th>Age</th>
+                  @role('Doctor')
                   <th>Action</th>
+                  @endrole
                 </tr>
               </thead>
               <tbody id="tbody">
@@ -28,8 +30,9 @@
                     <td>{{$row->patient->name}}</td>
                     <td>{{$row->patient->fatherName}}</td>
                     <td>{{$row->patient->age}}</td>
+                    @role('Doctor')
                     <td><a href="{{asset('appointpatienthistory/'.$row->id.'/'.$row->patient_id)}}" data-id="$row->id" data-patient_id="$row->patient_id" class="btn btn-info pending">Pending</a></td>
-
+                    @endrole
                 </tr>
                 @endforeach
                 

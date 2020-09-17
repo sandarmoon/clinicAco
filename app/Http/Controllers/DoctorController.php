@@ -143,7 +143,7 @@ class DoctorController extends Controller
                
             
         }
-        //dd('you amdke it');
+        // dd(Auth::user()->owners[0]->id);
 
         $user=new User();
             $user->name=request('name');
@@ -153,9 +153,10 @@ class DoctorController extends Controller
       
             $user->assignRole('doctor');
         
+
         $doctor=Doctor::create([
             // 'owner_id'=>Auth::user()->id,
-            'owner_id'=>Auth::user()->owner->id,
+            'owner_id'=>Auth::user()->owners[0]->id,
             'user_id'=>$user->id,
             'nrc'=>request('nrc'),
             'age'=>request('age'),

@@ -210,8 +210,8 @@
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                    this.reset();
-                    window.location.href="<?php echo e(route('doctor.index')); ?>"
+                   // this.reset();
+                  //  window.location.href="<?php echo e(route('doctor.index')); ?>"
                 },
                 error: function(error){
                    var errors=error.responseJSON.errors;

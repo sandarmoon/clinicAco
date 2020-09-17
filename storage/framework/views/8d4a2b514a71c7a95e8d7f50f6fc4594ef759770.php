@@ -16,7 +16,9 @@
                   <th>Name</th>
                   <th>Father Name</th>
                   <th>Age</th>
+                  <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
                   <th>Action</th>
+                  <?php endif; ?>
                 </tr>
               </thead>
               <tbody id="tbody">
@@ -27,8 +29,9 @@
                     <td><?php echo e($row->patient->name); ?></td>
                     <td><?php echo e($row->patient->fatherName); ?></td>
                     <td><?php echo e($row->patient->age); ?></td>
+                    <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
                     <td><a href="<?php echo e(asset('appointpatienthistory/'.$row->id.'/'.$row->patient_id)); ?>" data-id="$row->id" data-patient_id="$row->patient_id" class="btn btn-info pending">Pending</a></td>
-
+                    <?php endif; ?>
                 </tr>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 

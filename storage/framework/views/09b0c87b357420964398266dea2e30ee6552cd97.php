@@ -74,9 +74,14 @@
 		                   {"data":"patient.age"},
 		                   {"data":"patient.id",
 		                   render:function(data){
-		                   	return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
+		                   	return `
+		                   	<?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
+		                   	<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
+		                   	<?php endif; ?>
 		                        <button class="btn btn-warning btn-sm d-inline-block btn-Detail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
-		                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>`
+		                        <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
+		                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>  <?php endif; ?>`
+
 		                   }}
 		                   
 		                  

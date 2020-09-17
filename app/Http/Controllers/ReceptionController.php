@@ -126,7 +126,7 @@ class ReceptionController extends Controller
         $reception->education=request('education');
         $reception->address=request('address');
         $reception->user_id=$user->id;
-        $reception->owner_id=Auth::user()->owner->id;
+        $reception->owner_id=Auth::user()->owners[0]->id;
         $reception->file=$path;
         $reception->save();
 

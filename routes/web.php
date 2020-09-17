@@ -17,6 +17,8 @@
 
 // login page
 
+Route::get('/dashboard','ExpenseController@superadmindashboard')->name('dashboard');
+
 
 Route::group(['middleware' => ['auth','role:Reception|Super_Admin']], function () {
 	// dashboard

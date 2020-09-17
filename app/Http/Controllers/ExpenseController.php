@@ -30,6 +30,26 @@ class ExpenseController extends Controller
         return view('expense.index',compact('survey'));
     }
 
+    public function superadmindashboard(){
+        $survey=Owner::with(['doctors','patients','patients.treatments','doctors.user','receptions.user','treatments'=>function($q1){
+            $q1->whereNotNull('gc_level');
+            
+        },'appointments.doctor','doctors.treatments'=>function($q){
+            $q->whereNull('gc_level')
+            ->whereDate('created_at','>=',\Carbon::today()->toDateString());
+        }])
+        ->withCount(['doctors','receptions','treatments'=> function($q) {
+            $q->whereNotNull('gc_level');
+        },'appointments'=> function($q) {
+            $q->where('status',0);
+        }])
+       
+        ->get();
+          // dd($survey);
+
+        return view('adminDashboard',compact('survey'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

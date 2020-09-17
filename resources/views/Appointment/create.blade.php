@@ -255,7 +255,7 @@ ul.dot-list li:hover .my-card{
 @endsection
 @section('content')
   <div class="row d-flex">
-        <div class="col-xl-4  order-xl-2 mb-5 mb-xl-0">
+        <div class="col-xl-4 col-lg-4  col-md-4 col-sm-4   order-xl-2 mb-5 mb-xl-0">
           <div class="card   p-3 card-profile shadow">
             <h3>Schedule of Doctors</h3>
             <div class=" pt-0 pt-md-4">
@@ -367,7 +367,7 @@ ul.dot-list li:hover .my-card{
                          <div class="col-lg-6">
                             <div class="form-group">
                                <label class="form-control-label" for="input-first-name">Choose Doctor</label>
-                               <select class="form-control p-3" name="doctor_id"  id="doctorchoice" >
+                               <select class="form-control p-3" data-width="100" name="doctor_id"  id="doctorchoice" >
                                   <option value="0"></option>
                                   @foreach($doctors as $doctor)
                                   <option value="{{$doctor->id}}" class="p-2">{{$doctor->user->name}}</option>
@@ -513,6 +513,7 @@ ul.dot-list li:hover .my-card{
 @endsection
 @section('script')
 <script>
+
   const date = new Date();
 
 const renderCalendar = () => {
@@ -597,6 +598,10 @@ document.querySelector(".next").addEventListener("click", () => {
 renderCalendar();
 
 $(document).ready(function(){
+
+  $(window).resize(function() {
+    $('.select2').css('width', "100%");
+});
     // getAppointment();
     $.ajaxSetup({
                   headers: {

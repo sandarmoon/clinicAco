@@ -318,9 +318,8 @@ div.dataTables_wrapper div.dataTables_filter input {
                       <tr>
                         <td>{{$a->patient !=null ? $a->patient->name:''}}</td>
                         <td>{{$a->patient !=null ? $a->patient->PRN:''}}</td>
-                        @if($t->patient_id == $a->patient->id)
+                        <!-- @if($t->patient_id == $a->patient->id) -->
                         <td><a class="btn btn-info btn-sm" href="{{route('treatment.show',$a->patient_id)}}">Detail</a></td>
-                        @endif
                       </tr>
                       
                      @endforeach

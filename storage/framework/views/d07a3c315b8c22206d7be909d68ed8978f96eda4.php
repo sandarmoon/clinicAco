@@ -27,7 +27,7 @@
 }
 
 .jzdbox1 {
-  width:315px; 
+  width:100%; 
   background:#332f2e; 
   border-radius:5px; 
   overflow:hidden; 

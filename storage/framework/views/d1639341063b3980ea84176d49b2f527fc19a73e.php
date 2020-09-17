@@ -128,11 +128,15 @@
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
-            <!-- <a href="./examples/profile.html" class="dropdown-item">
+
+
+             <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
             </a>
-            <a href="./examples/profile.html" class="dropdown-item">
+
+
+           <!-- <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-settings-gear-65"></i>
               <span>Settings</span>
             </a>
@@ -188,49 +192,88 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
+          <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
+          <li class="nav-item  active ">
+            <a class="nav-link " href="<?php echo e(route('rdashboard')); ?>">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
+          </li>
+          <?php endif; ?>
+          <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
+          <li class="nav-item  active ">
+            <a class="nav-link " href="<?php echo e(route('ddashboard')); ?>">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
+          </li>
+          <?php endif; ?>
+          <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
           <li class="nav-item  active ">
             <a class="nav-link " href="/">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
+          <?php endif; ?>
+          <?php if(auth()->check() && auth()->user()->hasRole('Super_Admin')): ?>
            <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('owners.index')); ?>">
               <i class="ni ni-glasses-2 text-orange"></i> Owners
             </a>
           </li>
-
+          <?php endif; ?>
+          <?php if(auth()->check() && auth()->user()->hasAnyRole('Super_Admin|Admin')): ?>
           <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('doctor.index')); ?>">
               <i class="ni ni-hat-3 text-blue"></i> Doctor
             </a>
           </li>
+          <?php endif; ?>
+           <?php if(auth()->check() && auth()->user()->hasAnyRole('Super_Admin|Admin')): ?>
           <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('reception.index')); ?>">
               <i class="ni ni-circle-08 text-yellow"></i> Reception
             </a>
           </li>
+          <?php endif; ?>
+          <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
           <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('appointment.create')); ?>">
               <i class="ni ni-circle-08 text-yellow"></i> Booking
             </a>
           </li>
+          <?php endif; ?>
+
           <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('patient.index')); ?>">
               <i class="ni ni-circle-08 text-blue"></i> Patient
             </a>
           </li>
          
-         
+         <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
           <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('appointpatient')); ?>">
-              <i class="ni ni-watch-time text-orange"></i> Appointpatient
+              <i class="ni ni-watch-time text-orange"></i> Incharge Patients
+            </a>
+          </li>
+          <?php endif; ?>
+           <?php if(auth()->check() && auth()->user()->hasAnyRole('Reception|Admin|Doctor|Super_Admin')): ?>
+          <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('treatment.index')); ?>">
+              <i class="ni ni-favourite-28 text-danger"></i> Treatment
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('medicineType.index')); ?>">
+              <i class="ni ni-money-coins text-orange"></i> MedicineType
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="<?php echo e(route('treatment.index')); ?>">
-              <i class="ni ni-align-left-2 text-orange"></i> Treatment
+            <a class="nav-link " href="<?php echo e(route('medicine.index')); ?>">
+              <i class="ni ni-align-left-2 text-orange"></i> Medicine
             </a>
           </li>
+
+          <?php endif; ?>
 
           
            
@@ -314,7 +357,46 @@
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
+
+
+              <?php if(Auth::check()): ?>
+              <?php 
+              $rolename=Auth::user()->roles[0];
+              $id=Auth::user()->id;
+              $url='';?>
+
+              <?php if($rolename->name=='Admin'): ?>
+              <?php ?>
+
+             <a href="<?php echo e(route('owners.show',Auth::user()->owners[0])); ?>" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
+              </a>
+              <a href="<?php echo e(route('owners.edit',Auth::user()->owners[0])); ?>" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Edit Profile</span>
+              </a>
              
+              <?php elseif($rolename->name=='Doctor'): ?>
+              
+              <a href="<?php echo e(route('doctor.show',Auth::user()->doctors[0])); ?>" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
+              </a>
+              <a href="<?php echo e(route('doctor.edit',Auth::user()->doctors[0])); ?>" class="dropdown-item">
+                <i class="ni ni-settings-gear-65"></i>
+                <span>Edit Profile</span>
+              </a>
+              
+             <?php elseif($rolename->name=='Reception'): ?>
+             <a href="<?php echo e(route('reception.show',Auth::user()->receptions[0])); ?>" class="dropdown-item">
+                <i class="ni ni-single-02"></i>
+                <span>My profile</span>
+              </a>
+             <?php else: ?>
+             <?php endif; ?>
+
+              <?php endif; ?>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
                                        onclick="event.preventDefault();

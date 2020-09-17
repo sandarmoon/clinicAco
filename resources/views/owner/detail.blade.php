@@ -3,12 +3,12 @@
   
     <!-- Page content -->
     <div class="container-fluid mt-7 text-sm-center text-lg-left text-md-left">
-      
+     
       <div class="row">
         <div class="col-lg-4 px-xl-2 col-sm-4">
-          <img src="{{asset($owner->avatar)}} " class="img-fluid profilemedia w-100 pl-sm-3 pl-lg-0 mt-5  rounded-circle">
+          <img src="{{asset($owner->avatar)}} " class="img-fluid profilemedia w-100 pl-sm-3 pl-lg-0 mt-5  rounded-circle ">
           <br>
-            
+             
         </div>
         <div class="col-lg-8">
           <div class="row">

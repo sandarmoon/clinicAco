@@ -4,7 +4,9 @@
    <div class="col-12" style="margin-top: 0px;">
 
   <div class="card-header border-0">
+    @role('Reception')
     <a href="{{route('patient.create')}}" class="btn btn-primary float-right">Add New Patient</a>
+    @endrole
       <h3 class="mb-0">Patient tables</h3>
     </div>
     <div class="table-responsive">

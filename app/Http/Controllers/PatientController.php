@@ -109,7 +109,7 @@ class PatientController extends Controller
      // }
      // $treatment->charges=0;
      // $treatment->save();
-     // return redirect()->route('patient.index');
+      return redirect()->route('patient.index');
 
     }
 

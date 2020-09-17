@@ -14,6 +14,10 @@ use Yajra\DataTables\Facades\DataTables;
 
 class OwnerController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:Super_Admin','auth'])->only(['create']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -165,7 +169,7 @@ class OwnerController extends Controller
         if($avatar){
            
                 $name=uniqid().time().'.'.$avatar->getClientOriginalExtension();
-                $avatar->move(public_path('storages/owner'),$name);
+                $avatar->move(public_path('storages/owner/'),$name);
                 $profile='storages/owner/'.$name;  
         }else{
             $profile=request('oldavatar');
@@ -197,6 +201,8 @@ class OwnerController extends Controller
             $user->name=request('name');
             $user->update();
             Session::flash('success', 'Record is successfully updated!');
+
+
         return response()->json(['success'=>'1']);
     }
 

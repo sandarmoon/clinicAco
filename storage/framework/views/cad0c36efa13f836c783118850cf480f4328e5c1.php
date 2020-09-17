@@ -81,18 +81,7 @@
 					</div>
 
 
-					<?php
-			    		$dlength=count($doctors);
-			    		?>
-			    		<?php if($dlength>1): ?>
-			    		<button class="btn btn-primary incharge" style="margin-left: 200px;"data-toggle="modal" data-target="#staticBackdrop">incharge</button>
-			    		<?php else: ?>
-			    		<form method="post" action="<?php echo e(route('incharge')); ?>" class="d-inline-block">
-			    			<?php echo csrf_field(); ?>
-			    			<input type="hidden" name="patient_id" value="<?php echo e($patient->id); ?>">
-			    			<button type="submit" class="btn btn-primary incharge" style="margin-left: 200px;"data-toggle="modal">incharge</button>
-			    		</form>
-			    		<?php endif; ?>
+					
 
 				</div>
 			</div> 

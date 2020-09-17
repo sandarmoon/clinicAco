@@ -7,8 +7,9 @@
   <div class="col-12">
     <div class="card">
       <div class="card-header border-0">
-        
+        @role('Reception')
         <a href="{{route('patient.create')}}" class="btn btn-primary btn-sm float-right">Add New Patient</a>
+        @endrole
         <h3 class="mb-0">Patient tables</h3>
       </div>
       <div class="card-body">

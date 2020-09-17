@@ -1,5 +1,4 @@
-@extends('frontendTemplate')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <!-- Table -->
   <div class="row card-deck">
@@ -28,9 +27,9 @@
   		        <label for="medicineType" class="sfont">Choose Medicine Type</label>
   	            <select class="form-control" name="type_id"  id="medicineType">
                   <option value="">Choose Type</option>
-  	              @foreach($medTypes as $medType)
-  	              <option value="{{$medType->id}}">{{$medType->name}}</option>
-  	              @endforeach
+  	              <?php $__currentLoopData = $medTypes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $medType): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+  	              <option value="<?php echo e($medType->id); ?>"><?php echo e($medType->name); ?></option>
+  	              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
   	            </select>
   		      </div>
   		      <div class="form-group">
@@ -65,9 +64,9 @@
   		        <label for="umedicineType" class="sfont">Choose Medicine Type</label>
               <select class="form-control" name="typeid"  id="umedicineType">
                  <option value="">Choose Type</option>
-                @foreach($medTypes as $medType)
-                <option class="medtype-{{$medType->id}}" value="{{$medType->id}}">{{$medType->name}}</option>
-                @endforeach
+                <?php $__currentLoopData = $medTypes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $medType): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <option class="medtype-<?php echo e($medType->id); ?>" value="<?php echo e($medType->id); ?>"><?php echo e($medType->name); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </select>
   		      </div>
   		      <div class="form-group">
@@ -114,9 +113,9 @@
     <!-- </div> -->
   </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $('document').ready(function(){
   	getData();
@@ -136,7 +135,7 @@
     // getData
     //  function getData(){
     // 	console.log('you make it');
-    // 	$.get("{{route('getMedicine')}}",function(response){
+    // 	$.get("<?php echo e(route('getMedicine')); ?>",function(response){
     // 		var j=1;
     // 		var html='';
     // 		$.each(response,function(i,v){
@@ -181,7 +180,7 @@
                  "serverSide": true,
                  "stateSave": true,  //restore table state on page reload,
                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
-              "ajax": "{{route('getMedicine')}}",
+              "ajax": "<?php echo e(route('getMedicine')); ?>",
               "columns":[
 
                    {data:'DT_RowIndex'},
@@ -220,7 +219,7 @@
       var name=$('#cname').val();
       var id=$( "#medicineType option:selected" ).val();
       var chemical=$('#chemical').val();
-      var url="{{route('medicine.store')}}"
+      var url="<?php echo e(route('medicine.store')); ?>"
     
        $.ajax({
           url:url,
@@ -268,7 +267,7 @@
     	$('#EditMedicine').show();
     	$('#AddMedicine').hide();
     	var id=$(this).data('id');
-    	var url="{{route('medicine.edit',':id')}}";
+    	var url="<?php echo e(route('medicine.edit',':id')); ?>";
     	
     	url=url.replace(':id',id);
     	$.get(url,function(res){
@@ -286,7 +285,7 @@
     $('.update').click(function(){
     	var id=$('.medid').val();
     	var obj=$('#EditMedicineForm').serialize();
-    	var url="{{route('medicine.update',':id')}}";
+    	var url="<?php echo e(route('medicine.update',':id')); ?>";
     	url=url.replace(':id',id);
     	$.ajax({
     		url:url,
@@ -334,7 +333,7 @@
     	if(confirm('Are you sure to delete?')){
           var id=$(this).data('id');
             console.log(id);
-             var url="{{route('medicine.destroy',':id')}}";
+             var url="<?php echo e(route('medicine.destroy',':id')); ?>";
             
              url=url.replace(':id',id);
              
@@ -374,4 +373,5 @@
  
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/my-gp/GP/resources/views/medicine/index1.blade.php ENDPATH**/ ?>

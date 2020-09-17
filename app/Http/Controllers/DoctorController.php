@@ -17,6 +17,10 @@ use Carbon\Carbon;
 
 class DoctorController extends Controller
 {
+     public function __construct()
+    {
+        $this->middleware(['role:Super_Admin|Admin','auth'])->only('create');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +35,7 @@ class DoctorController extends Controller
     public function dashboard(){
         $id= Auth::user()->id;
        $doctor_id=Doctor::where('user_id',$id)->first();
-
+       $d=$doctor_id->id;
         $survey=Doctor::with(['treatments'=>function($t){
             $t->whereNotNull('gc_level')->orderBy('created_at', 'DESC');
         },'appointments'=>function($a){
@@ -40,30 +44,28 @@ class DoctorController extends Controller
         ->orderBy('A_Date', 'ASC');
 
 
-        },'referredFrom.patient'=>function($q5) use ($id){
-           
-           $q5->where('status','1');
-        }])
+        },'referredFrom.patient'])
         ->withCount(['treatments'=>function($q1){
             $q1->whereNotNull('gc_level');
         },'appointments'=> function($q) {
             $q->where('status',0);
-        },'referredBy','referredFrom'=>function($q2) use ($id){
+        },'referredBy','referredFrom'=>function($q2) {
            
            $q2->where('status','1');
         }])
-        ->where('user_id',$id)
+        ->where('id',$doctor_id->id)
         ->get();
 
         $wpatients=Treatment::with('patient')
         ->whereNull('gc_level')
         ->where('doctor_id',$doctor_id->id)
-        ->whereDate('created_at', Carbon::today())->get();
+        ->whereDate('created_at','>=',\Carbon::today()->toDateString())
+        ->get();
         // $survey=Appointment::where('doctor_id',$doctor_id->id)
         // ->where('status',0)
         // ->get();
-        // dd($survey);
-         // dd($todayPatient);
+         // dd($survey);
+          // dd($wpatients);
 
         return view('doctor.doctordashboard',compact('survey','wpatients'));
     }
@@ -182,7 +184,7 @@ class DoctorController extends Controller
     {
 
         $doctor =Doctor::with('user')->find($id);
-        //dd($doctor);
+        // dd($doctor);
         return view('doctor.detail',compact('doctor'));
 
     }

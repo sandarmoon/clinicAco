@@ -249,9 +249,9 @@ foreach($treatments as $treatment)
                
             </div>
          </div>
-         <div class=" p-2">
+         <div class="table-responsive p-2">
             <!-- Projects table -->
-            <table class="table align-items-center table-flush dataTable">
+            <table class="table  align-items-center table-flush dataTable">
                <thead class="thead-light">
                	
                   <tr>

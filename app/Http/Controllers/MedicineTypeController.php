@@ -23,9 +23,9 @@ class MedicineTypeController extends Controller
 
     public function getMedicineType()
     {
-        $all=Medicinetype::all();
+        $all=Medicinetype::orderBy('id','DESC')->get();
         $all=MedicinetypeResource::collection($all);
-        return Datatables::of($all)->make(true);
+        return Datatables::of($all)->addIndexColumn()->toJson();
         
     }
 

@@ -81,7 +81,7 @@
 					</div>
 
 
-					@php
+					{{--@php
 			    		$dlength=count($doctors);
 			    		@endphp
 			    		@if($dlength>1)
@@ -92,7 +92,7 @@
 			    			<input type="hidden" name="patient_id" value="{{$patient->id}}">
 			    			<button type="submit" class="btn btn-primary incharge" style="margin-left: 200px;"data-toggle="modal">incharge</button>
 			    		</form>
-			    		@endif
+			    		@endif--}}
 
 				</div>
 			</div> 

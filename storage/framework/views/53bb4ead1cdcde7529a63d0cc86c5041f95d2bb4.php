@@ -41,6 +41,8 @@
                       <input class="form-control" name="name"  value="<?php echo e($doctor->user->name); ?>" type="text">
                     </div>
                   </div>
+
+                  <input type="hidden" name="role" value="<?php echo e(Auth::user()->roles[0]->name); ?>">
                   <!-- <div class="form-group">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
@@ -329,7 +331,8 @@
     var formData= new FormData(this);
     var id=$('input[name="oldid"]').val();
     var name=$('input[name="name"]').val();
-   
+    var role=$('input[name="role"]').val();
+    
       // var form_data = $("#doctorResumeUpdate").serialize();
     
     formData.append('_method', 'PUT');
@@ -346,7 +349,12 @@
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                  window.location.href="<?php echo e(route('doctor.index')); ?>";
+                  if(role=='Doctor'){
+                    console.log(role);
+                     // console.log(role);
+                       window.location.href='/doctor/'+id;
+                  }
+                   window.location.href="<?php echo e(route('doctor.index')); ?>";
                     //this.reset();
                     //alert('Image has been uploaded successfully');
                 },

@@ -4,10 +4,10 @@
 
       <div class="card">
         <div class="card-header border-0">
-
+          <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
           <h3 class="mb-0">Doctor List</h3>
             <a class="btn btn-primary btn-sm float-right " href="<?php echo e(route('doctor.create')); ?>">Add Doctor</a>
-
+            <?php endif; ?>
           <?php if( Session::has("success") ): ?>
           <div class="alert alert-success alert-block" role="alert">
               <button class="close" data-dismiss="alert"></button>
@@ -117,8 +117,11 @@
                     { "data": "doctor.id",
                       sortable:false,
                       render:function(data){
-                        return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
+                        return `
+                        <button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
+
                         <button class="btn btn-warning btn-sm d-inline-block btnDetail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
+
                                   <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>`;
                       }
                      }

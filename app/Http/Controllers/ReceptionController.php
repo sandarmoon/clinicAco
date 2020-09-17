@@ -54,7 +54,8 @@ class ReceptionController extends Controller
         ->where('owner_id',$owner_id)
         ->get();
 
-        $patientlists=Patient::withcount('treatments')
+        $patientlists=Patient::withcount(['treatments'=>function($t){
+            $t->whereNotNull('gc_level');}])
         ->where('reception_id',$r->id)->
         get();
 

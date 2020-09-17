@@ -41,13 +41,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function reception(){
+    public function receptions(){
         return $this->hasMany('App\Reception');
     }
     public function doctors(){
         return $this->hasMany('App\Doctor');
     }
-    public function owner(){
-        return $this->hasOne('App\Owner');
+    public function owners(){
+        return $this->hasMany('App\Owner');
     }
 }

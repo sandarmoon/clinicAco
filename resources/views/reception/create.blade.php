@@ -5,9 +5,11 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header border-0">
+          @role('Admin')
           <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal">
             Add Reception
           </button>
+          @endrole
           <h3 class="mb-0">Receptions</h3>
           <div class="alert alert-success success d-none my-3" role="alert"></div>
         </div>

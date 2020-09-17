@@ -3,7 +3,9 @@
    <div class="col-12" style="margin-top: 0px;">
 
   <div class="card-header border-0">
+    <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
     <a href="<?php echo e(route('patient.create')); ?>" class="btn btn-primary float-right">Add New Patient</a>
+    <?php endif; ?>
       <h3 class="mb-0">Patient tables</h3>
     </div>
     <div class="table-responsive">

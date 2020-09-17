@@ -8,8 +8,9 @@
 	              <div class="row align-items-center">
 	                <div class="col-8">
 	                	
-	                	 
-		              <img src="<?php echo e(asset($owner->avatar)); ?>" width="60" class="rounded-circle float-left d-inline-block mr-4 mt-3">
+	                	 <?php if( ($owner->avatar!=null) ): ?>
+		              <img src="<?php echo e(asset($owner->avatar)); ?>" width="60" class="rounded-circle float-left d-inline-block mr-4 mt-3 ">
+		              <?php endif; ?>
 		                  
 	                  <h3 class=" p-0 pr-4 mt-3 "><?php echo e($owner->user->name); ?></h3>
 	                   <h6 class="small text-muted mb-4">Position: <?php echo e($owner->user->getRoleNames()[0]); ?> </h6>
@@ -31,7 +32,7 @@
 		            			</div>
 		            			<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-xs-12 col-12 mt-lg-0 mt-md-3 mt-sm-3 mt-xs-3 mt-3">
 
-		            				<p class="description mb-0 d-flex ">Logo:<img src="<?php echo e(asset($owner->clinic_logo)); ?>" width="70" class="rounded-circle  d-inline-block ml-3"></p>
+		            				<p class="description mb-0 d-flex ">Logo:<img src="<?php echo e(asset($owner->clinic_logo)); ?>" width="70" height="70" class="rounded-circle  d-inline-block ml-3"></p>
 	                              	
 	                          	</div>
 		            		</div>

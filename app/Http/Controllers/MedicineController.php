@@ -127,6 +127,6 @@ class MedicineController extends Controller
         $medicines=Medicine::orderBy('id','DESC')->get();
 
         $all=MedicineResource::collection($medicines);
-        return Datatables::of($all)->make(true);
+        return Datatables::of($all)->addIndexColumn()->toJson();
     }
 }

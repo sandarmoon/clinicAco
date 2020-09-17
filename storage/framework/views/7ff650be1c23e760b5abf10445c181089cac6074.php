@@ -146,7 +146,7 @@
                         
                       </div>
 
-
+                    <input type="hidden" name="role" value="<?php echo e(Auth::user()->roles[0]->name); ?>">
 
                       
                   </div>
@@ -222,13 +222,16 @@
     var formData= new FormData(this);
     var id=$('input[name="oldid"]').val();
     var name=$('input[name="name"]').val();
-   
+    var role=$('input[name="role"]').val();
+    
       // var form_data = $("#doctorResumeUpdate").serialize();
     
     formData.append('_method', 'PUT');
       console.log(name);
       var url="<?php echo e(route('owners.update',':id')); ?>";
-      
+      var show="<?php echo e(route('owners.show',':id')); ?>";
+      show=show.replace(':id',id);
+     
       url=url.replace(':id',id);
       $.ajax({
                 type:'post',
@@ -239,7 +242,11 @@
                 contentType: false,
                 processData: false,
                 success: (data) => {
-                 window.location.href="<?php echo e(route('owners.index')); ?>";
+                  if(role=='Admin'){
+                     // console.log(role);
+                      window.location.href="<?php echo e(URL('owners')); ?>/"+id;
+                  }
+                 // window.location.href="<?php echo e(route('owners.index')); ?>";
                     //this.reset();
                     //alert('Image has been uploaded successfully');
                 },

@@ -127,11 +127,15 @@
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
-            <!-- <a href="./examples/profile.html" class="dropdown-item">
+
+
+             <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
             </a>
-            <a href="./examples/profile.html" class="dropdown-item">
+
+
+           <!-- <a href="./examples/profile.html" class="dropdown-item">
               <i class="ni ni-settings-gear-65"></i>
               <span>Settings</span>
             </a>
@@ -186,49 +190,88 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
+          @role('Reception')
+          <li class="nav-item  active ">
+            <a class="nav-link " href="{{route('rdashboard')}}">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
+          </li>
+          @endrole
+          @role('Doctor')
+          <li class="nav-item  active ">
+            <a class="nav-link " href="{{route('ddashboard')}}">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
+          </li>
+          @endrole
+          @role('Admin')
           <li class="nav-item  active ">
             <a class="nav-link " href="/">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
+          @endrole
+          @role('Super_Admin')
            <li class="nav-item">
             <a class="nav-link " href="{{route('owners.index')}}">
               <i class="ni ni-glasses-2 text-orange"></i> Owners
             </a>
           </li>
-
+          @endrole
+          @hasanyrole('Super_Admin|Admin')
           <li class="nav-item">
             <a class="nav-link " href="{{route('doctor.index')}}">
               <i class="ni ni-hat-3 text-blue"></i> Doctor
             </a>
           </li>
+          @endrole
+           @hasanyrole('Super_Admin|Admin')
           <li class="nav-item">
             <a class="nav-link " href="{{route('reception.index')}}">
               <i class="ni ni-circle-08 text-yellow"></i> Reception
             </a>
           </li>
+          @endhasanyrole
+          @role('Reception')
           <li class="nav-item">
             <a class="nav-link " href="{{route('appointment.create')}}">
               <i class="ni ni-circle-08 text-yellow"></i> Booking
             </a>
           </li>
+          @endrole
+
           <li class="nav-item">
             <a class="nav-link " href="{{route('patient.index')}}">
               <i class="ni ni-circle-08 text-blue"></i> Patient
             </a>
           </li>
          
-         
+         @role('Doctor')
           <li class="nav-item">
             <a class="nav-link " href="{{route('appointpatient')}}">
-              <i class="ni ni-watch-time text-orange"></i> Appointpatient
+              <i class="ni ni-watch-time text-orange"></i> Incharge Patients
+            </a>
+          </li>
+          @endrole
+           @hasanyrole('Reception|Admin|Doctor|Super_Admin')
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('treatment.index')}}">
+              <i class="ni ni-favourite-28 text-danger"></i> Treatment
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('medicineType.index')}}">
+              <i class="ni ni-money-coins text-orange"></i> MedicineType
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{route('treatment.index')}}">
-              <i class="ni ni-align-left-2 text-orange"></i> Treatment
+            <a class="nav-link " href="{{route('medicine.index')}}">
+              <i class="ni ni-align-left-2 text-orange"></i> Medicine
             </a>
           </li>
+
+          @endhasanyrole
 
           
            
@@ -311,50 +354,46 @@
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
-             {{-- @if(Auth::check())
+
+
+              @if(Auth::check())
               @php 
               $rolename=Auth::user()->roles[0];
               $id=Auth::user()->id;
               $url='';@endphp
 
-              @if($rolename=='owner')
+              @if($rolename->name=='Admin')
               @php @endphp
 
-             <a href="{{route('owners.show',Auth::user()->owners[0]->user_id)}}" class="dropdown-item">
+             <a href="{{route('owners.show',Auth::user()->owners[0])}}" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="{{route('owners.edit',Auth::user()->id)}}" class="dropdown-item">
+              <a href="{{route('owners.edit',Auth::user()->owners[0])}}" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Edit Profile</span>
               </a>
              
-              @elseif($rolename=='doctor')
+              @elseif($rolename->name=='Doctor')
               
-              <a href="{{route('doctor.show',Auth::user()->id)}}" class="dropdown-item">
+              <a href="{{route('doctor.show',Auth::user()->doctors[0])}}" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="{{route('doctor.edit',Auth::user()->id)}}" class="dropdown-item">
+              <a href="{{route('doctor.edit',Auth::user()->doctors[0])}}" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Edit Profile</span>
               </a>
               
-             @else
-             <a href="{{route('reception.show',Auth::user()->id)}}" class="dropdown-item">
+             @elseif($rolename->name=='Reception')
+             <a href="{{route('reception.show',Auth::user()->receptions[0])}}" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
+             @else
              @endif
 
-           
-           
-           
-
-              
-              
-              
-              @endif--}}
+              @endif
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

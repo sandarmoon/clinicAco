@@ -42,10 +42,11 @@ class DoctorController extends Controller
             $a->where('status',0)
             ->orderBy('TokenNo', 'ASC')
         ->orderBy('A_Date', 'ASC');
+    },'referredFrom.patient'])
 
-        },'referredFrom.patient.treatments'=>function($e){
-            $e->whereNotNull('gc_level');
-        }])
+        // },'referredFrom.patient.treatments'=>function($e){
+        //     $e->whereNotNull('gc_level');
+        // }])
         ->withCount(['treatments'=>function($q1){
             $q1->whereNotNull('gc_level');
         },'appointments'=> function($q) {

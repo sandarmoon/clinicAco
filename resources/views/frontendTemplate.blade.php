@@ -224,7 +224,7 @@
             </a>
           </li>
           @endrole
-          @hasanyrole('Super_Admin|Admin')
+          @hasanyrole('Super_Admin|Admin|Reception')
           <li class="nav-item">
             <a class="nav-link " href="{{route('doctor.index')}}">
               <i class="ni ni-hat-3 text-blue"></i> Doctor

@@ -26,9 +26,12 @@
     border: 1px solid #8898aa!important;
     border-radius: 4px!important;
 }
+.jzdbox1, .month, .days {
+  max-width: 300px;
+}
 
 .jzdbox1 {
-  width:315px; 
+  /*width:315px; */
   background:#332f2e; 
   border-radius:5px; 
   overflow:hidden; 
@@ -66,8 +69,8 @@
   font-weight:400; 
   color:#f7f3eb; 
   text-align:center; 
-  width:42px; 
-  height:42px; 
+  width:14.28571%; 
+  height:14.28571%; 
   display:inline-block; 
   float:left; 
   overflow:hidden; 
@@ -80,9 +83,11 @@
 }
 
 .circle {
-  border:1px solid #f7f3eb; 
-  box-sizing:border-box!important; 
-  border-radius:200px!important;
+  background-color: #000;
+  color: #fff;
+  /*border:1px solid #f7f3eb; */
+  /*box-sizing:border-box!important; */
+  /*border-radius:200px!important;*/
 }
 
 span[data-title]:hover:after, 
@@ -149,9 +154,11 @@ div[data-title]:hover:after {
 }*/
 
 .days span:hover:not(.today) {
- border:1px solid #000; 
-  box-sizing:border-box!important; 
-  border-radius:200px!important;
+ /*border:1px solid #000; */
+  /*box-sizing:border-box!important; */
+  /*border-radius:200px!important;*/
+  background-color: #000;
+  color: #fff;
 }
 
 .prev-date,
@@ -160,7 +167,7 @@ div[data-title]:hover:after {
 }
 
 .today {
-  background-color: #167e56;
+  background-color: #000;
 }
 
 

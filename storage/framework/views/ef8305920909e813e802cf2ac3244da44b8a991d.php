@@ -1,10 +1,38 @@
 <?php $__env->startSection('style'); ?>
 <style type="text/css">
 @import  url(https://fonts.googleapis.com/css?family=Fjalla+One:400|Roboto:400,400italic,700);
+.select2-container .select2-selection--single {
+    
+    height: 45px!important;
+    
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 37px!important;
+    /* position: absolute; */
+    /* top: 1px; */
+    /* right: 1px; */
+    /* width: 20px; */
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #8898aa !important;
+    line-height: 42px !important;
+}
+
+.select2-container--default .select2-selection--single {
+    background-color: #fff!important;
+    border: 1px solid #8898aa!important;
+    border-radius: 4px!important;
+}
+
+.jzdbox1, .month, .days {
+  max-width: 300px;
+}
 
 
 .jzdbox1 {
-  width:315px; 
+  
   background:#332f2e; 
   border-radius:5px; 
   overflow:hidden; 
@@ -27,7 +55,7 @@
 }
 
 .jzdcalt {
-  font:18px 'Roboto'; 
+  font:12px 'Roboto'; 
   font-weight:700; 
   color:#f7f3eb; 
   display:block; 
@@ -42,8 +70,8 @@
   font-weight:400; 
   color:#f7f3eb; 
   text-align:center; 
-  width:42px; 
-  height:42px; 
+  width:14.28571%; 
+  height:14.28571%; 
   display:inline-block; 
   float:left; 
   overflow:hidden; 
@@ -56,9 +84,11 @@
 }
 
 .circle {
-  border:1px solid #f7f3eb; 
-  box-sizing:border-box!important; 
-  border-radius:200px!important;
+  background-color: #000;
+  color: #fff;
+  /*border:1px solid #f7f3eb; */
+  /*box-sizing:border-box!important; */
+  /*border-radius:200px!important;*/
 }
 
 span[data-title]:hover:after, 
@@ -77,12 +107,15 @@ div[data-title]:hover:after {
   max-width:150px;
 }
 
+
+
+
 .month {
-  width: 100%;
+  
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 3rem;
+  /*padding: 0 3rem;*/
   text-align: center;
   
 }
@@ -125,9 +158,11 @@ div[data-title]:hover:after {
 }*/
 
 .days span:hover:not(.today) {
- border:1px solid #000; 
-  box-sizing:border-box!important; 
-  border-radius:200px!important;
+ /*border:1px solid #000; */
+  /*box-sizing:border-box!important; */
+  /*border-radius:200px!important;*/
+  background-color: #000;
+  color: #fff;
 }
 
 .prev-date,
@@ -136,7 +171,7 @@ div[data-title]:hover:after {
 }
 
 .today {
-  background-color: #167e56;
+  background-color: #000;
 }
 
 
@@ -149,7 +184,7 @@ div[data-title]:hover:after {
 
 .dot-list {
   list-style-type: none;
-  height: 450px;
+  height: 300px;
   width: 100%;
   overflow: hidden;
   overflow-y: scroll;
@@ -226,39 +261,42 @@ ul.dot-list li:hover .my-card{
     letter-spacing: 0.1rem;
 }
 
-
+.form-group > .select2-container {
+    width: 100% !important;
+}
 </style>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-	<div class="row">
-        <div class="col-xl-4  order-xl-2 mb-5 mb-xl-0">
-          <div class="card h-100 p-3 card-profile shadow">
+  <div class="row d-flex">
+        <div class="col-xl-4 order-xl-2   mb-5 mb-xl-0">
+          <div class="card   p-3 card-profile shadow">
+            <h3>Schedule of Doctors</h3>
             <div class=" pt-0 pt-md-4">
-            	<div class="jzdbox1 jzdbasf jzdcal">
+              <div class="jzdbox1 jzdbasf jzdcal">
 
-      				 	<div class="month">
-      				      <i class="fas fa-angle-left prev"></i>
-      				      <div class="date">
-      				        <h1></h1>
-      				        <p></p>
-      				      </div>
-      				      <i class="fas fa-angle-right next"></i>
-      				    </div>
+                <div class="month">
+                    <i class="fas fa-angle-left prev"></i>
+                    <div class="date">
+                      <h1></h1>
+                      <p></p>
+                    </div>
+                    <i class="fas fa-angle-right next"></i>
+                  </div>
 
-      					<span>Su</span>
-      					<span>Mo</span>
-      					<span>Tu</span>
-      					<span>We</span>
-      					<span>Th</span>
-      					<span>Fr</span>
-      					<span>Sa</span>
+                <span>Su</span>
+                <span>Mo</span>
+                <span>Tu</span>
+                <span>We</span>
+                <span>Th</span>
+                <span>Fr</span>
+                <span>Sa</span>
 
                 <div class="days"></div>
-      					
-      				</div>
+                
+              </div>
             </div>
 
-            <div class="mt-5">
+            <div class="mt-3">
               <ul class="dot-list ">
                                     
                 
@@ -291,6 +329,15 @@ ul.dot-list li:hover .my-card{
                   </div>
 
                 </li>
+                 <li ><div class="bullet big"></div>
+                  <div class="card p-3 my-card">
+                    
+                     <span style="letter-spacing: 0.1rem">Dr.U Lwin Maung</span> 
+                     <span class="small" style="letter-spacing: 0.1rem"><i class="fas fa-clock"></i>6:00am-10:00pm</span> 
+                    
+                  </div>
+
+                </li>
                 
               </ul>
             </div>
@@ -300,116 +347,6 @@ ul.dot-list li:hover .my-card{
         </div>
         <div class="col-xl-8 order-xl-1">
           <div class="card bg-secondary shadow">
-         <div class="card-header bg-white border-0">
-            <div class="row align-items-center">
-               <div class="col-8">
-                  <h3 class="mb-0">Booking NO:<span class="token"></span></h3>
-               </div>
-               <div class="col-4 text-right">
-                  <a href="#!" class="text-primary">Today</a>
-               </div>
-            </div>
-            <?php if( Session::has("success") ): ?>
-            <div class="alert alert-success success alert-block" role="alert">
-               <button class="close" data-dismiss="alert"></button>
-               <?php echo e(Session::get("success")); ?>
-
-            </div>
-            <?php endif; ?>
-            <?php Session::forget('success'); ?>
-         </div>
-         <div class="card-body">
-            <form action="<?php echo e(route('appointment.store')); ?>" method="post" enctype="multipart/form-data">
-               <?php echo csrf_field(); ?>
-               <h6 class="heading-small text-muted mb-4">General Information</h6>
-               <div class="pl-lg-4">
-                  <div class="row">
-                     <div class="col-lg-6">
-                        <div class="form-group">
-                           <label for="example-datetime-local-input" class="form-control-label">Appointment Date</label>
-                           <input class="form-control" name="A_date" type="date" value="2018-11-23" min="<?= date('Y-m-d'); ?>" id="example-date-input">
-                        </div>
-                     </div>
-                     <div class="col-lg-6">
-                        <div class="form-group">
-                           <label class="form-control-label" for="input-first-name">Choose Doctor</label>
-                           <select class="form-control p-3" name="doctor_id"  id="doctorchoice" >
-                              <option value="0"></option>
-                              <?php $__currentLoopData = $doctors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doctor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                              <option value="<?php echo e($doctor->id); ?>" class="p-2"><?php echo e($doctor->user->name); ?></option>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                           </select>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-lg-6">
-                        <div class="form-group">
-                           <label class="form-control-label" for="input-username">Name</label>
-                           <input type="text" id="input-username" name="name" class="form-control form-control-alternative" placeholder="Name" value="">
-                        </div>
-                        <input type="hidden" name="token" >
-                     </div>
-                     <div class="col-lg-6">
-                        <div class="form-group">
-                           <label class="form-control-label" for="input-email">Phone</label>
-                           <input type="text" id="input-email" name="phone" class="form-control form-control-alternative" placeholder="">
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-lg-12">
-                  <div class="form-group">
-                     <input class="form-control btn btn-primary" type="submit" value="Save">
-                  </div>
-               </div>
-         </div>
-         <!-- <hr class="my-4" />
-            Address
-            <h6 class="heading-small text-muted mb-4">Contact information</h6>
-            <div class="pl-lg-4">
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-address">Address</label>
-                    <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-city">City</label>
-                    <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" value="New York">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-country">Country</label>
-                    <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-group">
-                    <label class="form-control-label" for="input-country">Postal code</label>
-                    <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <hr class="my-4" />
-            Description
-            <h6 class="heading-small text-muted mb-4">About me</h6>
-            <div class="pl-lg-4">
-              <div class="form-group">
-                <label>About Me</label>
-                <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
-              </div>
-            </div> -->
-         </form>
-      </div>
-
-          <div class="card bg-secondary shadow mt-5">
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
@@ -421,16 +358,92 @@ ul.dot-list li:hover .my-card{
               </div>
             </div>
             <div class="card-body">
-             
+              <form>
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-username">Username</label>
+                        <input type="text" id="input-username" class="form-control form-control-alternative" placeholder="Username" value="lucky.jesse">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">First name</label>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="Lucky">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Last name</label>
+                        <input type="text" id="input-last-name" class="form-control form-control-alternative" placeholder="Last name" value="Jesse">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Address</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">City</label>
+                        <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" value="New York">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Country</label>
+                        <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Postal code</label>
+                        <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Description -->
+                <h6 class="heading-small text-muted mb-4">About me</h6>
+                <div class="pl-lg-4">
+                  <div class="form-group">
+                    <label>About Me</label>
+                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
-
         </div>
       </div>
+
+      
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
 <script>
-	const date = new Date();
+
+  const date = new Date();
 
 const renderCalendar = () => {
   date.setDate(1);
@@ -512,6 +525,230 @@ document.querySelector(".next").addEventListener("click", () => {
 });
 
 renderCalendar();
+
+$(document).ready(function(){
+
+  
+    // getAppointment();
+    $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+      $("#doctorchoice").select2();
+      // $('.alert').hide();
+      
+        //var id=$('#doctorchoice').select2().val();
+
+        // Set option selected onchange
+          $('#doctorchoice').change(function(){
+            var value = $(this).val();
+            var date=$('input[name="A_date"]').val();
+           // console.log(value);
+
+              $.ajax({
+                  url:"/getToken",
+                  data:{date:date,id:value},
+                  type:"POST",
+                  success:function(res){
+                    if(res){
+                        $('.token').html(res);
+                        $('input[name="token"]').val(res);
+                        
+                      }
+                  },
+                  error:function(error){
+                    console.log(error);
+                  }
+                })
+
+                // $.post('/getToken/',{date:date,id:value},function(res){
+                //     if(res){
+                //       $('.token').html(res);
+                //       $('input[name="token"]').val(res);
+                      
+                //     }
+                // })
+               
+          });
+       
+       $('.success').fadeOut(2000);
+
+       
+       
+         $.ajaxSetup({
+                  headers: {
+                      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+              });
+          // $.get('/getAppointment',function(res){
+          //   console.log(res);
+          // })
+          $('.appointmentTable').DataTable( {
+               "serverSide": true,
+                "processing": true,
+                
+                "sort":false,
+                pagingType: 'full_numbers',
+                 pageLength: 10,
+                 language: {
+                   oPaginate: {
+                     sNext: '<i class="fa fa-forward"></i>',
+                     sPrevious: '<i class="fa fa-backward"></i>',
+                     sFirst: '<i class="fa fa-step-backward"></i>',
+                     sLast: '<i class="fa fa-step-forward"></i>'
+                     }
+                   } ,
+                "ajax": "/getAppointment",
+                "type":"POST",
+                "columns":[
+                {"data":"DT_RowIndex"},
+                {"data":"appointment.name"},
+                {"data":"doctor_info"},
+                {"data":"appointment.A_Date"},
+                {"data":"appointment.TokenNo"},
+                {"data":"appointment",render:function(data){
+                  return `<button class="btn btn-outline-primary oldPatient" data-id="${data.id}" data-doctor=${data.doctor_id}>Old Patient</button><button class="btn btn-outline-info newPatient">New Patient</button><button data-id="${data.id}" class="btn btn-outline-danger btn-cancel">Cancel</button>`
+                }}],
+                info:false
+            } );
+       
+
+       $('.appointmentTable').on('click','.oldPatient',function(){
+          $('#patientNo').modal('show');
+       })
+
+
+       $('.searchPRN').on('click',function(){
+          var value=$('input[name="PRN"]').val();
+          var doctor=$('.oldPatient').data('doctor');
+          var appointment=$('.oldPatient').data('id');
+          var html='';
+
+          $.ajax({
+            url:"/searchPRN",
+            data:{PRN:value},
+            type:"POST",
+            success:function(res){
+              if(res){
+              
+              var patient=JSON.parse(res);
+              var file=JSON.parse(patient.file);
+              $('.addTreatment').attr('data-patient',patient.id);
+              $('.addTreatment').attr('data-doctor',doctor);
+              $('.addTreatment').attr('data-appoint',appointment);
+              $('.addTreatment').prop('disabled',false);
+
+              html =`<div class="card mb-3">
+                      <div class="row no-gutters">
+                        <div class="col-md-4">
+                          <img src="/${file[0]}" class="card-img" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                          <div class="card-body">
+                            <h5 class="card-title">Patient Name:${patient.name}</h5>
+                            <p>Age:${patient.age}<p>
+                            <p>Allergy:${patient.allergy}<p>
+                            
+                            <p class="card-text"><small class="text-muted">created at:${moment(patient.created_at).format('Y-M-D')}</small></p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>`;
+                    $('.result').html(html);
+             }
+            },
+            error:function(error){
+              console.log(error);
+            }
+          })
+
+          // $.post('/searchPRN',{PRN:value},function(res){
+          //    if(res){
+              
+          //     var patient=JSON.parse(res);
+          //     var file=JSON.parse(patient.file);
+          //     $('.addTreatment').attr('data-patient',patient.id);
+          //     $('.addTreatment').attr('data-doctor',doctor);
+          //     $('.addTreatment').attr('data-appoint',appointment);
+          //     $('.addTreatment').prop('disabled',false);
+
+          //     html =`<div class="card mb-3">
+          //             <div class="row no-gutters">
+          //               <div class="col-md-4">
+          //                 <img src="/${file[0]}" class="card-img" alt="...">
+          //               </div>
+          //               <div class="col-md-8">
+          //                 <div class="card-body">
+          //                   <h5 class="card-title">Patient Name:${patient.name}</h5>
+          //                   <p>Age:${patient.age}<p>
+          //                   <p>Allergy:${patient.allergy}<p>
+                            
+          //                   <p class="card-text"><small class="text-muted">created at:${moment(patient.created_at).format('Y-M-D')}</small></p>
+          //                 </div>
+          //               </div>
+          //             </div>
+          //           </div>`;
+          //           $('.result').html(html);
+          //    }
+          // })
+       })
+
+       $('.addTreatment').click(function(){
+        var doctor=$(this).data('doctor');
+        var patient=$(this).data('patient');
+        var appointment=$(this).data('appoint');
+         console.log(doctor,patient,appointment);
+         $.ajax({
+            url:"/confirmAppoints",
+            data:{doctor:doctor,patient:patient,a:appointment},
+            type:"POST",
+            success:function(res){
+              if(res){
+                 $('#patientNo').modal('hide');
+                 $(".appointmentTable").DataTable().ajax.reload();
+              }
+            },
+            error:function(error){
+              console.log(error);
+            }
+          })
+        // $.post('/confirmAppoints',{doctor:doctor,patient:patient,a:appointment},function(res){
+        //   if(res){
+        //      $('#patientNo').modal('hide');
+        //      $(".appointmentTable").DataTable().ajax.reload();
+        //   }
+        // })
+       })
+
+       //new patient start
+
+       $('.appointmentTable').on('click','.newPatient',function(){
+        window.location.href="/patient/create";
+       })
+
+        $('.appointmentTable').on('click','.btn-cancel',function(){
+          var id=$(this).data('id');
+          var url="<?php echo e(URL('appointmentCancel')); ?>";
+          url=url+'/'+id;
+           $.ajax({
+            url:url,
+            data:{ _token:'<?php echo e(csrf_token()); ?>',_method:"DELETE"},
+            type:"POST",
+            success:function(res){
+              if(res){
+                 $('#patientNo').modal('hide');
+                 $(".appointmentTable").DataTable().ajax.reload();
+              }
+            },
+            error:function(error){
+              console.log(error);
+            }
+          })
+        // window.location.href="/patient/create";
+       })
+      
+   })
 
 </script>
 <?php $__env->stopSection(); ?>

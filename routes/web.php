@@ -11,9 +11,9 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/timeline', function () {
+    return view('timeline');
+});
 
 // login page
 

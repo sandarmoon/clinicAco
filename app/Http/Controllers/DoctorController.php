@@ -73,9 +73,21 @@ class DoctorController extends Controller
     }
 
     public function getDoctor(){
+        $role=Auth::user()->roles[0];
+       // dd( Auth::user()->owners(0);
+        if($role->name=='Admin'){
+            $all=Doctor::where('owner_id',Auth::user()->owners[0]->id)->get();
+            // dd($all);
+        
+        }else if($role->name=="Reception"){
+            $all=Doctor::where('owner_id',Auth::user()->receptions[0]->owner_id)->get();
 
-        $all=  DoctorResource::collection(Doctor::all());
-        return Datatables::of($all)->make(true);
+        }else{
+            $all=Doctor::all();
+        }
+        // dd($all);
+        $all=  DoctorResource::collection($all);
+        return Datatables::of($all)->addIndexColumn()->make(true);
     }
 
     /**

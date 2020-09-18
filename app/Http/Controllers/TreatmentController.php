@@ -343,9 +343,14 @@ elseif($user->hasRole('Reception')){
 
 
      public function patientRecordD($did,$pid){
-        $doctors=Doctor::all();
+
+         $role=Auth::user()->roles[0];
+       // dd( Auth::user()->owners(0);
+        
+
           $user=Auth::user();
           if($user->hasRole('Doctor')){
+             $doctors=Doctor::where('owner_id',Auth::user()->doctors[0]->owner_id)->get();
              $doctor=Doctor::where('user_id',$user->id)->first();
             $doctor_id=$doctor->id;
             $lastassginP=Referreddoctor::
@@ -386,6 +391,7 @@ elseif($user->hasRole('Reception')){
 
 
           }else{
+             $doctors=Doctor::all();
             $treatments=Treatment::where('patient_id','=',$pid)
                 ->where('doctor_id','=',$did)
                 ->orderBy('id','desc')

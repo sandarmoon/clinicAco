@@ -27,7 +27,7 @@
 }
 
 .jzdbox1 {
-  width:100%; 
+  width:315px; 
   background:#332f2e; 
   border-radius:5px; 
   overflow:hidden; 
@@ -254,7 +254,7 @@ ul.dot-list li:hover .my-card{
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
   <div class="row d-flex">
-        <div class="col-xl-4  order-xl-2 mb-5 mb-xl-0">
+        <div class="col-xl-4 order-xl-2   mb-5 mb-xl-0">
           <div class="card   p-3 card-profile shadow">
             <h3>Schedule of Doctors</h3>
             <div class=" pt-0 pt-md-4">
@@ -331,7 +331,7 @@ ul.dot-list li:hover .my-card{
 
           
         </div>
-        <div class="col-xl-8 h-100 order-xl-1">
+        <div class="col-xl-8 h-100 order-xl-1 ">
           <!-- booking div start -->
           <div class="card bg-secondary shadow">
              <div class="card-header bg-white border-0">
@@ -367,7 +367,7 @@ ul.dot-list li:hover .my-card{
                          <div class="col-lg-6">
                             <div class="form-group">
                                <label class="form-control-label" for="input-first-name">Choose Doctor</label>
-                               <select class="form-control p-3" name="doctor_id"  id="doctorchoice" >
+                               <select class="form-control p-3" data-width="100" name="doctor_id"  id="doctorchoice" >
                                   <option value="0"></option>
                                   <?php $__currentLoopData = $doctors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $doctor): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                   <option value="<?php echo e($doctor->id); ?>" class="p-2"><?php echo e($doctor->user->name); ?></option>
@@ -514,6 +514,7 @@ ul.dot-list li:hover .my-card{
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
 <script>
+
   const date = new Date();
 
 const renderCalendar = () => {
@@ -598,6 +599,10 @@ document.querySelector(".next").addEventListener("click", () => {
 renderCalendar();
 
 $(document).ready(function(){
+
+  $(window).resize(function() {
+    $('.select2').css('width', "100%");
+});
     // getAppointment();
     $.ajaxSetup({
                   headers: {

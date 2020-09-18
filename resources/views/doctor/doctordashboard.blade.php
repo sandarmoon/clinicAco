@@ -318,10 +318,10 @@ div.dataTables_wrapper div.dataTables_filter input {
                       <tr>
                         <td>{{$a->patient !=null ? $a->patient->name:''}}</td>
                         <td>{{$a->patient !=null ? $a->patient->PRN:''}}</td>
-                        <!-- @if($t->patient_id == $a->patient->id) -->
+                         @if($t->patient_id == $a->patient->id) 
                         <td><a class="btn btn-info btn-sm" href="{{route('treatment.show',$a->patient_id)}}">Detail</a></td>
                       </tr>
-                      
+                      @endif
                      @endforeach
                      @endif
                      @endforeach
@@ -349,95 +349,7 @@ div.dataTables_wrapper div.dataTables_filter input {
       <!-- Button trigger modal -->
 
 
-      <!-- Add Model -->
-<div class="modal fade" id="addExpense" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Add Expense</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <!-- form start -->
-      <form id="expense-from" method="post" enctype="multipart/form-data">
-          <div class="modal-body p-2">
-            	
-            		
-    				  
-        			  <div class="col-md-12">
-        			      <div class="form-group ">
-        			        <input type="date" name="date" placeholder="" class="form-control is-valid" />
-                      
-        			      </div>
-        			    </div>
-
-
-
-        			    <div class="col-md-12">
-        			      <div class="form-group">
-        			      	<label for="description">Description</label>
-        			        <input type="text" name="description" class="form-control" id="description" placeholder="why use?" />
-                       <span class="description error "></span>
-        			      </div>
-                   
-                    
-        			    </div>
-        			    
-        			  
-        			 
-        			    <div class="col-md-12">
-        			      <div class="form-group">
-        			      	<label for="amount">Amount</label>
-        			        <div class="input-group ">
-        			        	
-        			          <div class="input-group-prepend">
-        			            <span class="input-group-text"><i class="ni  ni-credit-card"></i></span>
-        			          </div>
-        			           <input class="form-control" name="amount" id="amount" placeholder="$$$" type="text">
-
-        			        </div>
-
-                        <span class="amount error "></span>
-                       
-        			      </div>
-        			    </div>
-        			    
-
-        			  
-        			  
-        			    <div class="col-md-12">
-        			      <div class="form-group remove1">
-        			      	<label for="Recepits" class="d-block">Recepits</label>
-        			        <input type="file" name="file1" id="Recepits" placeholder="Success" class=" " />
-                     <!--  <button type="button"  class="btn btn-danger btn-sm float-right delete1" data-id="1" ><span>×</span></button> -->
-        			      </div>
-                    
-        			    </div>
-                  
-                    <div class="col-md-12 a" >
-                      
-                    </div>
-                  
-
-                  <div class="col-md-12" title="add more Recepits">
-                      <button onclick="JavaScript:addmore(0);" type="button" class="btn btn-success" >
-                      <i class="ni ni-fat-add "></i>
-                      </button>
-                    </div>
-    				    
-    				 
-    				
-            	
-          </div>
-          <div class="modal-footer ">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <input type="submit" class="btn btn-primary " value="Add Expense"/>
-          </div>
-      </form>
-      <!-- form end -->
-    </div>
-  </div>
+  
 </div>
       <!-- modal end -->
 

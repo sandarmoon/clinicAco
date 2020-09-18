@@ -255,7 +255,7 @@ ul.dot-list li:hover .my-card{
 @endsection
 @section('content')
   <div class="row d-flex">
-        <div class="col-xl-4 col-lg-4  col-md-4 col-sm-4   order-xl-2 mb-5 mb-xl-0">
+        <div class="col-xl-4 order-xl-2   mb-5 mb-xl-0">
           <div class="card   p-3 card-profile shadow">
             <h3>Schedule of Doctors</h3>
             <div class=" pt-0 pt-md-4">
@@ -332,7 +332,7 @@ ul.dot-list li:hover .my-card{
 
           
         </div>
-        <div class="col-xl-8 h-100 order-xl-1">
+        <div class="col-xl-8 h-100 order-xl-1 ">
           <!-- booking div start -->
           <div class="card bg-secondary shadow">
              <div class="card-header bg-white border-0">

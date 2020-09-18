@@ -102,10 +102,7 @@
                 "ajax": "<?php echo e(route('getDoctor')); ?>",
                 "columns":[
 
-                     {render:function(){
-                      
-                      return i++;
-                     }},
+                     {"data":"DT_RowIndex"},
                     { "data": "doctorinfo.name",
                     render:function(data){
                       $('.btnEdit').attr('data-name', data);

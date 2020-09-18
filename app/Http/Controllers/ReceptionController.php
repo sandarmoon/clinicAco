@@ -142,7 +142,8 @@ class ReceptionController extends Controller
      */
     public function show($id)
     {
-        //
+        $reception=Reception::find($id);
+        return view('reception.detail',compact('reception'));
     }
 
     /**

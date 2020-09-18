@@ -115,11 +115,13 @@
                       sortable:false,
                       render:function(data){
                         return `
+                        @role('Admin')
                         <button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
-
+                        @endrole
                         <button class="btn btn-warning btn-sm d-inline-block btnDetail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
-
-                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>`;
+                        @role('Admin')
+                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button> @endrole`;
+                                 
                       }
                      }
                 ],

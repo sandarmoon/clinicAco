@@ -250,7 +250,9 @@ ul.dot-list li:hover .my-card{
     letter-spacing: 0.1rem;
 }
 
-
+.form-group > .select2-container {
+    width: 100% !important;
+}
 </style>
 @endsection
 @section('content')
@@ -599,9 +601,7 @@ renderCalendar();
 
 $(document).ready(function(){
 
-  $(window).resize(function() {
-    $('.select2').css('width', "100%");
-});
+  
     // getAppointment();
     $.ajaxSetup({
                   headers: {

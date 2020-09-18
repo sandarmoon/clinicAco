@@ -226,7 +226,7 @@
             </a>
           </li>
           <?php endif; ?>
-          <?php if(auth()->check() && auth()->user()->hasAnyRole('Super_Admin|Admin')): ?>
+          <?php if(auth()->check() && auth()->user()->hasAnyRole('Super_Admin|Admin|Reception')): ?>
           <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('doctor.index')); ?>">
               <i class="ni ni-hat-3 text-blue"></i> Doctor

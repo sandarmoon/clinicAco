@@ -312,6 +312,7 @@
                                       <td>${k.reception.phoneno}</td>
                                       
                                       <td>
+                                      
                                          <button class="btn btn-primary btn-sm d-inline-block btnEdit " data-id="${k.reception.id}"><i class="ni ni-settings"></i></button>
                                                 <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${k.reception.id}"> <i class="ni ni-fat-delete"></i></button>
                                          

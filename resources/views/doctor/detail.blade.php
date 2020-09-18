@@ -14,9 +14,11 @@
                     <h3 class=" p-0 pr-4 mt-3 ">{{$doctor->user->name}}</h3>
                      <h6 class="small text-muted mb-4">Position:  {{$doctor->user->roles[0]->name}}</h6>
                   </div>
+                  @role('Admin|Doctor')
                   <div class="col-4 text-right">
                     <a href="{{route('doctor.edit',$doctor->id)}}" class="btn btn-sm btn-primary">Edit Profile</a>
                   </div>
+                  @endrole
                 </div>
               </div>
               <div class="card-body">

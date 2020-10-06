@@ -1,5 +1,4 @@
-@extends('frontendTemplate')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
   <div class=" ">
       <div class="row pr-2 mb-2 card-deck">
@@ -84,8 +83,8 @@
     </div>
 
 
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
 	$(document).ready(function(){
 		//common js
@@ -123,7 +122,7 @@
 	             "serverSide": true,
 	             "stateSave": true,  //restore table state on page reload,
 	           "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
-	          "ajax": "{{ route('medicineType.getType') }}",
+	          "ajax": "<?php echo e(route('medicineType.getType')); ?>",
 	          "columns":[
 
 	               {"data":'DT_RowIndex'},
@@ -182,7 +181,7 @@
 		//creat data 
 	$('.addNew').click(function(){
       var name=$('#cname').val();
-      var url="{{route('medicineType.store')}}"
+      var url="<?php echo e(route('medicineType.store')); ?>"
 	      $.ajax({
 	          url:url,
 	          type:"post",
@@ -240,7 +239,7 @@
 	      e.preventDefault();
 	      	var id=$('.medTypeid').val();
 	      var formdata= new FormData(this);
-	       	var url="{{route('medicineType.update',':id')}}";
+	       	var url="<?php echo e(route('medicineType.update',':id')); ?>";
 	    	url=url.replace(':id',id);
 	      formdata.append('_method', 'PUT');
 	          $.ajax({
@@ -286,7 +285,7 @@
 	     		if(confirm('Are you sure to delete?')){
 	     			 var id=$(this).data('id');
 					      console.log(id);
-					       var url="{{route('medicineType.destroy',':id')}}";
+					       var url="<?php echo e(route('medicineType.destroy',':id')); ?>";
 					      
 					       url=url.replace(':id',id);
 
@@ -316,4 +315,5 @@
 
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/medicineType/index.blade.php ENDPATH**/ ?>

@@ -1,5 +1,4 @@
-@extends('frontendTemplate')
-@section('content')
+<?php $__env->startSection('content'); ?>
 	
     <!-- Page content -->
     <div class="container-fluid mt-3">
@@ -11,7 +10,7 @@
 
                 <div class="card-profile-image " id="profileImg">
                   <a href="#">
-                    <img src="{{asset($doctor->avatar)}}" class="rounded-circle">
+                    <img src="<?php echo e(asset($doctor->avatar)); ?>" class="rounded-circle">
                   </a>
                   <div class="Text "><a href="#" >Change Profile</a></div>
                 </div>
@@ -39,17 +38,17 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                       </div>
-                      <input class="form-control" name="name"  value="{{$doctor->user->name}}" type="text">
+                      <input class="form-control" name="name"  value="<?php echo e($doctor->user->name); ?>" type="text">
                     </div>
                   </div>
 
-                  <input type="hidden" name="role" value="{{ Auth::user()->roles[0]->name}}">
+                  <input type="hidden" name="role" value="<?php echo e(Auth::user()->roles[0]->name); ?>">
                   <!-- <div class="form-group">
                     <div class="input-group input-group-alternative mb-3">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                       </div>
-                      <input class="form-control" name="email" value="{{$doctor->user->email}}"  type="email">
+                      <input class="form-control" name="email" value="<?php echo e($doctor->user->email); ?>"  type="email">
                     </div>
                   </div> -->
                   <div class="form-group">
@@ -102,19 +101,19 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-nrc">NRC</label>
-                        <input type="text" id="input-nrc" name="nrc" class="form-control form-control-alternative"  value="{{$doctor->nrc}}">
+                        <input type="text" id="input-nrc" name="nrc" class="form-control form-control-alternative"  value="<?php echo e($doctor->nrc); ?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-age">Age</label>
-                        <input type="text" id="input-age" name="age" value="{{$doctor->age}}" class="form-control form-control-alternative" >
+                        <input type="text" id="input-age" name="age" value="<?php echo e($doctor->age); ?>" class="form-control form-control-alternative" >
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-dob">Date of Birth</label>
-                        <input type="text" id="input-dob" name="dob" value="{{$doctor->dob}}" class="form-control form-control-alternative" >
+                        <input type="text" id="input-dob" name="dob" value="<?php echo e($doctor->dob); ?>" class="form-control form-control-alternative" >
                       </div>
                     </div>
                   </div>
@@ -128,7 +127,7 @@
                     <div class="col-md-12">
                       <div class="form-group">
                         <label class="form-control-label" for="input-degree">Degree</label>
-                        <input id="input-degree" class="form-control form-control-alternative" name="degree" value="{{$doctor->degree}}" type="text">
+                        <input id="input-degree" class="form-control form-control-alternative" name="degree" value="<?php echo e($doctor->degree); ?>" type="text">
                       </div>
                     </div>
                   </div>
@@ -137,10 +136,10 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-certificate">Certificate</label>
 
-                        <input type="hidden" name="oldcertificate" value="{{$doctor->certificate}}">
-                        <input type="hidden" name="oldlicense" value="{{$doctor->license}}">
-                        <input type="hidden" name="oldid" value="{{$doctor->id}}">
-                        <input type="hidden" name="oldavatar" value="{{$doctor->avatar}}">
+                        <input type="hidden" name="oldcertificate" value="<?php echo e($doctor->certificate); ?>">
+                        <input type="hidden" name="oldlicense" value="<?php echo e($doctor->license); ?>">
+                        <input type="hidden" name="oldid" value="<?php echo e($doctor->id); ?>">
+                        <input type="hidden" name="oldavatar" value="<?php echo e($doctor->avatar); ?>">
 
                         
 
@@ -213,7 +212,7 @@
                 <div class="pl-lg-4">
                   <div class="form-group">
                     <label> Experience</label>
-                    <textarea rows="4" name="experience" class="form-control form-control-alternative" >{{$doctor->experience}}</textarea>
+                    <textarea rows="4" name="experience" class="form-control form-control-alternative" ><?php echo e($doctor->experience); ?></textarea>
                   </div>
                 </div>
 
@@ -229,13 +228,13 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-address">Address</label>
-                        <input type="text" id="input-address" name="address" class="form-control form-control-alternative" placeholder="address" value="{{$doctor->address}}" >
+                        <input type="text" id="input-address" name="address" class="form-control form-control-alternative" placeholder="address" value="<?php echo e($doctor->address); ?>" >
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-phone">Phone</label>
-                        <input type="text" id="input-phone" name="phone" class="form-control form-control-alternative" placeholder="phone no" value="{{$doctor->phone}}">
+                        <input type="text" id="input-phone" name="phone" class="form-control form-control-alternative" placeholder="phone no" value="<?php echo e($doctor->phone); ?>">
                       </div>
                     </div>
                   </div>
@@ -254,8 +253,8 @@
       <!-- Footer -->
       
     </div>
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   //for showing the photo see start
     
@@ -268,7 +267,7 @@
         var html1='';var license='';
       for(var j=0;j<list.length;j++){
         console.log(list[j]);
-            var frame=`<img src="{{asset(':v')}}" class="ml-2" width="40" height="40" >`;
+            var frame=`<img src="<?php echo e(asset(':v')); ?>" class="ml-2" width="40" height="40" >`;
             html1+=frame.replace(':v',list[j]);
             document.querySelector('#old-certificate').innerHTML=html1;
 
@@ -282,7 +281,7 @@
         
       for(var l=0;l<list.length;l++){
         console.log(list[l]);
-            var frame=`<img src="{{asset(':v')}}" class="ml-2" width="40" height="40" >`;
+            var frame=`<img src="<?php echo e(asset(':v')); ?>" class="ml-2" width="40" height="40" >`;
             license+=frame.replace(':v',list[l]);
             document.querySelector('#old-license').innerHTML=license;
 
@@ -338,7 +337,7 @@
     
     formData.append('_method', 'PUT');
       console.log(name);
-      var url="{{route('doctor.update',':id')}}";
+      var url="<?php echo e(route('doctor.update',':id')); ?>";
       
       url=url.replace(':id',id);
       $.ajax({
@@ -355,7 +354,7 @@
                      // console.log(role);
                        window.location.href='/doctor/'+id;
                   }else{
-                     window.location.href="{{route('doctor.index')}}";
+                     window.location.href="<?php echo e(route('doctor.index')); ?>";
                   }
                   
                     //this.reset();
@@ -368,4 +367,5 @@
     })
 	})
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/doctor/edit.blade.php ENDPATH**/ ?>

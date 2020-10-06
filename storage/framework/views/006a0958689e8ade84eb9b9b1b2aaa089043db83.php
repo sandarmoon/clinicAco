@@ -1,5 +1,4 @@
-@extends('frontendTemplate')
-@section('content')
+<?php $__env->startSection('content'); ?>
 	
     <!-- Page content -->
     <div class="container-fluid mt-3">
@@ -11,7 +10,7 @@
 
                 <div class="card-profile-image " id="profileImg">
                   <a href="#">
-                    <img src="{{asset($owner->avatar)}}" class="rounded-circle">
+                    <img src="<?php echo e(asset($owner->avatar)); ?>" class="rounded-circle">
                   </a>
                   <div class="Text "><a href="#" >Change Profile</a></div>
                 </div>
@@ -40,7 +39,7 @@
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                       </div>
-                      <input class="form-control" name="name" value="{{$owner->user->name}}"  type="text">
+                      <input class="form-control" name="name" value="<?php echo e($owner->user->name); ?>"  type="text">
                     </div>
                   </div>
 
@@ -86,19 +85,19 @@
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-nrc">NRC</label>
-                        <input type="text" id="input-nrc" name="nrc" class="form-control form-control-alternative" placeholder="enter nrc" value="{{$owner->nrc}}">
+                        <input type="text" id="input-nrc" name="nrc" class="form-control form-control-alternative" placeholder="enter nrc" value="<?php echo e($owner->nrc); ?>">
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-age">Age</label>
-                        <input type="text" id="input-age" name="age" class="form-control form-control-alternative" value="{{$owner->age}}" >
+                        <input type="text" id="input-age" name="age" class="form-control form-control-alternative" value="<?php echo e($owner->age); ?>" >
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-group">
                         <label class="form-control-label" for="input-dob">Date of Birth</label>
-                        <input type="date" id="input-dob" name="dob" value="{{$owner->dob}}" class="form-control form-control-alternative" >
+                        <input type="date" id="input-dob" name="dob" value="<?php echo e($owner->dob); ?>" class="form-control form-control-alternative" >
                       </div>
                     </div>
                   </div>
@@ -116,7 +115,7 @@
                       <div class="col-lg-6">
                         <div class="form-group">
                           <label class="form-control-label" for="input-clinic_name">Name</label>
-                          <input type="text" id="input-clinic_name" value="{{$owner->clinic_name}}" name="clinic_name" class="form-control form-control-alternative" placeholder="" >
+                          <input type="text" id="input-clinic_name" value="<?php echo e($owner->clinic_name); ?>" name="clinic_name" class="form-control form-control-alternative" placeholder="" >
                         </div>
                       </div>
                       <div class="col-lg-6">
@@ -131,15 +130,15 @@
                         <div class="tab-content" id="nav-tabContent">
                           <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                               <div class="form-group">
-                                <img src="{{asset($owner->clinic_logo)}}" width="50" height="50">
+                                <img src="<?php echo e(asset($owner->clinic_logo)); ?>" width="50" height="50">
                               </div>
                           </div>
                           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                               <div class="form-group">
                                 
                                 <input type="file" id="input-new_clinic_logo" name="new_clinic_logo" class="form-control form-control-alternative" placeholder="" >
-                                <input type="hidden" name="old_clinic_logo" value="{{$owner->clinic_logo}}">
-                                <input type="hidden" name="oldid" value="{{$owner->id}}" name="">
+                                <input type="hidden" name="old_clinic_logo" value="<?php echo e($owner->clinic_logo); ?>">
+                                <input type="hidden" name="oldid" value="<?php echo e($owner->id); ?>" name="">
                               </div>
                           </div>
                           
@@ -147,8 +146,8 @@
                         
                       </div>
 
-                    <input type="hidden" name="role" value="{{ Auth::user()->roles[0]->name}}">
-                    <input type="hidden" name="oldavatar" value="{{ $owner->avatar}}">
+                    <input type="hidden" name="role" value="<?php echo e(Auth::user()->roles[0]->name); ?>">
+                    <input type="hidden" name="oldavatar" value="<?php echo e($owner->avatar); ?>">
 
                       
                   </div>
@@ -157,7 +156,7 @@
                       <div class="col-lg-12">
                         <div class="form-group">
                           <label class="form-control-label" for="input-clinic_time">Time of Clinic</label>
-                          <input type="text" id="input-clinic_time" name="clinic_time" class="form-control form-control-alternative" value="{{$owner->clinic_time}}" placeholder="" >
+                          <input type="text" id="input-clinic_time" name="clinic_time" class="form-control form-control-alternative" value="<?php echo e($owner->clinic_time); ?>" placeholder="" >
                         </div>
                       </div>
                   </div>
@@ -167,7 +166,7 @@
                       <div class="col-lg-12">
                         <div class="form-group">
                           <label class="form-control-label" for="input-phone">Phone</label>
-                          <input type="text" id="input-phone" name="phone" class="form-control form-control-alternative" value="{{$owner->phone}}" placeholder="" >
+                          <input type="text" id="input-phone" name="phone" class="form-control form-control-alternative" value="<?php echo e($owner->phone); ?>" placeholder="" >
                         </div>
                       </div>
                   </div>
@@ -177,7 +176,8 @@
                       <div class="form-group">
                         <label class="form-control-label"  for="input-address">Address</label>
                         <textarea rows="4" name="address"  id="input-address" class="form-control form-control-alternative">
-                          {{$owner->address}}
+                          <?php echo e($owner->address); ?>
+
                         </textarea>
                         
                       </div>
@@ -195,8 +195,8 @@
      
       
     </div>
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
        $.ajaxSetup({
@@ -232,8 +232,8 @@
     var name=$('input[name="name"]').val();
     var role=$('input[name="role"]').val();
       console.log(name);
-      var url="{{route('owners.update',':id')}}";
-      var show="{{route('owners.show',':id')}}";
+      var url="<?php echo e(route('owners.update',':id')); ?>";
+      var show="<?php echo e(route('owners.show',':id')); ?>";
       show=show.replace(':id',id);
      
       url=url.replace(':id',id);
@@ -248,9 +248,9 @@
                 success: (data) => {
                   if(role=='Admin'){
                       // console.log(role);
-                     window.location.href="{{URL('owners')}}/"+id;
+                     window.location.href="<?php echo e(URL('owners')); ?>/"+id;
                   }else{
-                    window.location.href="{{route('owners.index')}}";
+                    window.location.href="<?php echo e(route('owners.index')); ?>";
                   }
                   
                     //this.reset();
@@ -270,4 +270,5 @@
    
   })
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/owner/edit.blade.php ENDPATH**/ ?>

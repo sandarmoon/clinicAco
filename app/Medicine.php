@@ -18,4 +18,12 @@ class Medicine extends Model
     {
         return $this->belongsToMany('App\Treatment');
     }
+
+    public function owner(){
+    	return $this->belongsTo('App\Owner');
+    }
+
+    public function stocks(){
+    	return $this->hasMany('App\Stock');
+    }
 }

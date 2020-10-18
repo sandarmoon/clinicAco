@@ -5,6 +5,7 @@ use App\Patient;
 use App\Doctor;
 use App\Treatment;
 use RealRashid\SweetAlert\Facades\Alert;
+use Auth;
 
 class PatientController extends Controller
 {

@@ -6,8 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Medicine;
 use App\Medicinetype;
+use App\Treatment;
+use App\Stock;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\MedicineResource;
+use Auth;
+use Carbon\Carbon;
+use DB;
 class MedicineController extends Controller
 {
     /**
@@ -41,21 +46,43 @@ class MedicineController extends Controller
      */
     public function store(Request $request)
     {
+         // dd($request);
+        $messages = [
+                
+                'ctab.required' => 'at least tab unit is required',
+                'expiredDate.required'=>'expiredDate is required'
+            ];
         $request->validate([
-            'typeid' => 'required',
+            
             'name' => 'required',
             'chemical' => 'required',
-        ]);
+            'medsize' => 'required',
+            'type_id'=>'required',
+            'ctab' => 'required',
+            'expiredDate' => 'required',
+        ],$messages);
+
+
 
         $medicine=new Medicine();
-        $medicine->medicinetype_id=request('typeid');
+        $medicine->medicinetype_id=request('type_id');
         $medicine->name=request('name');
         $medicine->chemical=request('chemical');
+        $medicine->size=request('medsize');
+        $medicine->owner_id=Auth::user()->owners[0]->id;
         $medicine->save();
 
-        $medicines=Medicine::orderBy('id','DESC')->get();
-
-        return response()->json(['success'=>'Record is successfully added!','medicines'=>$medicines]);
+        // $medicines=Medicine::orderBy('id','DESC')->get();
+        Stock::create([
+            'medicine_id'=>$medicine->id,
+            'qty'=>request('totaltab'),
+            'unit1'=>request('cphar'),
+            'unit2'=>request('cbu'),
+            'unit3'=>request('ccard'),
+            'unit4'=>request('ctab'),
+            'expire_date'=>request('expiredDate')
+        ]);
+        return response()->json(['success'=>'Record is successfully added!','medicine'=>$medicine]);
     }
 
     /**
@@ -77,7 +104,7 @@ class MedicineController extends Controller
      */
     public function edit($id)
     {
-        $medicine=Medicine::find($id);
+        $medicine=Medicine::with('medicinetype')->where('id',$id)->first();
       return $medicine;
     }
 
@@ -90,15 +117,18 @@ class MedicineController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($id);
+        // dd($request);
          $request->validate([
             'typeid' => 'required',
             'name' => 'required',
             'chemical' => 'required',
+            'medsize'=>'required'
+
         ]);
          $medicine=Medicine::find($id);
          $medicine->name=request('name');
          $medicine->medicinetype_id=request('typeid');
+         $medicine->size=request('medsize');
          $medicine->chemical=request('chemical');
          $medicine->save();
          return response()->json(['success'=>'Record is successfully updated!','medicine'=>$medicine]);
@@ -122,11 +152,265 @@ class MedicineController extends Controller
 
     public function getMedicine(){
         
+        $id=Auth::user()->owners[0]->id;
+        // dd($id);
+
+        $dateS = Carbon::now()->startOfMonth();
+        $dateE = Carbon::now(); 
+        // dd($dateE);
+        // dd($id);
+
+        // $medicines=Stock::where('owner_id','=',$id)
+        // ->whereBetween('date',array($dateS,$dateE))
+        // ->orderBy('id','DESC')->get();
+        // dd($medi)
+
+        $medicines=Stock::
+        whereHas('medicine',function($q) use ($id){
+                $q->where('owner_id','=',$id);
+            })->with('medicine.medicinetype')
+
+        ->whereBetween('created_at',array($dateS,$dateE))
         
+        ->orderBy('medicine_id')
+        ->get();
 
-        $medicines=Medicine::orderBy('id','DESC')->get();
+        // $med2=Stock::
+        // whereHas('medicine',function($q) use ($id){
+        //         $q->where('owner_id','=',$id);
+        //     })->with('medicine.medicinetype')
 
-        $all=MedicineResource::collection($medicines);
-        return Datatables::of($all)->addIndexColumn()->toJson();
+        // ->whereBetween('created_at',array($dateS,$dateE))
+        // ->get();
+//         ->groupBy('medicine_id')
+//        -> map(function ($row) {
+//     return $row->sum('n');
+// });
+
+        
+        
+          // dd($medicines);
+
+        // $data=collect($med2);
+        //  $data=$data->groupBy(['medicine_id'])
+        //            -> map(function ($row) {
+        //         return $row->sum('qty');
+        //     })->toArray();
+        //  dd($data);
+
+        // $all=MedicineResource::collection($medicines);
+        return Datatables::of($medicines)->addIndexColumn()->toJson();
+    }
+
+    public function getmed(){
+        $id=Auth::user()->owners[0]->id;
+        $medicines=Medicine::with('medicinetype')->where('owner_id',$id)->get();
+        return $medicines;
+    }
+
+    public function stockStore(Request $request){
+          // dd($request);
+        $messages = [
+                'medId.required'=>'not found for medicine',
+                'tab.required' => 'at least tab unit is required',
+                'expiredDate.required'=>'expiredDate is required'
+            ];
+        $request->validate([
+            'medId'=>'required',
+            'tab' => 'required',
+            'expiredDate' => 'required',
+            
+        ],$messages);
+
+// ['medicine_id','qty','unit1','unit2','unit3','unit4','expire_date'];
+        Stock::create([
+            'medicine_id'=>request('medId'),
+            'qty'=>request('totaltab'),
+            'unit1'=>request('phar'),
+            'unit2'=>request('bu'),
+            'unit3'=>request('card'),
+            'unit4'=>request('tab'),
+            'expire_date'=>request('expiredDate')
+        ]);
+
+        return response()->json(['success'=>'Record is successfully added!']);
+
+
+    }
+
+
+    public function medicineCreateByOwner(){
+         $medTypes=Medicinetype::all();
+        return view('owner.medicineCreate',compact('medTypes'));
+    }
+
+
+    public function getMeds(){
+        $id=Auth::user()->owners[0]->id;
+        // dd($id);
+
+        $dateS = Carbon::now()->startOfMonth();
+        $dateE = Carbon::now(); 
+        // dd($dateE);
+        // dd($id);
+
+        // $medicines=Stock::where('owner_id','=',$id)
+        // ->whereBetween('date',array($dateS,$dateE))
+        // ->orderBy('id','DESC')->get();
+        // dd($medi)
+
+        $medicines=Stock::
+        whereHas('medicine',function($q) use ($id){
+                $q->where('owner_id','=',$id);
+            })->with('medicine.medicinetype')
+        
+        ->whereBetween('created_at',array($dateS,$dateE))
+        
+        ->orderBy('medicine_id')
+        ->get();
+
+        dd($medicines);
+
+        // $med2=Stock::
+        // whereHas('medicine',function($q) use ($id){
+        //         $q->where('owner_id','=',$id);
+        //     })->with('medicine.medicinetype')
+
+        // ->whereBetween('created_at',array($dateS,$dateE))
+        // ->get();
+//         ->groupBy('medicine_id')
+//        -> map(function ($row) {
+//     return $row->sum('n');
+// });
+
+        
+        
+          // dd($medicines);
+
+        // $data=collect($med2);
+        //  $data=$data->groupBy(['medicine_id'])
+        //            -> map(function ($row) {
+        //         return $row->sum('qty');
+        //     })->toArray();
+        //  dd($data);
+
+        // $all=MedicineResource::collection($medicines);
+
+        return Datatables::of($medicines)->addIndexColumn()->toJson();
+    }
+
+    public function monthlyStock(){
+        $id=Auth::user()->owners[0]->id;
+        // dd($id);
+        $dateS = Carbon::now()->startOfMonth();
+        $dateE = Carbon::now()->endofMonth(); 
+
+         $usemed=[];
+         $data_treat=[];
+         
+
+         // $treatments=Treatment::with('medicines')->get();
+         // foreach ($treatments as $t) {
+         //      echo $t->->sum('pivot.quantity');
+         // }
+
+
+
+         // ======== ======== ======== ======== ======== ========
+        $treatments=Treatment::with('medicines')
+        ->whereHas('doctor',function($q) use ($id){
+            $q->where('owner_id','=',$id);
+        })
+        ->whereBetween('created_at',array($dateS,$dateE))->whereNotNull('gc_level')->get();
+        foreach ($treatments as $key => $value) {
+               
+                  $data2= $value->medicines;
+                  
+                  foreach ($data2 as $k=>$v2) {
+                    array_push($usemed,$v2);
+                     }
+
+             }
+                 
+             $collection=collect($usemed);
+             $grouped = $collection->mapToGroups(function ($item, $key) {
+                // dd($key);
+                    return [$item['id'] => $item->pivot->tab];
+                })->toArray();
+//              $result = $collection->map(function ($item, $key)) {
+//           return [$key => $item->sum('session')];
+// };
+             ksort($grouped);
+            
+
+          foreach($grouped as $i=>$v){
+             $total=0;
+            foreach ($v as $k => $val) {
+
+
+                $total+=$val;
+
+                 $data_treat[$i]=$total;
+            }
+         }
+
+          // dd($data_treat);
+           // ======== ======== ======== ======== ======== ========
+       
+        // monthlyStock
+         $month_stock=[];
+           $monthStock=Stock::
+                    whereHas('medicine',function($q) use ($id){
+                            $q->where('owner_id','=',$id);
+                        })->with('medicine.medicinetype')
+                    
+                    ->whereBetween('created_at',array($dateS,$dateE))
+                    
+                    ->orderBy('medicine_id')
+                    ->get();
+
+            $data=collect($monthStock);
+            $data=$data->groupBy('medicine_id')->toArray();
+           
+
+            foreach($data as $i=>$v){
+             $total=0;
+            foreach ($v as $k => $val) {
+
+                // dd($val['qty']);
+                $total+=$val['qty'];
+
+                 $month_stock[$i]=$total;
+                }
+             }
+             dd($month_stock);
+
+                
+
+
+
+
+       
+              
+
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

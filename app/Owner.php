@@ -33,4 +33,8 @@ class Owner extends Model
     public function patients(){
         return $this->hasManyThrough('App\Patient','App\Reception');
     }
+
+    public function medicines(){
+        return $this->hasMany('App\Medicine');
+    }
 }

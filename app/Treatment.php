@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
+// use AjCastro\EagerLoadPivotRelations\EagerLoadPivotTrait;
 use DB;
 
 class Treatment extends Model

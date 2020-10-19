@@ -1014,6 +1014,7 @@
                       { "data": "chemical"
                       } ,
                       { "data": "phar"
+                      }
                       } ,
                       { "data": "bu"
                       } ,

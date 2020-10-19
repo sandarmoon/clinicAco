@@ -44,13 +44,15 @@ class AppointmentController extends Controller
     }
     public function patient(Request $request)
     {
+       $id=Auth::user()->doctors[0]->owner_id;
         $patient_id=request('patient_id');
         $treatment_id=request('treatment_id');
     	$patient=Patient::find($patient_id);
         //dd($treatment_id);
-        $drugs=Medicine::Where('medicinetype_id',1)->get();
+        $drugs=Medicine::
+                    Where('medicinetype_id',1)->where('owner_id',$id)->get();
         //dd($drugs);
-        $injections=Medicine::where('medicinetype_id',2)->get();
+        $injections=Medicine::where('medicinetype_id',2)->where('owner_id',$id)->get();
         // dd($injections);
         $treatments=Treatment::where('patient_id',$patient_id)->where('gc_level','!=',null)->get();
        /* $treatmentdrugs= $treatments->medicines()

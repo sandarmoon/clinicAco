@@ -328,6 +328,8 @@ class MedicineController extends Controller
         // dd($id);
         $dateS = Carbon::now()->startOfMonth();
         $dateE = Carbon::now()->endofMonth(); 
+        // $dateS='2020-09-01';
+        // $dateE='2020-09-30';
 
          $usemed=[];
          $data_treat=[];
@@ -367,6 +369,7 @@ class MedicineController extends Controller
              ksort($grouped);
             
 
+
           foreach($grouped as $i=>$v){
              $total=0;
             foreach ($v as $k => $val) {
@@ -378,7 +381,7 @@ class MedicineController extends Controller
             }
          }
 
-           // dd($data_treat);
+            // dd($data_treat);
            // ======== ======== ======== ======== ======== ========
        
         // monthlyStock
@@ -407,7 +410,7 @@ class MedicineController extends Controller
                  $month_stock[$i]=$total;
                 }
              }
-               // dd($month_stock);
+                // dd($month_stock);
 
             // ================================================================
              
@@ -434,36 +437,39 @@ class MedicineController extends Controller
                     //     }
                     //  }
 
-                     // dd($month_stock);
+                      // dd($monthlymedicine);
 
             // ================================================================
                     // total remain stock 
                      $remain_total_stock=[];
+
+
+
                       foreach($month_stock as $k=>$m){
                 // dd($m);
-                        foreach($monthlymedicine as $i=>$v){
+                        if(empty($monthlymedicines)){
+                            foreach($monthlymedicine as $i=>$v){
+                                if($k==$v->medicine_id){
 
-
-
-                            if($k==$v->medicine_id){
-
-                                $remain_total_stock[$k]=$m+$v->qty;
-                                break;
-                            }
-                            else{
-                                 $remain_total_stock[$k]=$m+$v->qty;
-                            }
+                                    $remain_total_stock[$k]=$m+$v->qty;
+                                    break;
+                                }
+                                else{
+                                     $remain_total_stock[$k]=$m+$v->qty;
+                                }
+                                    
+                                     $remain_total_stock[$k]=$m;
+                                   
                                 
-                                 $remain_total_stock[$k]=$m;
-                               
-                            
+                            }
                         }
+                         $remain_total_stock[$k]=$m;
                      }
-                  
+                    // dd($remain_total_stock);
             // ================================================================
                   $final_data=[];  
 
-                  // dd($remain_total_stock);
+                 
 
              foreach($remain_total_stock as $k=>$m){
                 // dd($m);

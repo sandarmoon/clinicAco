@@ -65,6 +65,7 @@
                     
                         <button class="btn btn-primary btn-sm btn-create  float-right ">Create New</button>
                         <button class="btn btn-primary btn-sm btn-list float-right mr-2">Back to List</button>
+                        <button class="btn btn-primary btn-sm btn-monthly_list float-right mr-2">Monthly Medicine List</button>
                         
                    
                   </div>
@@ -327,20 +328,56 @@
                 </div>
                 <!-- end here -->
 
-                <!-- start table list n-->
-                <div class="row p-3" id="mtable" >
+                 <div class="d-none" id="monthMdiv" >
+                 <!-- start table list n-->
+              
                   
                         <!-- Card header -->
                         
                         <!-- Light table -->
                         <div class="table-responsive p-4">
-                          <table class="table align-items-center table-flush" id="medicineTable">
+                          <table class="table align-items-center" id="mmtable">
                             <thead class="thead-light">
                               <tr>
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Type</th>
-                                
+                                <th>Chemical Things</th>
+                                <th>Phar</th>
+                                <th>bu</th>
+                                <th>card</th>
+                                <th>tab</th>
+                                <th>Qty</th>
+                                <th>In Unit</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- Card footer -->
+                        
+                     
+  
+                
+              </div>
+                <!-- end here -->
+
+                <!-- start table list n-->
+                <div class=" p-3" id="mtable" >
+              
+                  
+                        <!-- Card header -->
+                        
+                        <!-- Light table -->
+                        <div class="table-responsive p-4">
+                          <table class="table align-items-center " id="medicineTable">
+                            <thead class="thead-light">
+                              <tr>
+                                <th>No</th>
+                                <th>Name</th>
+                                <th>Type</th>
                                 <th>Chemical Things</th>
                                 <th>Actions</th>
                               </tr>
@@ -354,8 +391,12 @@
                         
                      
   
-                </div>
+              
                 <!-- end here -->
+              </div>
+
+
+             
 
                 <!-- editing medincin -->
                   <div class="row p-3 d-none" id="Editing" >
@@ -464,16 +505,28 @@
 <script>
   $(document).ready(function(){
     $('.btn-create').click(function(){
+
+      $(this).addClass('btn-success');
+      $('.btn-list').removeClass('btn-success');
+      $('.btn-monthly_list').removeClass('btn-success');
+
       $('#creating').removeClass('d-none');
       $('#searching').addClass('d-none');
       $('#mtable').addClass('d-none');
+      $('#monthMdiv').addClass('d-none');
 
     })
 
     $('.btn-list').click(function(){
+      $('.btn-create').removeClass('btn-success');
+      $(this).addClass('btn-success');
+      
+      $('.btn-monthly_list').removeClass('btn-success');
+
       $('#creating').addClass('d-none');
       $('#searching').addClass('d-none');
       $('#mtable').removeClass('d-none');
+      $('#monthMdiv').addClass('d-none');
 
     })
 
@@ -491,6 +544,7 @@
           }
       });
     // showing table start
+    getMonthlyStock();
    getData();
     function getData(){
           var i=1;
@@ -567,6 +621,7 @@
             $('#searching').removeClass('d-none');
             $('#creating').addClass('d-none');
             $('#mtable').addClass('d-none');
+            $('#monthMdiv').addClass('d-none');
              $('.medNameinfo').html(ui.item.data.name);
              $('.medName').html(ui.item.data.name);
             $('.medType').html(ui.item.data.medicinetype.name);
@@ -879,6 +934,220 @@
         })
 
          // ===========================================================================
+
+         // monthlystock starthere
+         monthlystock();
+         function monthlystock(){
+           var date = new Date(), y = date.getFullYear(), m = date.getMonth();
+          // console.log(isLastDay(y,m,date.getDate()));
+
+          // if(isLastDay(2020,9,31)){
+
+          if(isLastDay(y,m,date.getDate())){
+            $.get('/monthlyStock',function(response){
+              console.log(response);
+            })
+          }else{
+            console.log('not yet');
+          }
+
+         }
+
+         function isLastDay(y, m, d)
+          {
+              var d1 = (m < 11) ? new Date(y, m + 1, 0) : new Date(y, 0, 0);
+              // console.log(d1);
+              var d2 = new Date(y, m, d);
+              // var d2 = new Date(2020, 9, 31);
+              // console.log(d2);
+              return (d1.getTime() === d2.getTime());
+          }
+          // ===========================================================================
+
+          $('.btn-monthly_list').click(function(){
+            // alert('heo');
+
+            $('.btn-create').removeClass('btn-success');
+      $('.btn-list').removeClass('btn-success');
+      
+      $(this).addClass('btn-success');
+
+
+            $('#creating').addClass('d-none');
+            $('#searching').addClass('d-none');
+            $('#mtable').addClass('d-none');
+            $('#monthMdiv').removeClass('d-none');
+          })
+
+
+           
+
+          function getMonthlyStock(){
+               $('#mmtable').DataTable({
+                  "processing": true,
+                  destroy:true,
+                  "sort":true,
+                  pagingType: 'full_numbers',
+                   pageLength: 5,
+                   language: {
+                     oPaginate: {
+                       sNext: '<i class="fa fa-forward"></i>',
+                       sPrevious: '<i class="fa fa-backward"></i>',
+                       sFirst: '<i class="fa fa-step-backward"></i>',
+                       sLast: '<i class="fa fa-step-forward"></i>'
+                       }
+                     } ,
+                     "serverSide": true,
+                     "stateSave": true,  //restore table state on page reload,
+                   "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
+                  "ajax": "<?php echo e(route('getm')); ?>",
+                  "columns":[
+
+                       {"data":'DT_RowIndex'},
+
+                      { "data": "medicine" },
+
+                      { "data": "type"
+                      } ,
+
+                      { "data": "chemical"
+                      } ,
+                      { "data": "phar"
+                      } ,
+                      { "data": "bu"
+                      } ,
+                      { "data": "card"
+                      } ,
+                      { "data": "tab"
+                      } ,
+                      { "data": "qty"
+                      } ,
+                      {
+                        data:function(data){
+                          let phar=data.phar;
+                          let bu=data.bu;
+                          let card=data.card;
+                          let tab=data.tab;
+                          let qty=data.qty;
+                          let r=0;
+
+
+
+                           if(phar==null){
+                            phar=1;
+                           }
+
+                            if(bu==null){
+                            bu=1;
+                           }
+
+                            if(card==null){
+                            card=1;
+                           }
+
+                           //  if(phar!=null){
+                           //  phar=0;
+                           // }
+
+
+                          let  tp=(phar * (bu*(tab*card)));
+
+                          let  tb=(bu*(tab*card));
+
+                          let  tc=(tab*card);
+
+                          let  tt=tab;
+                          let remain=0;
+
+                            if(qty > tp){
+
+                                phar=Math.floor(qty / tp);
+                                remain= qty% tp;
+
+                                if(remain > tb){
+
+                                  bu=Math.floor(qty / tb);
+                                  remain= qty% tb;
+
+                                  if(remain > tc ){
+                                     card=Math.floor(qty / tc);
+                                      tab= qty% tc;
+                                  }else{
+                                      card=0;
+                                      tab=remain;
+                                  }
+
+                                }else if(remain > tc){
+                                  bu=0;
+                                   card=Math.floor(qty / tc);
+                                    tab= qty% tc;
+
+                                }else{
+                                  bu=0;card=0;
+                                  tab=remain;
+
+                                }
+
+                                
+
+
+                            }else if(qty > tb){
+                              phar=0;
+                               bu=Math.floor(qty / tb);
+                                remain= qty% tb;
+
+                                if(remain > tc ){
+                                     card=Math.floor(qty / tc);
+                                      tab= qty% tc;
+                                  }else{
+                                      card=0;
+                                      tab=remain;
+                                  }
+
+
+                            }else if(qty > tc){
+                              phar=0;
+                              bu=0;
+                              card=Math.floor(qty / tc);
+                              tab= qty% tc;
+
+                            }else{
+                              phar=0;bu=0;card=0;
+                               tab=qty;
+                            }
+
+                            // console.log(phar,bu,card,tab);
+
+                            // return `${phar ?}:phar, ${bu}:bu, <br/>
+                            //         ${card}:card, ${tab}:tab`;
+                            var html='';
+
+                             html+= (phar==0) ? '': phar+":phar,"; 
+                             html+= (bu==0) ? '': bu+":bu,"; 
+                             html+= (card==0) ? '': card+":card,"; 
+                             html+= tab+':tab';
+
+                             return html;
+
+                          // }
+
+
+
+                          
+                        }
+                      }
+
+                     
+                  ],
+                  "info":false
+                  
+               });
+          }
+
+
+          // function phar(v1,v2){
+          //   return Math.floor(v1/v2);
+          // }
 
   })
 </script>

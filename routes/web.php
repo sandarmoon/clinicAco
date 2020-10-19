@@ -177,7 +177,7 @@ Route::get('/med','MedicineController@medicineCreateByOwner')->name('medName');
 Route::get('/getmed','MedicineController@getmed')->name('getmed');
 Route::post('/ss','MedicineController@stockStore')->name('stock.store');
 
-Route::get('/getm','MedicineController@getMeds');
+Route::get('/getm','MedicineController@getMeds')->name('getm');
 
 Route::get('/monthlyStock','MedicineController@monthlyStock');
 

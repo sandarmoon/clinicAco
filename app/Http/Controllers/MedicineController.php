@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Medicine;
 use App\Medicinetype;
 use App\Treatment;
+use App\Monthlymedicine;
 use App\Stock;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\MedicineResource;
@@ -249,9 +250,9 @@ class MedicineController extends Controller
         $id=Auth::user()->owners[0]->id;
         // dd($id);
 
-        $dateS = Carbon::now()->startOfMonth();
-        $dateE = Carbon::now(); 
-        // dd($dateE);
+        $dateS = Carbon::now()->subMonth()->startOfMonth();
+        $dateE = Carbon::now()->subMonth()->endofMonth(); 
+        // dd($dateS);
         // dd($id);
 
         // $medicines=Stock::where('owner_id','=',$id)
@@ -266,37 +267,60 @@ class MedicineController extends Controller
         
         ->whereBetween('created_at',array($dateS,$dateE))
         
-        ->orderBy('medicine_id')
+        ->orderBy('id','desc')
         ->get();
 
-        dd($medicines);
+         // dd($medicines);
+        $unit_data=[];
+         $collection=collect($medicines);
 
-        // $med2=Stock::
-        // whereHas('medicine',function($q) use ($id){
-        //         $q->where('owner_id','=',$id);
-        //     })->with('medicine.medicinetype')
+         $collection=$collection->groupBy('medicine_id')->toArray();
+         foreach ($collection as $k=>$value) {
+             foreach ($value as $key => $v) {
+                if($key==0){
+                    $unit_data[$k]=$v;
+                    break;
+                }
+             }
+         }
+         ksort($unit_data);
+         // dd($unit_data);
+         $final_unit_data=[];
+         $final_array=[];
+          $lastMonthDay= date('Y-m-d', strtotime('last day of previous month')); 
+        $monthlymedicines=Monthlymedicine::
+        // with('medicine')
+                    whereDate('emdate',$lastMonthDay)
+                    ->get();
 
-        // ->whereBetween('created_at',array($dateS,$dateE))
-        // ->get();
-//         ->groupBy('medicine_id')
-//        -> map(function ($row) {
-//     return $row->sum('n');
-// });
+                      // dd($monthlymedicines);
 
-        
-        
-          // dd($medicines);
+                    foreach ($monthlymedicines as $key => $value) {
+                        // dd($value->medicine_id);
+                       foreach ($unit_data as $k => $v) {
+                            if($value->medicine_id == $v['medicine_id']){
+                                $final_unit_data['medicine']=$value->medicine->name;
+                                $final_unit_data['medicine_id']=$value->medicine_id;
+                                $final_unit_data['type']=$value->medicine->medicinetype->name;
+                                $final_unit_data['chemical']=$value->medicine->chemical;
+                                $final_unit_data['date']=$value->emdate;
+                                $final_unit_data['qty']=$value->qty;
+                                $final_unit_data['phar']=$v['unit1'];
+                                $final_unit_data['bu']=$v['unit2'];
+                                $final_unit_data['card']=$v['unit3'];
+                                $final_unit_data['tab']=$v['unit4'];
+                                // dd($final_unit_data);
+                                array_push($final_array, $final_unit_data);
+                                break;
+                            }
+                            continue;
+                       }
+                    }
 
-        // $data=collect($med2);
-        //  $data=$data->groupBy(['medicine_id'])
-        //            -> map(function ($row) {
-        //         return $row->sum('qty');
-        //     })->toArray();
-        //  dd($data);
 
-        // $all=MedicineResource::collection($medicines);
-
-        return Datatables::of($medicines)->addIndexColumn()->toJson();
+                    
+                    // dd($final_array);
+         return Datatables::of($final_array)->addIndexColumn()->toJson();
     }
 
     public function monthlyStock(){
@@ -354,7 +378,7 @@ class MedicineController extends Controller
             }
          }
 
-          // dd($data_treat);
+           // dd($data_treat);
            // ======== ======== ======== ======== ======== ========
        
         // monthlyStock
@@ -383,9 +407,91 @@ class MedicineController extends Controller
                  $month_stock[$i]=$total;
                 }
              }
-             dd($month_stock);
+               // dd($month_stock);
 
-                
+            // ================================================================
+             
+            $lastMonthDay= date('Y-m-d', strtotime('last day of previous month')); 
+            // dd($lastMonthDay);
+
+            $remain_stock=[];
+
+            $monthlymedicine=Monthlymedicine::whereDate('emdate',$lastMonthDay)
+                    ->get();
+
+                    // $data=collect($monthlymedicine);
+                    // $data=$data->groupBy('medicine_id')->toArray();
+                   
+
+                    // foreach($data as $i=>$v){
+                    //  $total=0;
+                    // foreach ($v as $k => $val) {
+
+                    //     // dd($val['qty']);
+                    //     $total+=$val['qty'];
+
+                    //      $remain_stock[$i]=$total;
+                    //     }
+                    //  }
+
+                     // dd($month_stock);
+
+            // ================================================================
+                    // total remain stock 
+                     $remain_total_stock=[];
+                      foreach($month_stock as $k=>$m){
+                // dd($m);
+                        foreach($monthlymedicine as $i=>$v){
+
+
+
+                            if($k==$v->medicine_id){
+
+                                $remain_total_stock[$k]=$m+$v->qty;
+                                break;
+                            }
+                            else{
+                                 $remain_total_stock[$k]=$m+$v->qty;
+                            }
+                                
+                                 $remain_total_stock[$k]=$m;
+                               
+                            
+                        }
+                     }
+                  
+            // ================================================================
+                  $final_data=[];  
+
+                  // dd($remain_total_stock);
+
+             foreach($remain_total_stock as $k=>$m){
+                // dd($m);
+                foreach($data_treat as $i=>$v){
+
+                    if($k==$i){
+
+                        $final_data[$k]=$m-$v;
+                        break;
+                    }
+                        
+                        $final_data[$k]=$m;
+                       
+                    
+                }
+             }
+             // dd($final_data);
+
+             foreach ($final_data as $key => $value) {
+                 Monthlymedicine::create([
+                    'medicine_id'=>$key,
+                    'emdate'=>$dateE,
+                    'qty'=>$value
+                 ]);
+             }
+
+            
+            return response()->json(['success'=>'successfully added!']);
 
 
 

@@ -1,0 +1,873 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"com",
+				"commentId"
+			],
+			[
+				"post",
+				"postId"
+			],
+			[
+				"thea",
+				"thead-dark \tBootstrap 4.4"
+			],
+			[
+				"d-in",
+				"d-inline-block \tBootstrap 4 Class"
+			],
+			[
+				"font-s",
+				"font-style\tproperty"
+			],
+			[
+				"li",
+				"link\tTag"
+			],
+			[
+				"num",
+				"num2"
+			],
+			[
+				"nu",
+				"num1"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			],
+			[
+				"con",
+				"conditionals"
+			],
+			[
+				"l",
+				"length"
+			],
+			[
+				"to",
+				"totalGrouping"
+			],
+			[
+				"s",
+				"something"
+			],
+			[
+				"ty",
+				"typeof"
+			],
+			[
+				"form",
+				"form-control \tBootstrap 4 Class"
+			],
+			[
+				"get",
+				"getAllItem"
+			],
+			[
+				"S",
+				"Stock"
+			],
+			[
+				"item",
+				"itemId"
+			],
+			[
+				"in",
+				"input\tTag"
+			],
+			[
+				"va",
+				"value"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"re",
+				"request"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"add",
+				"addTo"
+			],
+			[
+				"set",
+				"setLngLat"
+			],
+			[
+				"make",
+				"marker"
+			],
+			[
+				"lng",
+				"lngLat"
+			],
+			[
+				"array",
+				"array"
+			],
+			[
+				"dat",
+				"dataArray"
+			],
+			[
+				"ba",
+				"backend"
+			],
+			[
+				"show",
+				"showmodal"
+			],
+			[
+				"th",
+				"th\tTag"
+			],
+			[
+				"js",
+				"jsobj2"
+			],
+			[
+				"str",
+				"stringify"
+			],
+			[
+				"la",
+				"lastTaxAmount"
+			],
+			[
+				"ta",
+				"taxableIncome"
+			],
+			[
+				"par",
+				"parentRelief"
+			],
+			[
+				"year",
+				"yearlySalary"
+			],
+			[
+				"tax",
+				"taxTable"
+			],
+			[
+				"mo",
+				"monthlySalaryValue"
+			],
+			[
+				"chi",
+				"childRelief"
+			],
+			[
+				"mon",
+				"monthlySalary"
+			],
+			[
+				"per",
+				"personalRelief"
+			],
+			[
+				"yea",
+				"yearlySalary"
+			],
+			[
+				"ch",
+				"children"
+			],
+			[
+				"pa",
+				"parentRelief"
+			],
+			[
+				"ye",
+				"yearlyIncome"
+			],
+			[
+				"fa",
+				"fatherCheck"
+			],
+			[
+				"Ca",
+				"calculate"
+			],
+			[
+				"mt",
+				"mt-3 \tBootstrap 4 Class"
+			],
+			[
+				"my",
+				"my-3 \tBootstrap 4 Class"
+			],
+			[
+				"mx",
+				"mx-3 \tBootstrap 4 Class"
+			],
+			[
+				"btn-d",
+				"btn-dark \tBootstrap 4 Class"
+			],
+			[
+				"btn-s",
+				"btn-sm \tBootstrap 4 Class"
+			],
+			[
+				"a",
+				"apiClient"
+			],
+			[
+				"st",
+				"students"
+			],
+			[
+				"t",
+				"tbody"
+			],
+			[
+				"text-a",
+				"text-align\tproperty"
+			],
+			[
+				"wi",
+				"width\tproperty"
+			],
+			[
+				"json",
+				"jsonData"
+			],
+			[
+				"c",
+				"console"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"ge",
+				"gender"
+			],
+			[
+				"route",
+				"router"
+			],
+			[
+				"text",
+				"text-danger \tBootstrap 4 Class"
+			],
+			[
+				"d",
+				"div\tTag"
+			],
+			[
+				"jus",
+				"justify-content-center \tBootstrap 4 Class"
+			],
+			[
+				"mb",
+				"mb-3 \tBootstrap 4 Class"
+			],
+			[
+				"align-it",
+				"align-items-center \tBootstrap 4 Class"
+			],
+			[
+				"p",
+				"p-5 \tBootstrap 4 Class"
+			],
+			[
+				"my-",
+				"my-3 \tBootstrap 4 Class"
+			],
+			[
+				"ro",
+				"row \tBootstrap 4 Class"
+			],
+			[
+				"pl",
+				"pl-0 \tBootstrap 4 Class"
+			],
+			[
+				"bg-w",
+				"bg-white \tBootstrap 4 Class"
+			],
+			[
+				"text-d",
+				"text-decoration-none \tBootstrap 4.4"
+			],
+			[
+				"bord",
+				"border-top \tBootstrap 4.4"
+			],
+			[
+				"px",
+				"px-3 \tBootstrap 4 Class"
+			],
+			[
+				"border-r",
+				"border-right-0 \tBootstrap 4 Class"
+			],
+			[
+				"bor",
+				"border-0 \tBootstrap 4 Class"
+			],
+			[
+				"ml",
+				"ml-5 \tBootstrap 4 Class"
+			],
+			[
+				"po",
+				"popular11"
+			],
+			[
+				"p-",
+				"p-2 \tBootstrap 4 Class"
+			],
+			[
+				"mr",
+				"mr-2 \tBootstrap 4 Class"
+			],
+			[
+				"fon",
+				"font-weight-normal \tBootstrap 4 Class"
+			],
+			[
+				"text-da",
+				"text-dark \tBootstrap 4 Class"
+			],
+			[
+				"mar",
+				"margin-top\tproperty"
+			],
+			[
+				"fix",
+				"fixed-top \tBootstrap 4.4"
+			],
+			[
+				"sho",
+				"shadow-sm \tBootstrap 4.4"
+			],
+			[
+				"tag",
+				"tag_id"
+			],
+			[
+				"ca",
+				"category_id"
+			],
+			[
+				"Po",
+				"PostResource"
+			],
+			[
+				"Cate",
+				"CategoryResource"
+			],
+			[
+				"CAte",
+				"CategoryResource"
+			],
+			[
+				"em",
+				"email"
+			],
+			[
+				"edi",
+				"editors"
+			],
+			[
+				"sta",
+				"satff_name"
+			],
+			[
+				"sa",
+				"salary"
+			],
+			[
+				"o_",
+				"o_bonus"
+			],
+			[
+				"na",
+				"name"
+			],
+			[
+				"de",
+				"dedution"
+			],
+			[
+				"staff",
+				"staff_id"
+			],
+			[
+				"pos",
+				"position"
+			],
+			[
+				"Re",
+				"Request"
+			],
+			[
+				"op",
+				"option\tTag"
+			],
+			[
+				"se",
+				"select\tTag"
+			],
+			[
+				"card",
+				"card-img \tBootstrap 4 Class"
+			],
+			[
+				"pu",
+				"public"
+			],
+			[
+				"r",
+				"row \tBootstrap 4 Class"
+			],
+			[
+				"padd",
+				"padding-right\tproperty"
+			],
+			[
+				"pro",
+				"project"
+			],
+			[
+				"tra",
+				"transitionName"
+			],
+			[
+				"lgo",
+				"logo"
+			],
+			[
+				"al",
+				"alt\tAttr"
+			],
+			[
+				"ac",
+				"action\tAttr"
+			],
+			[
+				"marg",
+				"margin-bottom\tproperty"
+			],
+			[
+				"fl",
+				"float\tproperty"
+			],
+			[
+				"margin",
+				"margin-bottom\tproperty"
+			],
+			[
+				"wd",
+				"width\tproperty"
+			],
+			[
+				"w",
+				"w-25 \tBootstrap 4 Class"
+			],
+			[
+				"dis",
+				"display-1 \tBootstrap 4 Class"
+			],
+			[
+				"fi",
+				"filePath"
+			],
+			[
+				"pad",
+				"padding\tproperty"
+			],
+			[
+				"vi",
+				"video"
+			],
+			[
+				"ite",
+				"itemId"
+			],
+			[
+				"Item",
+				"ItemResource"
+			],
+			[
+				"ITe",
+				"ItemResource"
+			],
+			[
+				"C",
+				"Category"
+			],
+			[
+				"CA",
+				"CategoryResource"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"pa",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"re",
+				"Package Control: Remove Package"
+			],
+			[
+				"paca",
+				"Package Control: Install Package"
+			],
+			[
+				"",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 192.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '6f4c264a24d933ce70df5dedcf1dcaee' + 'ebe013ee18cced0ef93d5f746d80ef60'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Applications/XAMPP/xamppfiles/htdocs/NewGP/database/seeds/DatabaseSeeder.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/NewGP/.editorconfig",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/TestingController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Subcategory.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/VideoController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/welcome.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/BackendController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/.env",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Brand.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mkn/resources/views/dealers/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/mkn/resources/views/layouts/app.blade.php",
+		"/Users/thetpainghtut/Downloads/betterways/docs/dashboard.html",
+		"/Users/thetpainghtut/Downloads/betterways/docs/reject_list.html",
+		"/Users/thetpainghtut/Downloads/betterways/docs/css/custom.css",
+		"/Users/thetpainghtut/Downloads/betterways/docs/table-basic.html",
+		"/Users/thetpainghtut/Downloads/betterways/docs/bootstrap-components.html",
+		"/Users/thetpainghtut/Downloads/betterways/color_codes.txt",
+		"/Users/thetpainghtut/Downloads/betterways/docs/blank-page.html",
+		"/Users/thetpainghtut/Downloads/betterways/docs/page-login.html",
+		"/Users/thetpainghtut/Downloads/betterways/docs/css/main.css",
+		"/Users/thetpainghtut/Desktop/mmit/jpbatch4/js/guessing_game.html",
+		"/Users/thetpainghtut/Desktop/mmit/jpbatch4/js/working_with_let_const.html",
+		"/Users/thetpainghtut/Desktop/mmit/jpbatch4/js/learn.html",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/database/seeds/StaffsTableSeeder.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/.gitignore",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/email_show_data.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/resetpassword.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/template.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/welcome.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/home.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Mail/SendMail.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/.env",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Mail/ForgetMail.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Console/Commands/ReportCommand.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/config/mail.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/frontend/blogdetail.blade.php",
+		"/Users/thetpainghtut/Desktop/mmit/jpbatch4/js/custom.js",
+		"/Users/thetpainghtut/Desktop/vue/jp_batch2/project_presentation.txt",
+		"/Users/thetpainghtut/Desktop/vue/jp_batch2/gp.txt",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/brands/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/View/Components/BrandComponent.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/components/brand-component.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/database/migrations/2020_09_16_194716_create_lessons_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/database/seeds/LessonSeeder.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/Auth/LoginController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/panel/takequizz.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/database/migrations/2020_09_19_222422_create_lesson_student_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/ProjecttypeController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/BackendController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/BrandController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/routes/web.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/SaleController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/StockController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backendtemplate.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Stock.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/sales/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/items/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Item.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/stocks/create.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/stocks/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/ItemController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/database/migrations/2020_10_08_114836_create_stocks_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/database/migrations/2020_08_25_051652_create_items_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Post.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/composer.lock",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/routes/web.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/students/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/students/show.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/panel/video.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/lessons/video.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/public/mmitui/css/custom.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Subject.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/StudentController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Batch.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/LessonController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/MapController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/maps/create.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/maps/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/database/migrations/2020_10_07_160713_create_maps_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Map.php",
+		"/Users/thetpainghtut/Desktop/vue/jp_batch2/db_structure.txt",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/posts/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/app/Http/Controllers/PostController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/posts/show.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/resources/views/backend/posts/create.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/os_batch_17/database/migrations/2020_10_06_071111_create_posts_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/composer.json",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Exceptions/Handler.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/config/session.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/config/app.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/public/mmitui/vendor/custom.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/public/mmitui/vendor/photogrid/images-grid.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/panel/takelesson.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/PostController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/lessons/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/inquires/create.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/backend/creategroup.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/GradingController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/groups/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/GroupController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/InquireController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/inquires/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/public/js/custom.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/PanelController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/panel/dashboard.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/auth/login.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/frontend/index.blade.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Providers/AppServiceProvider.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Controllers/FrontendController.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Post.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Lesson.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Inquire.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Teacher.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Student.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Projecttype.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Course.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/config/broadcasting.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Http/Kernel.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/database/migrations/2020_01_15_084648_create_students_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/database/migrations/2020_01_15_077778_create_inquires_table.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/app/Console/Kernel.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/trainings.myanmaritc.com/resources/views/backendtemplate.blade.php",
+		"/Users/thetpainghtut/Desktop/batch18/js/bmi.html",
+		"/Users/thetpainghtut/Desktop/batch18/js/custom.js",
+		"/Users/thetpainghtut/Desktop/batch18/js/dateobject.html",
+		"/Users/thetpainghtut/Desktop/batch18/js/discuss.html",
+		"/Users/thetpainghtut/Desktop/batch18/js/dom.html",
+		"/Users/thetpainghtut/Desktop/batch18/js/sumofnumbers.html"
+	],
+	"find":
+	{
+		"height": 42.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 42.0
+	},
+	"input":
+	{
+		"height": 78.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "webpack.mix.sublime-project",
+	"replace":
+	{
+		"height": 80.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"Laravel\\Fortify\\Http\\Controllers\\AuthenticatedSessionController",
+				"vendor/laravel/fortify/src/Http/Controllers/AuthenticatedSessionController.php"
+			],
+			[
+				"web.php",
+				"routes/web.php"
+			],
+			[
+				"UploadedFile.php",
+				"vendor/symfony/http-foundation/File/UploadedFile.php"
+			],
+			[
+				"select2-bootstrap4",
+				"node_modules/@ttskch/select2-bootstrap4-theme/dist/select2-bootstrap4.css"
+			],
+			[
+				"AccessTokenController",
+				"vendor/laravel/passport/src/Http/Controllers/AccessTokenController.php"
+			],
+			[
+				"Client",
+				"vendor/laravel/passport/src/Client.php"
+			],
+			[
+				"Acc",
+				"vendor/laravel/passport/src/Http/Controllers/AccessTokenController.php"
+			],
+			[
+				"role",
+				"vendor/spatie/laravel-permission/src/Models/Role.php"
+			],
+			[
+				"validation.php",
+				"resources/lang/en/validation.php"
+			],
+			[
+				"email.blade.php",
+				"vendor/laravel/framework/src/Illuminate/Notifications/resources/views/email.blade.php"
+			],
+			[
+				"ResetPassword",
+				"vendor/laravel/framework/src/Illuminate/Auth/Notifications/ResetPassword.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 339.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

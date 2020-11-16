@@ -1,5 +1,4 @@
-@extends('frontendTemplate')
-@section('style')
+<?php $__env->startSection('style'); ?>
 <style type="text/css">
   .parent {
   position: relative;
@@ -40,9 +39,9 @@ div.dataTables_wrapper div.dataTables_filter input {
 
 </style>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@php 
+<?php 
 $treatmentcount=0;
 $appointmentcount=0;
 $doctorcount=0;
@@ -61,9 +60,9 @@ foreach($survey as $a){
 
 
 
-@endphp
+?>
 
-@section('add')
+<?php $__env->startSection('add'); ?>
 	<div class="row">
         <div class="col-xl-3 col-lg-6">
           <div class="card card-stats mb-4 mb-xl-0">
@@ -71,7 +70,7 @@ foreach($survey as $a){
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Clinic</h5>
-                  <span class="h2 font-weight-bold mb-0">{{$clinic}}</span>
+                  <span class="h2 font-weight-bold mb-0"><?php echo e($clinic); ?></span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -92,7 +91,7 @@ foreach($survey as $a){
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Doctor</h5>
-                  <span class="h2 font-weight-bold mb-0">{{$doctorcount}}</span>
+                  <span class="h2 font-weight-bold mb-0"><?php echo e($doctorcount); ?></span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -113,7 +112,7 @@ foreach($survey as $a){
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Reception</h5>
-                  <span class="h2 font-weight-bold mb-0">{{$receptioncount}}</span>
+                  <span class="h2 font-weight-bold mb-0"><?php echo e($receptioncount); ?></span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -134,7 +133,7 @@ foreach($survey as $a){
               <div class="row">
                 <div class="col">
                   <h5 class="card-title text-uppercase text-muted mb-0">Treatment</h5>
-                  <span class="h2 font-weight-bold mb-0">{{$treatmentcount}}</span>
+                  <span class="h2 font-weight-bold mb-0"><?php echo e($treatmentcount); ?></span>
                 </div>
                 <div class="col-auto">
                   <div class="icon icon-shape bg-info text-white rounded-circle shadow">
@@ -150,8 +149,8 @@ foreach($survey as $a){
           </div>
         </div>
       </div>
-@endsection
-@section('content')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
 	<div class=" mt-5 p-2">
        <div class="col-xl-12 row card-deck">
            <!-- <div class="col-xl-6 mb-5 mb-xl-0"> -->
@@ -160,7 +159,7 @@ foreach($survey as $a){
                 <div class="card-header border-0">
                   <div class="row align-items-center">
                     <div class="col">
-                      <a href="{{route('appointpatient')}}" class="btn btn-sm btn-danger float-right">see all</a>
+                      <a href="<?php echo e(route('appointpatient')); ?>" class="btn btn-sm btn-danger float-right">see all</a>
                       <h3 class="mb-0">Today Patient list</h3>
                      
                     </div>
@@ -184,18 +183,18 @@ foreach($survey as $a){
                       </tr>
                     </thead>
                     <tbody>
-                     @foreach($survey as $s)
-                       @foreach($s->doctors as $t)
-                          @foreach($t->treatments as $treatment)
+                     <?php $__currentLoopData = $survey; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                       <?php $__currentLoopData = $s->doctors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                          <?php $__currentLoopData = $t->treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                           <tr>
-                            <td>{{$treatment->patient->name}}</td>
-                            <td>{{$treatment->patient->PRN}}</td>
-                            <td>{{$treatment->doctor->user->name}}</td>
-                            <td>{{$treatment->doctor->owner->clinic_name}}</td>
+                            <td><?php echo e($treatment->patient->name); ?></td>
+                            <td><?php echo e($treatment->patient->PRN); ?></td>
+                            <td><?php echo e($treatment->doctor->user->name); ?></td>
+                            <td><?php echo e($treatment->doctor->owner->clinic_name); ?></td>
                           </tr>
-                          @endforeach
-                        @endforeach
-                      @endforeach
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                   </table>
                 </div>
@@ -236,19 +235,19 @@ foreach($survey as $a){
                     <tbody >
 
                  
-                     @foreach($survey as $s)
+                     <?php $__currentLoopData = $survey; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                        
-                          @foreach($s->treatments as $treatment)
+                          <?php $__currentLoopData = $s->treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                           <tr>
-                            <td>{{$treatment->patient->name}}</td>
-                            <td>{{$treatment->patient->PRN}}</td>
-                            <td>{{$treatment->doctor->user->name}}</td>
-                            <td>{{$treatment->doctor->owner->clinic_name}}</td>
-                             <td><a class="btn btn-info btn-sm" href="{{route('treatment.show',$treatment->patient_id)}}">Detail</a></td>
+                            <td><?php echo e($treatment->patient->name); ?></td>
+                            <td><?php echo e($treatment->patient->PRN); ?></td>
+                            <td><?php echo e($treatment->doctor->user->name); ?></td>
+                            <td><?php echo e($treatment->doctor->owner->clinic_name); ?></td>
+                             <td><a class="btn btn-info btn-sm" href="<?php echo e(route('treatment.show',$treatment->patient_id)); ?>">Detail</a></td>
                           </tr>
-                          @endforeach
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         
-                      @endforeach
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     
                     
                       
@@ -267,7 +266,7 @@ foreach($survey as $a){
                 <div class="card-header border-0">
                   <div class="row align-items-center">
                     <div class="col">
-                      <a href="{{route('patient.index')}}" class="btn btn-sm btn-danger float-right">see all</a>
+                      <a href="<?php echo e(route('patient.index')); ?>" class="btn btn-sm btn-danger float-right">see all</a>
                       <h3 class="mb-0">Patient list</h3>
                      
                     </div>
@@ -291,18 +290,18 @@ foreach($survey as $a){
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach($survey as $s)
-                       @foreach($s->patients as $treatment)
+                      <?php $__currentLoopData = $survey; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $s): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                       <?php $__currentLoopData = $s->patients; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                           
                           <tr>
-                            <td>{{$treatment->name}}</td>
-                            <td>{{$treatment->PRN}}</td>
-                            <td>{{$treatment->reception->owner->clinic_name}}</td>
+                            <td><?php echo e($treatment->name); ?></td>
+                            <td><?php echo e($treatment->PRN); ?></td>
+                            <td><?php echo e($treatment->reception->owner->clinic_name); ?></td>
                             
                           </tr>
                           
-                        @endforeach
-                      @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                      
                       
                     </tbody>
@@ -364,8 +363,8 @@ foreach($survey as $a){
 
       
 
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
 
 	
@@ -412,7 +411,7 @@ $(document).ready(function(){
                  "serverSide": true,
                  "stateSave": true,  //restore table state on page reload,
               
-              "ajax": "{{route('getMedicine')}}",
+              "ajax": "<?php echo e(route('getMedicine')); ?>",
               "columns":[
 
                    {data:'DT_RowIndex'},
@@ -451,5 +450,7 @@ $(document).ready(function(){
 </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/adminDashboard.blade.php ENDPATH**/ ?>

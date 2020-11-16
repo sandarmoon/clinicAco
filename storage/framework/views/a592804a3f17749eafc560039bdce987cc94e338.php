@@ -514,6 +514,8 @@
       $('#searching').addClass('d-none');
       $('#mtable').addClass('d-none');
       $('#monthMdiv').addClass('d-none');
+      $('#Editing').addClass('d-none');
+
 
     })
 
@@ -527,7 +529,9 @@
       $('#searching').addClass('d-none');
       $('#mtable').removeClass('d-none');
       $('#monthMdiv').addClass('d-none');
-
+      $('#Editing').addClass('d-none');
+      $('#medicineTable').DataTable().ajax.reload();
+     
     })
 
 
@@ -580,8 +584,8 @@
                   } ,
 
                   { "data":function(data){
-                      return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data.medicine.id}" data-name="${data.medicine.name}"><i class="ni ni-settings"></i></button>
-                                <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data.id}"> <i class="ni ni-fat-delete"></i></button>`;
+                      return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data.medicine.id}" data-name="${data.medicine.name}"><i class="ni ni-settings"></i></button>`;
+                                // <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data.id}"> <i class="ni ni-fat-delete"></i></button>
                     }
                    }
               ],
@@ -813,7 +817,8 @@
                     // $( "#medicineType option:selected" ).val('');
                     // chemical=$('#AddMedicineForm input[name="chemical"]').val('');
                     // $('.nav-tabs li a[href="' + $('#nav-two').attr('href') + '"]').trigger('click');
-                   getData();
+                   // getData();
+                  $('#medicineTable').DataTable().ajax().reload();
                       
 
                     
@@ -977,6 +982,7 @@
             $('#searching').addClass('d-none');
             $('#mtable').addClass('d-none');
             $('#monthMdiv').removeClass('d-none');
+            $('#Editing').addClass('d-none');
           })
 
 

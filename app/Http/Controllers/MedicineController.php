@@ -153,28 +153,39 @@ class MedicineController extends Controller
 
     public function getMedicine(){
         
-        $id=Auth::user()->owners[0]->id;
-        // dd($id);
+        $user=Auth::user();
+        if($user->hasRole('Admin')){
 
-        $dateS = Carbon::now()->startOfMonth();
-        $dateE = Carbon::now(); 
-        // dd($dateE);
-        // dd($id);
+             $id=Auth::user()->owners[0]->id;
+                // dd($id);
 
-        // $medicines=Stock::where('owner_id','=',$id)
-        // ->whereBetween('date',array($dateS,$dateE))
-        // ->orderBy('id','DESC')->get();
-        // dd($medi)
+                $dateS = Carbon::now()->startOfMonth();
+                $dateE = Carbon::now(); 
+                // dd($dateE);
+                // dd($id);
 
-        $medicines=Stock::
-        whereHas('medicine',function($q) use ($id){
-                $q->where('owner_id','=',$id);
-            })->with('medicine.medicinetype')
+                // $medicines=Stock::where('owner_id','=',$id)
+                // ->whereBetween('date',array($dateS,$dateE))
+                // ->orderBy('id','DESC')->get();
+                // dd($medi)
 
-        ->whereBetween('created_at',array($dateS,$dateE))
-        
-        ->orderBy('medicine_id')
-        ->get();
+                $medicines=Stock::
+                whereHas('medicine',function($q) use ($id){
+                        $q->where('owner_id','=',$id);
+                    })->with('medicine.medicinetype')
+
+                ->whereBetween('created_at',array($dateS,$dateE))
+                
+                ->orderBy('medicine_id')
+                ->get();
+        }else{
+              $medicines=Medicine::with('medicinetype')
+                ->distinct() 
+                ->orderBy('id')
+                ->get();
+        }
+
+       
 
         // $med2=Stock::
         // whereHas('medicine',function($q) use ($id){

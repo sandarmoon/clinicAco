@@ -1,0 +1,11 @@
+-> Medicine management မှာ 
+  -> ဆေးထည်ရင် medicine name input နှစ်ခုဖြစ်နေတယ်
+  -> medicine update ui ကကျန်နေတယ်
+  -> reception update မှာ modal box ပိတ်မသွားဘူး
+  -> logout လုပ်လိုက်ပြီး patients ကြည့်ရနေတယ်
+  -> Doctor schedule လေးကို အရှင် CRUD လုပ်ပေးရင် ကောင်းမယ် အကိုတို့ကို ပြင်ချင်တိုင်းခေါ်နေမှာစိုး
+  -> Patient ထည့်ရင် တချို့ မထည့်လိုက်တဲ့ ဟာတွေရှိနိုင်တယ် // nullable တွေထားရမယ်
+  -> လူနာအသစ်ဆိုလဲ pnr ထည်ပြီး ပြန်ရှာ add patient လုပ်ပေးမှ incharge ထဲဝင်မှာလား
+  -> upload file တွေကို gitignore လုပ်ပေးပါ
+  -> treatment လုပ်တဲ့နေရာမှာ ဆေးတွေက input number ပေးရမယ်
+  -> 

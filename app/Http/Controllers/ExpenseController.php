@@ -87,11 +87,13 @@ class ExpenseController extends Controller
        }
       // var_dump($expense);
       //   die();
+       $id=Auth::user()->owners[0]->id;
         Expense::create([
             'date'=>request('date'),
             'description'=>request('description'),
             'amount'=>request('amount'),
             'files'=>json_encode($expense),
+            'owner_id'=>$id
         ]);
         echo "successfully";
         
@@ -203,8 +205,8 @@ class ExpenseController extends Controller
              return $item->created_at->format("F:Y");
         })->map
         ->sum('charges');
-
-        $expenses=Expense::orderBy('id','DESC')->get();
+        $id=Auth::user()->owners[0]->id;
+        $expenses=Expense::where('owner_id',$id)->orderBy('id','DESC')->get();
         return response()->json(['expenses'=>$expenses,'report'=>$data]);;
     }
 
@@ -216,8 +218,10 @@ class ExpenseController extends Controller
         ]);
        $startdate=request('startdate');
        $enddate=request('enddate');
-
-       $totalexpense=Expense::whereBetween('date',array($startdate,$enddate))->sum('amount');
+        $id=Auth::user()->owners[0]->id;
+       $totalexpense=Expense::where('owner_id',$id)
+                        ->whereBetween('date',array($startdate,$enddate))
+                        ->sum('amount');
 
        $date_from = Carbon::parse($startdate)->startOfDay();
         $date_to = Carbon::parse($enddate)->endOfDay();

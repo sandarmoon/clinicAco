@@ -181,7 +181,11 @@ Route::get('/getm','MedicineController@getMeds')->name('getm');
 
 Route::get('/monthlyStock','MedicineController@monthlyStock');
 
-
+// =================================================================
+// schedule start
+Route::resource('/schedule','ScheduleController');
+// =================================================================
+// schedule end
 
 
 

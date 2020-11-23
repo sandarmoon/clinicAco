@@ -37,4 +37,16 @@ class Owner extends Model
     public function medicines(){
         return $this->hasMany('App\Medicine');
     }
+
+    //  protected static function boot() 
+    // {
+    //    parent::boot();
+
+    //    static::deleting(function($owner) {
+
+    //     $owner->medicines
+        
+        
+    //    });
+    // }
 }

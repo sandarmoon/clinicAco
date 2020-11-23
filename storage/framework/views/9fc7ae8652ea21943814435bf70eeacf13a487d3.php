@@ -19,17 +19,17 @@
   <meta name="author" content="Creative Tim">
   <title>Gpclinic</title>
   <!-- Favicon -->
-  <link href="{{asset('template/assets/img/brand/favicon.png')}}" rel="icon" type="image/png">
+  <link href="<?php echo e(asset('template/assets/img/brand/favicon.png')); ?>" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
 
   <!-- Icons -->
-  <link href="{{asset('template/assets/js/plugins/nucleo/css/nucleo.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/js/plugins/nucleo/css/nucleo.css')); ?>" rel="stylesheet" />
 
-  <link href="{{asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')); ?>" rel="stylesheet" />
 
   <!-- Argon CSS -->
-  <link rel="stylesheet" href="{{asset('template/assets/css/argon.css?v=1.2.0')}}" type="text/css">
+  <link rel="stylesheet" href="<?php echo e(asset('template/assets/css/argon.css?v=1.2.0')); ?>" type="text/css">
 </head>
 
 <body class="bg-default">
@@ -63,11 +63,11 @@
               <div class="text-muted text-center mt-2 mb-3"><small>Sign in with</small></div>
               <div class="btn-wrapper text-center">
                 <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="{{asset('template/assets/img/icons/common/github.svg')}}"></span>
+                  <span class="btn-inner--icon"><img src="<?php echo e(asset('template/assets/img/icons/common/github.svg')); ?>"></span>
                   <span class="btn-inner--text">Github</span>
                 </a>
                 <a href="#" class="btn btn-neutral btn-icon">
-                  <span class="btn-inner--icon"><img src="{{asset('template/assets/img/icons/common/google.svg')}}"></span>
+                  <span class="btn-inner--icon"><img src="<?php echo e(asset('template/assets/img/icons/common/google.svg')); ?>"></span>
                   <span class="btn-inner--text">Google</span>
                 </a>
               </div>
@@ -76,21 +76,35 @@
               <div class="text-center text-muted mb-4">
                 <small>Sign in with credentials</small>
               </div>
-              <form method="POST" role="form" action="{{ route('login') }}">
-                        @csrf 
+              <form method="POST" role="form" action="<?php echo e(route('login')); ?>">
+                        <?php echo csrf_field(); ?> 
                 <div class="form-group mb-3">
                   <div class="input-group input-group-merge input-group-alternative">
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
                     
-                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                    <input id="email" type="email" class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="email" value="<?php echo e(old('email')); ?>" required autocomplete="email" autofocus>
 
-                                @error('email')
+                                <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong><?php echo e($message); ?></strong>
                                     </span>
-                                @enderror
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                   </div>
                 </div>
                 <div class="form-group">
@@ -99,20 +113,35 @@
                       <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                     </div>
                     
-                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                    <input id="password" type="password" class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="password" required autocomplete="current-password">
 
-                                @error('password')
+                                <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong><?php echo e($message); ?></strong>
                                     </span>
-                                @enderror
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
                   </div>
                 </div>
                 <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                  <input class="form-check-input" type="checkbox" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>>
 
                                     <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
+                                        <?php echo e(__('Remember Me')); ?>
+
                                     </label>
                   
                 </div>
@@ -163,17 +192,17 @@
 </div>
   <!-- Argon Scripts -->
   <!-- Core -->
- <script src="{{asset('template/assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
+ <script src="<?php echo e(asset('template/assets/js/plugins/jquery/dist/jquery.min.js')); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="{{asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')); ?>"></script>
 
-  <script src="{{asset('template/assets/datatables/jquery.dataTables.js')}}"></script>
-  <script src="{{asset('template/assets/datatables/dataTables.bootstrap4.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/datatables/jquery.dataTables.js')); ?>"></script>
+  <script src="<?php echo e(asset('template/assets/datatables/dataTables.bootstrap4.js')); ?>"></script>
   <!--   Optional JS   -->
-  <script src="{{asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')}}"></script>
-  <script src="{{asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')); ?>"></script>
   <!-- Argon JS -->
-  <script src="{{asset('template/assets/js/argon.min.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/argon.min.js')); ?>"></script>
 </body>
 <script>
   $(document).ready(function(){
@@ -183,4 +212,4 @@
   })
 </script>
 
-</html>
+</html><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/auth/login.blade.php ENDPATH**/ ?>

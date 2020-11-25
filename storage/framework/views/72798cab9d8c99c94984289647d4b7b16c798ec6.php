@@ -514,7 +514,7 @@ ul.dot-list li:hover .my-card{
                 <div class="result"></div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="closeit btn btn-secondary " data-dismiss="modal">Close</button>
               <button type="button" class="btn btn-primary addTreatment" data-patient data-doctor data-appoint disabled="disabled">Add Patient</button>
             </div>
           </div>
@@ -711,7 +711,8 @@ $(document).ready(function(){
             data:{PRN:value},
             type:"POST",
             success:function(res){
-              if(res){
+              // console.log(typeof res);
+              if(res!=''){
               
               var patient=JSON.parse(res);
               var file=JSON.parse(patient.file);
@@ -737,7 +738,10 @@ $(document).ready(function(){
                       </div>
                     </div>`;
                     $('.result').html(html);
-             }
+             }else{
+                let text=`<h4 class="text-danger d-inline">Patient not Found! Try other PRN!</h4>`;
+                $('.result').html(text);
+              }
             },
             error:function(error){
               console.log(error);
@@ -775,10 +779,25 @@ $(document).ready(function(){
           // })
        })
 
-       $('.addTreatment').click(function(){
-        var doctor=$(this).data('doctor');
-        var patient=$(this).data('patient');
-        var appointment=$(this).data('appoint');
+       $('.closeit').click(function(){
+        $('.addTreatment').attr('data-patient','');
+                $('.addTreatment').attr('data-doctor','');
+                $('.addTreatment').attr('data-appoint','');
+                $('.addTreatment').prop('disabled',true);
+                $('.result').html('');
+                $('input[name="PRN"]').val('');
+                 $('#patientNo').modal('hide');
+       })
+
+       $('#patientNo').on('click','.addTreatment',function(){
+        alert('hel');
+
+        // var doctor=$('.addTreatment').data('doctor');
+        // var patient=$('.addTreatment').data('patient');
+        // var appointment=$('.addTreatment').data('appoint');
+            var doctor=$('.addTreatment').attr('data-patient');
+            var patient=$('.addTreatment').attr('data-doctor');
+            var appointment=$('.addTreatment').attr('data-appoint');
          console.log(doctor,patient,appointment);
          $.ajax({
             url:"/confirmAppoints",
@@ -790,6 +809,8 @@ $(document).ready(function(){
                 $('.addTreatment').attr('data-doctor','');
                 $('.addTreatment').attr('data-appoint','');
                 $('.addTreatment').prop('disabled',true);
+                $('.result').html('');
+                $('input[name="PRN"]').val('');
                  $('#patientNo').modal('hide');
                  $(".appointmentTable").DataTable().ajax.reload();
               }
@@ -826,6 +847,8 @@ $(document).ready(function(){
                 $('.addTreatment').attr('data-doctor','');
                 $('.addTreatment').attr('data-appoint','');
                 $('.addTreatment').prop('disabled',true);
+                $('.result').html('');
+                $('input[name="PRN"]').val('');
                  $('#patientNo').modal('hide');
                  $(".appointmentTable").DataTable().ajax.reload();
               }

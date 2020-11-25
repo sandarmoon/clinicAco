@@ -126,7 +126,17 @@ class AppointmentController extends Controller
     public function searchPRN(Request $request){
         $PRN= $request->PRN;
         $patient=Patient::where('PRN','=',$PRN)->first();
+        // if($patient ==null){
+        //     return response()->json([
+        //         'success' => 'Patient Not Found'
+        //     ]);
+        // }else{
+        //      return response()->json([
+        //         'success' => $patient
+        //     ]);
+        // }
         echo $patient;
+        
     }
 
     public function confirmAppoints(Request $request){

@@ -785,6 +785,10 @@ $(document).ready(function(){
             type:"POST",
             success:function(res){
               if(res){
+                $('.addTreatment').attr('data-patient','');
+                $('.addTreatment').attr('data-doctor','');
+                $('.addTreatment').attr('data-appoint','');
+                $('.addTreatment').prop('disabled',true);
                  $('#patientNo').modal('hide');
                  $(".appointmentTable").DataTable().ajax.reload();
               }
@@ -817,6 +821,10 @@ $(document).ready(function(){
             type:"POST",
             success:function(res){
               if(res){
+                $('.addTreatment').attr('data-patient','');
+                $('.addTreatment').attr('data-doctor','');
+                $('.addTreatment').attr('data-appoint','');
+                $('.addTreatment').prop('disabled',true);
                  $('#patientNo').modal('hide');
                  $(".appointmentTable").DataTable().ajax.reload();
               }

@@ -19,6 +19,7 @@ class AppointmentController extends Controller
     public function index(){
         
     }
+    
     public function appointpatient()
     {
         $user1=Auth::user()->id;

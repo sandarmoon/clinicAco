@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Medicines;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,23 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-// ==============Owner======================================================
-Route::apiresource('/owners','Api\OwnerController');
+
+// Route::middleware('auth:api')->group( function () {
+	// Route::resource('treatment', 'Api\TreatmentController');
+// });
+// // ==============Owner======================================================
+// Route::apiresource('/owners','Api\OwnerController');
+
+// // ==============Reception======================================================
+// Route::apiresource('/reception','Api\ReceptionController');
+
+// // ==============Treatment======================================================
+// Route::apiresource('/treatment','Api\TreatmentController')->middleware('auth:api');
+Route::get('/incharge','Api\TreatmentController@index')->middleware('auth:api');
+ Route::get('medicines','Api\TreatmentController@medicine')->middleware('auth:api');
+
+Route::get('doctor/patient','Api\TreatmentController@getPatientBydoctorid')->middleware('auth:api');
+
+Route::put('/treatment/{id}','Api\TreatmentController@madeTreatment')->middleware('auth:api');
 
 

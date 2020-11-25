@@ -147,25 +147,27 @@ class OwnerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $validator=Validator::make($input,[
-        //     'avatar' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     'name'=>'required',
-        //     'password'=>'required',
-        //     'email'=>'required|unique:users',
-        //     'clinic_name'=>'required',
-        //     'clinic_logo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        //     'clinic_time'=>'required',
-        //     'phone'=>'required',
-        //     'address'=>'required',
-        //     'nrc'=>'required',
-        //     'age'=>'required',
-        //     'dob'=>'required'
-        // ]);
+        $validator=Validator::make($input,[
+            'avatar' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'name'=>'required',
+            'password'=>'required',
+            'email'=>'required|unique:users',
+            'clinic_name'=>'required',
+            'clinic_logo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'clinic_time'=>'required',
+            'phone'=>'required',
+            'address'=>'required',
+            'nrc'=>'required',
+            'age'=>'required',
+            'dob'=>'required',
+            'oldavatar'=>'required',
+            'old_clinic_logo'=>'required'
+        ]);
 
-        //  if($validator->fails()){
-        //     return $this->sendError('Validation Error.', $validator->errors());       
-        // }
+         if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors());       
+        }
 
          $avatar = $request->file('avatar');
          $logo = $request->file('clinic_logo');
@@ -228,34 +230,10 @@ class OwnerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $owner=Owner::find($id);
+        $owner->delete();
+         return $this->sendResponse(new OwnerResource($owner), 'Owner deleted successfully.');
     }
 
-    public function sendError($error, $errorMessages = [], $code = 404)
-    {
-        $response = [
-            'success' => false,
-            'message' => $error,
-        ];
-
-
-        if(!empty($errorMessages)){
-            $response['data'] = $errorMessages;
-        }
-
-
-        return response()->json($response, $code);
-    }
-
-      public function sendResponse($result, $message)
-    {
-        $response = [
-            'success' => true,
-            'data'    => $result,
-            'message' => $message,
-        ];
-
-
-        return response()->json($response, 200);
-    }
+   
 }

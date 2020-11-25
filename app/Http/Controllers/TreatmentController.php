@@ -464,7 +464,7 @@ elseif($user->hasRole('Reception')){
         $treatment->charges=request('charges');
         $treatment->save();
         $drugs=json_decode(request('drugs'));
-        //dd(($drugs));
+        // dd(request('drugs'));
         foreach ($drugs as $key => $drug) {
             $tab=$drug->tab;
             //dd($tab);

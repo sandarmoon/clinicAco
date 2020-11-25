@@ -179,7 +179,6 @@ class ReceptionController extends Controller
             'txtEmpPhone' => 'required|min:3',
             'address' => 'required|min:10',
             'email' => 'required',
-            'password'=>'required|min:8',
             'education'=>'required',
             //'file' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -193,18 +192,20 @@ class ReceptionController extends Controller
         }else{
             $path=request('oldimg');
         }
-        if(request('newpassword')){
-            $password=Hash::make(request('newpassword'));
-        }else{
-            $password=request('password');
-        }
+
+        // if(request('newpassword')){
+        //     $password=Hash::make(request('newpassword'));
+        // }else{
+        //     $password=request('password');
+        // }
+
         $userid =(int)request('userid');
         //var_dump($userid);
          $user=User::find($userid);
          //dd($user);
         $user->name=request('name');
         $user->email=request('email');
-        $user->password=$password;
+        
         //$user->assignrole('reception');
         $user->save();
 

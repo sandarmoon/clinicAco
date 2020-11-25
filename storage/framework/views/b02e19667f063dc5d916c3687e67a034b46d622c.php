@@ -1,15 +1,14 @@
-@extends('frontendTemplate')
-@section('content')
+<?php $__env->startSection('content'); ?>
 	
   <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header border-0">
-          @role('Admin')
+          <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
           <button type="button" class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#exampleModal">
             Add Reception
           </button>
-          @endrole
+          <?php endif; ?>
           <h3 class="mb-0">Receptions</h3>
           <div class="alert alert-success success d-none my-3" role="alert"></div>
         </div>
@@ -35,7 +34,7 @@
     </div>
   </div>
            
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -224,7 +223,7 @@
 </div>
 </div>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
       getData();
@@ -242,7 +241,7 @@
 
                   $.ajax({
                 type:'POST',
-                url: "{{ url('reception')}}",
+                url: "<?php echo e(url('reception')); ?>",
                 data: formData,
                 cache:false,
                 contentType: false,
@@ -296,7 +295,7 @@
 
 
             function getData(){
-      $.get("{{route('getuser')}}",function(response){
+      $.get("<?php echo e(route('getuser')); ?>",function(response){
           //  console.log(response)
             var l=1;
             var html='';
@@ -313,16 +312,16 @@
                                       
                                       <td>
                                         
-                                        @role('Admin')
+                                        <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
                                          <button class="btn btn-primary btn-sm d-inline-block btnEdit " data-id="${k.reception.id}"><i class="ni ni-settings"></i></button>
-                                         @endrole
+                                         <?php endif; ?>
                                        
 
                                          <button class="btn btn-warning btn-sm d-inline-block btnDetail "  data-id="${k.reception.id}"><i class="ni ni-circle-08"></i></button>
 
-                                                @role('Admin')
+                                                <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
                                                 <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${k.reception.id}"> <i class="ni ni-fat-delete"></i></button>
-                                                @endrole
+                                                <?php endif; ?>
                                          
                                       </td>
 
@@ -346,7 +345,7 @@
                   
 
                   var id=$(this).data('id');
-                  var url="{{route('reception.edit',':id')}}";
+                  var url="<?php echo e(route('reception.edit',':id')); ?>";
       
             url=url.replace(':id',id);
             $.get(url,function(res){
@@ -388,7 +387,7 @@
                  var formData = new FormData(this);
                  formData.append('_method','PUT');
                 //console.log(formData);
-                  var url="{{route('reception.update',':id')}}";
+                  var url="<?php echo e(route('reception.update',':id')); ?>";
                   url=url.replace(':id',id);
                   $.ajax({
                 type:'post',
@@ -447,7 +446,7 @@
           if(confirm('Are you sure to delete?')){
               var id=$(this).data('id');
               //console.log(id);
-               var url="{{route('reception.destroy',':id')}}";
+               var url="<?php echo e(route('reception.destroy',':id')); ?>";
               
                url=url.replace(':id',id);
                
@@ -475,7 +474,7 @@
       $('tbody').on('click','.btnDetail',function(){
              var id=$(this).data('id');
             console.log(id);;
-            var url="{{route('reception.show',':id')}}";
+            var url="<?php echo e(route('reception.show',':id')); ?>";
         
              url=url.replace(':id',id);
             
@@ -485,4 +484,5 @@
 })
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/reception/create.blade.php ENDPATH**/ ?>

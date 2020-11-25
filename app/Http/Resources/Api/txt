@@ -1,0 +1,121 @@
+{
+    "success": true,
+    "data": {
+        "id": 7,
+        "PRN": "54837",
+        "receptionName": "reception21",
+        "name": "Lwin Moe",
+        "fatherName": "U Moe",
+        "age": 66,
+        "child": 0,
+        "gender": "male",
+        "phoneno": "0987655432",
+        "address": "Haling township,Yangon",
+        "body_weight": "250",
+        "allergy": "cvit",
+        "job": "retired",
+        "file": "[\"storages\\/files\\/160031785119891640895f62e99bdf3e4.png\"]",
+        "deleted_at": null,
+        "created_at": "2020-09-17T03:14:11.000000Z",
+        "updated_at": "2020-09-17T03:14:11.000000Z",
+        "married_status": "Yes",
+        "pregnant": "No",
+        "history": [
+            {
+                "id": 1,
+                "file": "[\"storages\\/files\\/160309988810851138125f8d5cf05e4f3.jpg\"]",
+                "gc_level": "77",
+                "temperature": "89",
+                "body_weight": "99",
+                "spo2": "77",
+                "pr": "66",
+                "bp": "44",
+                "rbs": "66",
+                "complaint": "give it up! give it up! i ain't  gonnana save you!",
+                "examination": "before i love you, i need to learn to love myself!  before i trust you, i need to learn to trust my self!",
+                "relevant_info": "I got my own imperfections!I got my own imperfections!",
+                "chronic_disease": "I got my own imperfections!",
+                "diagnosis": "I got my own imperfections!",
+                "external_medicine": "I got my own imperfections!",
+                "next_visit_date": "2020-10-21",
+                "next_visit_date2": "2020-10-21",
+                "doctor": "Daw Ni Ni Win",
+                "clinicName": "MayKaLar",
+                "deleted_at": null,
+                "created_at": "2020-11-20T16:53:00.000000Z",
+                "updated_at": "2020-11-20T16:53:00.000000Z",
+                "medicines": [
+                    {
+                        "id": 23,
+                        "medicinetype_id": 1,
+                        "name": "biogesic",
+                        "chemical": "Paracetamil 500mg,\r\nanalegsic",
+                        "deleted_at": null,
+                        "created_at": "2020-10-19 08:50:23",
+                        "updated_at": "2020-10-19 08:50:23",
+                        "owner_id": 1,
+                        "size": "500mg",
+                        "pivot": {
+                            "treatment_id": 1,
+                            "medicine_id": 23,
+                            "tab": "10",
+                            "interval": "od",
+                            "meal": "Before",
+                            "during": "2 week",
+                            "type": null,
+                            "created_at": "2020-09-19 09:31:28",
+                            "updated_at": "2020-10-19 09:31:28"
+                        }
+                    },
+                    {
+                        "id": 24,
+                        "medicinetype_id": 1,
+                        "name": "kremil-s",
+                        "chemical": "aluminum hydroxide,Magenusium hydroxide",
+                        "deleted_at": null,
+                        "created_at": "2020-10-19 08:58:00",
+                        "updated_at": "2020-10-19 08:58:00",
+                        "owner_id": 1,
+                        "size": "0cc",
+                        "pivot": {
+                            "treatment_id": 1,
+                            "medicine_id": 24,
+                            "tab": "10",
+                            "interval": "tds",
+                            "meal": "Before",
+                            "during": "2 week",
+                            "type": null,
+                            "created_at": "2020-09-19 09:31:28",
+                            "updated_at": "2020-10-19 09:31:28"
+                        }
+                    },
+                    {
+                        "id": 22,
+                        "medicinetype_id": 1,
+                        "name": "gestid",
+                        "chemical": "Simenthicne USP10mg,Magnesium Hydroxide USP 25mg",
+                        "deleted_at": null,
+                        "created_at": "2020-10-19 08:48:01",
+                        "updated_at": "2020-11-16 03:33:11",
+                        "owner_id": 1,
+                        "size": "20",
+                        "pivot": {
+                            "treatment_id": 1,
+                            "medicine_id": 22,
+                            "tab": "10",
+                            "interval": "cm",
+                            "meal": "Before",
+                            "during": "2 week",
+                            "type": null,
+                            "created_at": "2020-09-19 09:31:28",
+                            "updated_at": "2020-10-19 09:31:28"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "message": "Treatment retrieved successfully."
+}
+
+[{"drugid":"23","drug":"biogesic","tab":"3","time":"bd","bf":"Before","duration":"2 week"},{"drugid":"22","drug":"gestid","tab":"3","time":"tds","bf":"Before","duration":"2 week"},{"drugid":"24","drug":"kremil-s","tab":"3","time":"hs","bf":"After","duration":"2 week"}]

@@ -219,10 +219,10 @@ class OwnerController extends Controller
         //dd($doctor->user->id);
         
 
-        $user=User::find($owner->user->id);
-        $user->delete();
+        // $user=User::find($owner->user->id);
+        // $user->delete();
         $owner->delete();
-        $user->save();
+        // $user->save();
         return response()->json(['success'=>'Record is successfully updated!']);
     }
 }

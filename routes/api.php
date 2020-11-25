@@ -36,4 +36,7 @@ Route::get('doctor/patient','Api\TreatmentController@getPatientBydoctorid')->mid
 
 Route::put('/treatment/{id}','Api\TreatmentController@madeTreatment')->middleware('auth:api');
 
+// for login
+Route::post('/login','Api\AuthController@login');
+
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Api\TreatmentReource;
-
+use Carbon;
 class PatientResource extends JsonResource
 {
     /**
@@ -42,20 +42,20 @@ class PatientResource extends JsonResource
             "job"=> $this->job,
             "file"=> $files,
             "deleted_at"=> $this->deleted_at,
-            "created_at"=> $this->created_at,
-            "updated_at"=> $this->created_at
+            "created_at"=> $this->created_at->toDateTimeString(),
+            "updated_at"=> $this->created_at->toDateTimeString()
             ];
 
         if($this->married_status ==0){
-            $data['married_status']='No';
+            $data['married_status']=false;
         }else{
-            $data['married_status']='Yes';
+            $data['married_status']=true;
         }
 
         if($this->pregnant ==0){
-            $data['pregnant']='No';
+            $data['pregnant']=false;
         }else{
-            $data['pregnant']='Yes';
+            $data['pregnant']=true;
         }
          $data['history']=TreatmentHistoryResource::collection($this->treatments);
 

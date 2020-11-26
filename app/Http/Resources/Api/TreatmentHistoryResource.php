@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Resources\Api;
+use App\Http\Resources\MedicinetypeResource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -20,7 +21,7 @@ class TreatmentHistoryResource extends JsonResource
         foreach ($this->medicines as $k=> $value) {
             $obj = (object)[];
             $obj->name=$value->name;
-            $obj->medicineType=$value->medicinetype->name;
+            $obj->medicineType=new MedicinetypeResource($value->medicinetype);
             $obj->chemical=$value->chemical;
             $obj->size=$value->size;
             $obj->tab=$value->pivot->tab;
@@ -68,11 +69,10 @@ class TreatmentHistoryResource extends JsonResource
             "doctor"=>$this->doctor->user->name,
             "clinicName"=>$this->doctor->owner->clinic_name,
             // "doctor"=>$this->doctor->user->name,
-            "visitedDate"=>$this->created_at,
+            "visitedDate"=>$this->created_at->toDateTimeString(),
             // "charges"=>$this->charges,
-            "deleted_at"=>$this->deleted_at,
-            "created_at"=>$this->created_at,
-            "updated_at"=>$this->created_at,
+            "created_at"=> $this->created_at->toDateTimeString(),
+            "updated_at"=> $this->created_at->toDateTimeString(),
             "medicine_history"=>$medicines
                         
 

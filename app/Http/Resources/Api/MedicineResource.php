@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Api;
 
+use App\Http\Resources\MedicinetypeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class MedicineResource extends JsonResource
@@ -18,11 +19,11 @@ class MedicineResource extends JsonResource
         return [
 
             "id"=> $this->id,
-            "medicinetype"=> $this->medicinetype->name,
+            "medicinetype"=>new MedicinetypeResource($this->medicinetype),
             "name"=> $this->name,
             "chemical"=>$this->chemical ,
-            "created_at"=>$this->created_at,
-            "updated_at"=> $this->updated_at,
+            "created_at"=>$this->created_at->toDateTimeString(),
+            "updated_at"=> $this->updated_at->toDateTimeString(),
             "clinicName"=> $this->owner->clinic_name,
             "size"=> $this->size
 

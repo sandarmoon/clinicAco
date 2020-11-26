@@ -29,8 +29,8 @@ class TreatmentController extends Controller
 
         $patient=Patient::
         whereHas('treatments',function($q) use ($id){
-          $q->whereDate('created_at',Carbon::today())
-            ->where('doctor_id','=',$id)
+          //$q->whereDate('created_at',Carbon::today())
+           $q->where('doctor_id','=',$id)
             ->whereNull('gc_level');
         })->with(['treatments'=>function($q){
             $q->whereNotNull('gc_level');

@@ -174,10 +174,8 @@ class TreatmentController extends Controller
          return $this->sendResponse(MedicineResource::collection($medicines), 'Medicines retrieved successfully.');
          }else{
            return response()->json([
-                'status' => 'ok',
-                'data' => $medicines,
                 'message' => 'no data is found!'
-            ]);
+            ],200);
          }
        
     }
@@ -200,10 +198,8 @@ class TreatmentController extends Controller
          return $this->sendResponse(PatientResource::collection($patients), 'Patients retrieved successfully.');
          }else{
            return response()->json([
-                'status' => 'ok',
-                'data' => $patients,
                 'message' => 'no data is found!'
-            ]);
+            ],404);
          }
     }
 
@@ -295,7 +291,7 @@ class TreatmentController extends Controller
          return response()->json([
                 'status' => 'ok',
                 'message' => 'Treatment Successful'
-            ]);
+            ],200);
 
 
     }

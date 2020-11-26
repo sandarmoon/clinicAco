@@ -15,11 +15,10 @@ class AuthController extends Controller
 
         if (!auth()->attempt($loginData)) {
             return response([
-            	'status'=>401,
-            	'message' => 'Invalid Credentials']);
+            	'message' => 'Invalid Credentials'],403);
         }
 
          $accessToken =  $accessToken = auth()->user()->createToken('authToken')->accessToken;
-         return response(['user' => auth()->user(), 'access_token' => $accessToken,'Token type'=>'Bearer']);
+         return response(['user' => auth()->user(), 'access_token' => $accessToken,'Token type'=>'Bearer'],200);
     }
 }

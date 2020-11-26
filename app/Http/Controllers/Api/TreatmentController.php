@@ -234,7 +234,7 @@ class TreatmentController extends Controller
                 
             }else{
                 
-                $path=null;
+                $path=[];
             }
 
            

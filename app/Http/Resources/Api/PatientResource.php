@@ -16,10 +16,12 @@ class PatientResource extends JsonResource
     public function toArray($request)
     {
         // return parent::toArray($request);
-        $files=[];
-        $data=json_decode($this->file);
-        if(sizeof($data) >0){
-            foreach ($data as $key => $value) {
+        
+       $files=[];
+        $arr=json_decode($this->file);
+        // dd(count($data));
+        if(!empty($arr)){
+            foreach ($arr as $key => $value) {
                array_push($files, url($value));
             }
         }

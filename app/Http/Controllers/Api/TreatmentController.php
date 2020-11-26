@@ -238,8 +238,13 @@ class TreatmentController extends Controller
 
 
         $day=request('nextVisitDate1');
-        $dt=Carbon::today();
+        if(!empty($day)){
+            $dt=Carbon::today();
         $nextbook= $dt->addDay($day);
+        }else{
+            $nextbook=null;
+        }
+        
         
         // dd($nextbook);
 

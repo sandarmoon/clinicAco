@@ -9,7 +9,7 @@
 			    
 			     <h2 class="mb-5">Add New MedicineType</h2>
 			      <div class="form-group">
-			        <label for="cname ">Medicine Name</label>
+			        <label for="cname "> Name</label>
 			        <span class="Ename error d-block" ></span>
 			        <input type="text" name="name" id="cname" placeholder="enter medicine name" class="d-inline form-control ">
 			       
@@ -26,7 +26,7 @@
 			    
 			     <h2 class=" mb-5">Update MedicineType</h2>
 			      <div class="form-group">
-			        <label for="ucname ">Medicine Name</label>
+			        <label for="ucname "> Name</label>
 			        <span class="UEname error d-block" ></span>
 			        <input type="text" name="name" id="ucname" placeholder="enter medicine name" class="d-inline form-control ">
 			        
@@ -47,7 +47,7 @@
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
                 <div class="col-8">
-                  <h3 class="mb-0">Medicine</h3>
+                  <h3 class="mb-0">Medicine Type</h3>
                   <div class="alert alert-primary success d-none" role="alert">
 			        
 			     </div>

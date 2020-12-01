@@ -13,7 +13,7 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <table class="table table-bordered align-items-center table-white table-flush example" id="dataTable" width="100%" cellspacing="0">
+          <table class="table  align-items-center table-white table-flush example" id="dataTable" width="100%" cellspacing="0">
                   <thead class="thead-light">
                     <tr>
                       <th>No</th>
@@ -21,6 +21,7 @@
                       <th>PRN</th>
                       <th>Father Name</th>
                       <th>Age</th>
+                      <th>Clinic Name</th>
                       <th>Action</th>
                     </tr>
                   </thead>
@@ -33,16 +34,24 @@
                         <td><?php echo e($patient->PRN); ?></td>
                         <td><?php echo e($patient->fatherName); ?></td>
                         <td><?php echo e($patient->age); ?></td>
-                        <td><a href="<?php echo e(route('patient.edit',$patient->id)); ?>"><i class="btn fas fa-edit text-white"  style="background-color: #825ee4"></i></a>
-                        
-                        <a href="<?php echo e(route('patient.show',$patient->id)); ?>" > <i class="btn fas fa-info text-white" style="background-color: #825ee4"></i></a>
+                        <td><?php echo e($patient->reception->owner->clinic_name); ?></td>
+                        <td>
+                      <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
+                        <a href="<?php echo e(route('patient.edit',$patient->id)); ?>" class="btn btn-primary btn-sm d-inline-block "><i class="ni ni-settings"></i></a>
 
-                          <form method="post" onsubmit="return confirm('Are you sure to delete?');" action="<?php echo e(route('patient.destroy',$patient->id)); ?>" class="d-inline-block">
+                        <a ></a>
+                       <?php endif; ?>
+                        
+                        <a href="<?php echo e(route('patient.show',$patient->id)); ?>" class="btn btn-warning btn-sm d-inline-block " > <i class="ni ni-circle-08"></i></a>
+                      
+                      <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
+                          <form method="post" class="d-inline" onsubmit="return confirm('Are you sure to delete?');" action="<?php echo e(route('patient.destroy',$patient->id)); ?>" >
 
                             <?php echo csrf_field(); ?>
                             <?php echo method_field('DELETE'); ?>
-                            <button type="submit" class="btn" style="background-color: #825ee4"><i class="fas fa-trash text-white" ></i></button>
+                            <button type="submit"  class="btn btn-danger btn-sm d-inline-block btnDelete "><i class="ni ni-fat-delete"></i></button>
                           </form>
+                        <?php endif; ?>
                         </td>
 
                     </tr>
@@ -62,6 +71,19 @@
 <?php $__env->startSection('script'); ?>
 <script type="text/javascript">
  $('div.alert').delay(3000).slideUp(300);
+ // $('#dataTable').dataTable();
+  $('#dataTable').dataTable({
+                "sort":false,
+                pagingType: 'full_numbers',
+                 pageLength: 10,
+                 language: {
+                   oPaginate: {
+                     sNext: '<i class="fa fa-forward"></i>',
+                     sPrevious: '<i class="fa fa-backward"></i>',
+                     sFirst: '<i class="fa fa-step-backward"></i>',
+                     sLast: '<i class="fa fa-step-forward"></i>'
+                     }
+                   } });
 </script>
 <?php $__env->stopSection(); ?>
 

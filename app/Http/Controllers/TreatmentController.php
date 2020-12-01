@@ -30,7 +30,7 @@ class TreatmentController extends Controller
             // dd('no');
         
         }
-elseif($user->hasRole('Reception')){
+       elseif($user->hasRole('Reception')){
             $treatments=Treatment::whereNotNull('gc_level')->
                       orderBy('created_at','ASC')->get()->unique('patient_id');
             // dd($treatments);

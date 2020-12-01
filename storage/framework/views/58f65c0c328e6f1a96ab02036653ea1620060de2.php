@@ -96,7 +96,7 @@
     		<div class="accordion" id="accordionExample">
 
           <?php $i=1; ?>
-          <?php $__currentLoopData = $treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+          <?php $__currentLoopData = $treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k=>$treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <div class="card my-3 ml-5">
             <div class="card-header" id="headingOne">
               <h2 class="mb-0">
@@ -107,7 +107,7 @@
               </h2>
             </div>
 
-            <div id="collapse<?php echo e($i); ?>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div id="collapse<?php echo e($i); ?>" class="collapse <?=($k==0)? 'show':''?>" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
                <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">

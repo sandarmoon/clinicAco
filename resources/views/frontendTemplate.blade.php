@@ -252,7 +252,7 @@
           </li>
           @endrole
 
-          <li class="nav-item">
+         <li class="nav-item">
             <a class="nav-link " href="{{route('patient.index')}}">
               <i class="ni ni-circle-08 text-blue"></i> Patient
             </a>
@@ -265,12 +265,14 @@
             </a>
           </li>
           @endrole
-           @hasanyrole('Reception|Admin|Doctor|Super_Admin')
+           @hasanyrole('Reception|Doctor')
           <li class="nav-item">
             <a class="nav-link " href="{{route('treatment.index')}}">
               <i class="ni ni-favourite-28 text-danger"></i> Treatment
             </a>
           </li>
+          @endhasanyrole
+          @hasanyrole('Super_Admin')
 
           <li class="nav-item">
             <a class="nav-link " href="{{route('medicineType.index')}}">
@@ -332,7 +334,7 @@
     <nav class="navbar navbar-top navbar-expand-lg navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html"><i class="ni ni-bullet-list-67"></i> Version 2.1</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html"> GP clinic</a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">

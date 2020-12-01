@@ -379,6 +379,7 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Chemical Things</th>
+                                <th>Total Quantity</th>
                                 <th>Actions</th>
                               </tr>
                             </thead>
@@ -582,8 +583,11 @@
 
                   { "data": "medicine.chemical"
                   } ,
+                  { "data": "qty"
+                  } ,
 
                   { "data":function(data){
+                    console.warn(data);
                       return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data.medicine.id}" data-name="${data.medicine.name}"><i class="ni ni-settings"></i></button>`;
                                 // <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data.id}"> <i class="ni ni-fat-delete"></i></button>
                     }

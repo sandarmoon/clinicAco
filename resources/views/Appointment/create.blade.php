@@ -789,13 +789,13 @@ $(document).ready(function(){
        })
 
        $('#patientNo').on('click','.addTreatment',function(){
-        alert('hel');
+        // alert('hel');
 
         // var doctor=$('.addTreatment').data('doctor');
         // var patient=$('.addTreatment').data('patient');
         // var appointment=$('.addTreatment').data('appoint');
-            var doctor=$('.addTreatment').attr('data-patient');
-            var patient=$('.addTreatment').attr('data-doctor');
+            var patient=$('.addTreatment').attr('data-patient');
+            var doctor=$('.addTreatment').attr('data-doctor');
             var appointment=$('.addTreatment').attr('data-appoint');
          console.log(doctor,patient,appointment);
          $.ajax({

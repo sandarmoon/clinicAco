@@ -466,7 +466,7 @@
           </div>
           <div class="modal-footer ">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <input type="submit" class="btn btn-primary " value="Add Expense"/>
+            <input type="submit" class="btn btn-primary " value="Update Expense"/>
           </div>
       </form>
       <!-- form end -->
@@ -474,6 +474,31 @@
   </div>
 </div>
       <!-- modal end -->
+
+      <!-- for recepit photo show -->
+      <div class="modal fade bd-example-modal-lg" id="showphoto" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <!-- carousel start -->
+              <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner bigpreview">
+                  
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </div>
+            <!-- carousel end -->
+        </div>
+      </div>
+    </div>
+      <!-- for recepit photo end -->
+
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
@@ -765,6 +790,7 @@ var myChart = new Chart(ctx, {
                       ${v.amount}
                     </td>
                     <td>
+                    <button class="btn btn-warning btn-sm d-inline-block btn-detail " data-date="${v.date}" data-description="${v.description}" data-amount="${v.amount}" data-files=${v.files} data-id="${v.id}"><i class="ni ni-album-2"></i></button>
                       <button class="btn btn-primary btn-sm d-inline-block btnEdit " data-date="${v.date}" data-description="${v.description}" data-amount="${v.amount}" data-files=${v.files} data-id="${v.id}"><i class="ni ni-settings"></i></button>
                             <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${v.id}"> <i class="ni ni-fat-delete"></i></button>
                     </td>
@@ -902,6 +928,34 @@ function showImage(palcement,files){
                   });
         }
     })
+
+     $('#expenseTable').on('click','.btn-detail',function(){
+      let files=$(this).attr('data-files');
+      files=JSON.parse(files);
+       showCarousel(files,"Recipets")
+     })
+
+     function showCarousel(list,text){
+          var html=''; var isfrist=true;
+          $.each(list,function(i,v){
+
+            var carou=`<div class="`
+            if(isfrist){
+              carou+=`active `;
+            }
+
+            carou+=`carousel-item">
+
+          <img src="<?php echo e(asset(':v')); ?>" class="d-block w-100" height = '500' alt="...">
+        </div>`;
+            carou=carou.replace(':v',v);
+            html+=carou;
+            isfrist=false;
+          })
+          $('.caption').html(text);
+          $('.bigpreview').html(html);
+          $('#showphoto').modal('show');
+     }
   })//end js
 
 

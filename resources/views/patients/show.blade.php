@@ -107,7 +107,7 @@
     		<div class="accordion" id="accordionExample">
 
           @php $i=1; @endphp
-          @foreach($treatments as $treatment)
+          @foreach($treatments as $k=>$treatment)
           <div class="card my-3 ml-5">
             <div class="card-header" id="headingOne">
               <h2 class="mb-0">
@@ -117,7 +117,7 @@
               </h2>
             </div>
 
-            <div id="collapse{{$i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div id="collapse{{$i}}" class="collapse <?=($k==0)? 'show':''?>" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
                <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">

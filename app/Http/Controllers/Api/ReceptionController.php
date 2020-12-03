@@ -8,6 +8,7 @@ use App\Reception;
 use App\Appointment;
 use App\Treatment;
 use App\Patient;
+use App\Doctor;
 use App\Http\Resources\ReceptionResource;
 use App\Http\Resources\Api\PatientResource;
 use App\Http\Resources\Api\DoctorResource;

@@ -33,7 +33,7 @@ class DoctorResource extends JsonResource
             }
         }
         return [
-            "id"=> 1,
+            "id"=> $this->id,
             "clinciName"=> $this->owner->clinc_name,
             "name"=> $this->user->name,
             "nrc"=> $this->nrc,

@@ -110,6 +110,7 @@ class PatientResource extends JsonResource
                 }else{
                     //you are the first one
                     $treatments=Treatment::where('patient_id','=',$pid)
+                        ->whereNotNull('gc_level')
                         ->where('doctor_id','=',$did)
                         ->get();
                 }

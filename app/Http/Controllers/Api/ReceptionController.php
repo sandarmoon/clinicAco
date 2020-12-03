@@ -11,6 +11,7 @@ use App\Patient;
 use App\Http\Resources\ReceptionResource;
 use App\Http\Resources\Api\PatientResource;
 use App\Http\Resources\Api\DoctorResource;
+use Auth;
 
 class ReceptionController extends Controller
 {

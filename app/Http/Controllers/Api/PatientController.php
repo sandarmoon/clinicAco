@@ -188,12 +188,15 @@ class PatientController extends Controller
                   $path=json_encode($paths);
             }
 
+
             $oldimgs=json_decode(request('oldimg'));
             // dd($oldimgs);
-
-            foreach ($oldimgs as $key => $value) {
+            if(!empty($oldimgs)){
+                foreach ($oldimgs as $key => $value) {
                Storage::delete($value);
             }
+            }
+            
 
         }else{
 

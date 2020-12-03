@@ -10,6 +10,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\TreatmentResource;
 use Auth;
 use App\Doctor;
+use Carbon;
 class TreatmentController extends Controller
 {
     /**
@@ -135,6 +136,7 @@ class TreatmentController extends Controller
     // }
 
      public function show($id){
+
         $doctors=Doctor::all();
          $user=Auth::user();
 
@@ -143,9 +145,11 @@ class TreatmentController extends Controller
             // dd('yes you are doctor');
            $doctor=Doctor::where('user_id',$user->id)->first();
             $doctor_id=$doctor->id;
+
             $lastassginP=Referreddoctor::
                         where('patient_id',$id)
                         ->orderBy('created_at','DESC')->first();
+                        
             $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)
                         ->where('patient_id',$id)
                         ->orderBy('created_at','DESC')->first();
@@ -305,7 +309,7 @@ class TreatmentController extends Controller
          
           $uniquedoctorT = Treatment::where('patient_id',$id)
             ->whereNotNull('gc_level')
-            ->orderBy('created_at','ASC')->get()->unique('doctor_id');
+            ->orderBy('created_at','DESC')->get()->unique('doctor_id');
         
 
         $treatments=Treatment::where('patient_id','=',$id)
@@ -380,9 +384,10 @@ class TreatmentController extends Controller
                                  $removeDate=$dolastassgin->created_at;
                              // dd($dolastassgin);
                              $treatments=Treatment::where('patient_id','=',$pid)
+                             ->whereNotNull('gc_level')
                             ->where('doctor_id','=',$did)
                             ->whereDate('created_at','<=',$removeDate)
-                             ->orderBy('id','desc')
+                             ->orderBy('created_at','desc')
                             ->get();
                             // dd($treatments);
                              return view('patients.healthRecord',compact('treatments','doctors'));
@@ -393,8 +398,9 @@ class TreatmentController extends Controller
           }else{
              $doctors=Doctor::all();
             $treatments=Treatment::where('patient_id','=',$pid)
+                ->whereNotNull('gc_level')
                 ->where('doctor_id','=',$did)
-                ->orderBy('id','desc')
+                ->orderBy('created_at','desc')
                 ->get();
                  return view('patients.healthRecord',compact('treatments','doctors'));
           }
@@ -422,6 +428,8 @@ class TreatmentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
+
         $request->validate([
              'gc'=>'required',
              'complaint' =>'required',
@@ -462,6 +470,8 @@ class TreatmentController extends Controller
         $treatment->next_visit_date=request('nextVisitDate1');
         $treatment->next_visit_date2=request('nextVisitDate2');
         $treatment->charges=request('charges');
+        $treatment->reason=request('reason');
+
         $treatment->save();
         $drugs=json_decode(request('drugs'));
         // dd(request('drugs'));
@@ -483,6 +493,27 @@ class TreatmentController extends Controller
         $treatment->medicines()->attach($injection->injectionid,['type' => $type]);     
         }
         }
+
+        // if(!empty(request('reason'))){
+        //     $reason=request('reason');
+        //     $fromDoctor=$treatment->doctor_id;
+        //     $patient_id=$treatment->patient_id;
+        //     $assignedDoc=Referreddoctor::where('to_doctor_id',$fromDoctor)
+        //                 ->where('patient_id',$patient_id)
+        //                 ->first();
+        //         if($assignedDoc==null){
+        //             Referreddoctor::create([
+        //                 'from_doctor_id'=>$fromDoctor,
+        //                 'to_doctor_id'=>0,
+        //                 'patient_id'=>$patient_id,
+        //                 'reason'=>$reason
+        //              ]);
+        //         }else{
+        //             dd('yes it has');
+        //         }
+        // }
+
+
 
          return response()->json(['success'=>'Record is successfully']);
     }
@@ -507,11 +538,11 @@ class TreatmentController extends Controller
             // $treatments=Treatment::where('doctor_id',$doctor_id)->get();
             // dd($treatments);
             $treatments=Treatment::where('doctor_id',$doctor_id)->
-                     whereNotNull('gc_level')->
+                     whereNotNull('gc_level')->whereDate('created_at',Carbon::today())->
                       orderBy('created_at','ASC')->get()->unique('patient_id');
         
         }else{
-             $treatments=Treatment::whereNotNull('gc_level')->
+             $treatments=Treatment::whereNotNull('gc_level')->whereDate('created_at',Carbon::today())->
                       orderBy('created_at','ASC')->get()->unique('patient_id');
             // dd($treatments);
            
@@ -523,5 +554,14 @@ class TreatmentController extends Controller
                 ->addIndexColumn()
                 ->make(true);
                 return $treatments;
+    }
+
+    public function getreason($did,$pid){
+         $treatment=Treatment::where('patient_id','=',$pid)
+                ->where('doctor_id','=',$did)
+                ->whereDate('created_at',Carbon::today())
+                ->orderBy('id','desc')
+                ->first();
+        return $treatment;
     }
 }

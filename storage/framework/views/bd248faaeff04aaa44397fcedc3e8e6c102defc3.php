@@ -57,7 +57,7 @@ foreach($treatments as $treatment)
 		$medication['meal']=$medicine->pivot->meal;
 		$medication['during']=$medicine->pivot->during;
 		$medication['type']=$medicine->pivot->type;
-		$medication['visitdate']=Carbon::parse($medicine->created_at)->isoFormat('Y-M-D');
+		$medication['visitdate']=Carbon::parse($treatment->created_at)->isoFormat('Y-M-D');
 		$medication['med_name']=$medicine->name;
 		$medication['med_chemical']=$medicine->chemical;
 		$medication['med_type']=$medicine->medicinetype->name;
@@ -129,15 +129,35 @@ foreach($treatments as $treatment)
          <div class="card-header bg-transparent">
             <div class="row align-items-center">
                <div class="col">
-                <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
-                
-                
+                <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
+                <?php
+               $t=$treatments[0];
+               $count= count($t->doctor->referredBy);
 
-                  <button class="
+               $arr=$t->doctor->referredBy;
+
+               $a= $arr[$count-1]->created_at;
+               $latestReferredByDate= $a->toDateString();
+               $todayTreatmentDate=Carbon\Carbon::today()->toDateString();;
+               ?>
+                
+                <!--today treament show only  and haven't changedoctor for today 
+                 if today treament doctor change to other with wrting reason but still not enter data into  
+                 referredDoctor table since reception haven't done for it will show this button -->
+
+               <?php if((!empty($treatments[0]->reason)) && ($latestReferredByDate!=$todayTreatmentDate)): ?>
+               
+
+                <button class="
                   <?php echo e(isset($status) ?'d-none':''); ?>
 
-                  btn btn-outline-danger btn-sm float-right doctorChange">Changing Doctor</button>
+                  btn btn-outline-danger btn-sm float-right doctorChange" data-doctor="<?php echo e($treatments[0]->doctor_id); ?>"  
+                  data-patient="<?php echo e($treatments[0]->patient_id); ?>">Changing Doctor</button>
                   <h5 class="text-uppercase text-muted ls-1 mb-1">Doctor Examination</h5>
+               
+               <?php endif; ?>
+
+                  
                 <?php endif; ?>
                 <h3 class="mb-0">Doctor Examination</h3>
 
@@ -415,7 +435,15 @@ $('#changingDoc').select2({
  );
 
   $('.doctorChange').click(function(){
-      $('#doctor_change_modal').modal('show');
+    let pid=$(this).attr('data-patient');
+    let did=$(this).attr('data-doctor');
+    $.get(`/getreason/${did}/${pid}`,function(res){
+      if(res){
+        $('#changeDoctorForm textarea[name="reason"]').val(res.reason);
+        $('#doctor_change_modal').modal('show');
+      }
+    })
+       
   })
 
   $('#changeDoctorForm').submit(function(e){

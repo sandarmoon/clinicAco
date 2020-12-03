@@ -43,6 +43,8 @@ class AppointmentController extends Controller
     	 // dd($treatments);
     	 return view('Appointment.index',compact('treatments'));
     }
+
+
     public function patient(Request $request)
     {
        $id=Auth::user()->doctors[0]->owner_id;
@@ -64,6 +66,7 @@ class AppointmentController extends Controller
     	 return view('Appointment.show',compact('patient','drugs','injections','treatments','treatment_id'));
 
     }
+    
     public function getmedicine(Request $request)
     {
         dd($request);

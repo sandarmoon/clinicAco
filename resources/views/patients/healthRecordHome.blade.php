@@ -325,6 +325,7 @@ ul.dot-list li:hover .med{
                           <div class="tab-pane active " id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                               <div class="col-md-12">
                                   <ul class="dot-list ">
+                                    
                                     @foreach($uniquedoctorT as $record)
                                     <li data-doctorid="{{$record->doctor_id}}" data-patientid="{{$record->patient_id}}"><div class="bullet big"></div>
                                       <div class="med card col-sm-12 shadow" style="border-radius: 0px;">

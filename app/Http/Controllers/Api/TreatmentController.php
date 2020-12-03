@@ -25,16 +25,30 @@ class TreatmentController extends Controller
     {
 
          $id=Auth::user()->doctors[0]->id;
-        // $id=1;
 
-        $patient=Patient::
-        whereHas('treatments',function($q) use ($id){
-          //$q->whereDate('created_at',Carbon::today())
-           $q->where('doctor_id','=',$id)
-            ->whereNull('gc_level');
-        })->with(['treatments'=>function($q){
-            $q->whereNotNull('gc_level');
-        }])-> first();
+        // $id=1;
+         // old query
+            // $patient=Patient::
+            // whereHas('treatments',function($q) use ($id){
+            //   //$q->whereDate('created_at',Carbon::today())
+            //    $q->where('doctor_id','=',$id)
+            //     ->whereNull('gc_level');
+            // })->with(['treatments'=>function($q){
+            //     $q->whereNotNull('gc_level');
+            // }])-> first();
+        //end query
+
+          $patient=Patient::
+            whereHas('treatments',function($q) use ($id){
+              //$q->whereDate('created_at',Carbon::today())
+               $q->where('doctor_id','=',$id)
+                ->whereNull('gc_level');
+            })->with(['treatments'=>function($q){
+                $q->whereNotNull('gc_level');
+            }])-> first();
+
+            
+
         // dd($patient);
        if($patient!=null){
          return $this->sendResponse(new PatientResource($patient), 'Treatment retrieved successfully.');

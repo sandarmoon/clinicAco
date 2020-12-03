@@ -24,4 +24,14 @@ class Patient extends Model
     public function reception(){
     	return $this->belongsTo('App\Reception');
     }
+
+    protected static function boot() 
+    {
+       parent::boot();
+
+       static::deleting(function($owner) {
+  
+        
+       });
+    }
 }

@@ -584,8 +584,121 @@
 
                   { "data": "medicine.chemical"
                   } ,
-                  { "data": "qty"
-                  } ,
+                  {
+                        data:function(data){
+                          let phar=data.unit1;
+                          let bu=data.unit2;
+                          let card=data.unit3;
+                          let tab=data.unit4;
+                          let qty=data.qty;
+                          let r=0;
+
+
+
+                           if(phar==null){
+                            phar=1;
+                           }
+
+                            if(bu==null){
+                            bu=1;
+                           }
+
+                            if(card==null){
+                            card=1;
+                           }
+
+                           //  if(phar!=null){
+                           //  phar=0;
+                           // }
+
+
+                          let  tp=(phar * (bu*(tab*card)));
+
+                          let  tb=(bu*(tab*card));
+
+                          let  tc=(tab*card);
+
+                          let  tt=tab;
+                          let remain=0;
+
+                            if(qty > tp){
+
+                                phar=Math.floor(qty / tp);
+                                remain= qty% tp;
+
+                                if(remain > tb){
+
+                                  bu=Math.floor(qty / tb);
+                                  remain= qty% tb;
+
+                                  if(remain > tc ){
+                                     card=Math.floor(qty / tc);
+                                      tab= qty% tc;
+                                  }else{
+                                      card=0;
+                                      tab=remain;
+                                  }
+
+                                }else if(remain > tc){
+                                  bu=0;
+                                   card=Math.floor(qty / tc);
+                                    tab= qty% tc;
+
+                                }else{
+                                  bu=0;card=0;
+                                  tab=remain;
+
+                                }
+
+                                
+
+
+                            }else if(qty > tb){
+                              phar=0;
+                               bu=Math.floor(qty / tb);
+                                remain= qty% tb;
+
+                                if(remain > tc ){
+                                     card=Math.floor(qty / tc);
+                                      tab= qty% tc;
+                                  }else{
+                                      card=0;
+                                      tab=remain;
+                                  }
+
+
+                            }else if(qty > tc){
+                              phar=0;
+                              bu=0;
+                              card=Math.floor(qty / tc);
+                              tab= qty% tc;
+
+                            }else{
+                              phar=0;bu=0;card=0;
+                               tab=qty;
+                            }
+
+                            // console.log(phar,bu,card,tab);
+
+                            // return `${phar ?}:phar, ${bu}:bu, <br/>
+                            //         ${card}:card, ${tab}:tab`;
+                            var html='';
+
+                             html+= (phar==0) ? '': phar+":phar,"; 
+                             html+= (bu==0) ? '': bu+":bu,"; 
+                             html+= (card==0) ? '': card+":card,"; 
+                             html+= tab+':tab';
+
+                             return html;
+
+                          // }
+
+
+
+                          
+                        }
+                      }
+,
 
                   { "data":function(data){
                     console.warn(data);

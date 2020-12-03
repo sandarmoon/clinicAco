@@ -88,6 +88,7 @@ Route::resource('/referredDoctor','ReferredDoctorController');//doctor route
 
 
 
+
 //treatment end
 
 // Json responses
@@ -170,6 +171,8 @@ Route::post('/appmedicine','AppointmentController@getmedicine')->name('appmedici
 
 // treatment record
 Route::get('/patientRecordD/{did}/{pid}','TreatmentController@patientRecordD')->name('patientRecordD');
+
+Route::get('/getreason/{did}/{pid}','TreatmentController@getreason')->name('getreason');
 
 // medicales create by OwnerControlle
 

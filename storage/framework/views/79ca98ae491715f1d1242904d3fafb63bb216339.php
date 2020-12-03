@@ -324,6 +324,7 @@ ul.dot-list li:hover .med{
                           <div class="tab-pane active " id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                               <div class="col-md-12">
                                   <ul class="dot-list ">
+                                    
                                     <?php $__currentLoopData = $uniquedoctorT; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $record): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <li data-doctorid="<?php echo e($record->doctor_id); ?>" data-patientid="<?php echo e($record->patient_id); ?>"><div class="bullet big"></div>
                                       <div class="med card col-sm-12 shadow" style="border-radius: 0px;">

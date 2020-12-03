@@ -84,7 +84,7 @@ class PatientController extends Controller
      $patient=new Patient;
      $patient->PRN=$prn;
      $patient->name= request('name');
-     $patient->fathername=request('fathername');
+     $patient->fatherName=request('fathername');
      $patient->age=request('age');
      $patient->child=request('child');
      $patient->gender=request('gender');
@@ -172,7 +172,7 @@ class PatientController extends Controller
 
        $patient = Patient::find($id);
         $patient->name= request('name');
-         $patient->fathername=request('fathername');
+         $patient->fatherName=request('fathername');
          $patient->age=request('age');
          $patient->child=request('child');
          $patient->gender=request('gender');

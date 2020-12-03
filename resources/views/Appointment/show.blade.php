@@ -256,6 +256,8 @@
           <span class="Edia error d-block" ></span>
         </div>
 
+
+
         <div class="form-group">
           <p>
             <a class="btn btn-secondary btn-drug"  role="button" >
@@ -264,7 +266,22 @@
             <a class="btn btn-secondary btn-injection" drole="button" >
               <label>Injection / Procedure</label>
             </a>
+            <a class="btn btn-secondary btn-recommending"  role="button" >
+              <label class="text-danger">Making  Recommending</label>
+            </a>
           </p>
+
+          <!-- recommending start -->
+          <div class="collapse multi-collapse" id="recommending">
+           <div  class="card p-3">
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Please Write Reason</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="reason" rows="3"></textarea>
+              </div>
+           </div>
+          </div>
+          <!-- recommending end -->
+
           <div class="collapse" id="drug">
             <div class="card card-body">
               <div class="row tfd">
@@ -338,6 +355,7 @@
           </div>
         </div>
       </div>
+
       <div class="collapse" id="injection">
         <div class="form-group">
 
@@ -379,6 +397,10 @@
           </div>
         </div>
       </div>
+
+      
+        
+      
     </div>
     <div class="form-group">
       <label>External Medicine:</label>
@@ -442,12 +464,21 @@
     $(".btn-drug").click(function(){
        $("#drug").show();
     $("#injection").hide();
+     $('#recommending').hide();
     })
 
      $(".btn-injection").click(function(){
        $("#drug").hide();
     $("#injection").show();
+     $('#recommending').hide();
     })
+
+     $('.btn-recommending').click(function(){
+      alert('helo');
+      $('#recommending').show();
+      $("#drug").hide();
+    $("#injection").hide();
+     })
 
      $('.js-example-basic-single').select2();
 
@@ -675,9 +706,9 @@
                 processData: false,
                 success: (data) => {
                   if(data.success){
-                    alert("treatmentsuccessfully")
+                    // alert("treatmentsuccessfully")
                    localStorage.clear();
-                    window.location.href = "/appointpatient";
+                   window.location.href = "/appointpatient";
                   }
                           
                 },

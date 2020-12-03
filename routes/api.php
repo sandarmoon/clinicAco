@@ -39,4 +39,26 @@ Route::put('/treatment/{id}','Api\TreatmentController@madeTreatment')->middlewar
 // for login
 Route::post('/login','Api\AuthController@login');
 
+// // ==============Reception Management======================================================
+Route::middleware('auth:api')->group( function () {
+
+	Route::resource('patient', 'Api\PatientController');
+
+	Route::get('/doctors','Api\ReceptionController@getDoctor');
+
+	//for gettoken with  appointment date and doctotid which is post
+	Route::post('/token','Api\ReceptionController@generateToken');
+
+	//making a new appointment after getting token
+	Route::post('/appointment','Api\ReceptionController@makeAppointment');
+
+	//get prn number to get appointment
+	Route::get('/searchprn/{prn}','Api\ReceptionController@searchPRN');
+
+	Route::post('/confirmAppintment','Api\ReceptionController@confirmAppintment');
+
+});
+// // ==============Reception Management End======================================================
+
+
 

@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 use App\Http\Resources\MedicinetypeResource;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Referreddoctor;
 class TreatmentHistoryResource extends JsonResource
 {
     /**
@@ -46,7 +46,8 @@ class TreatmentHistoryResource extends JsonResource
                array_push($files, url($value));
             }
         }
-        
+
+
         $data=[
 
             "id"=>$this->id,

@@ -15,8 +15,10 @@ class Patient extends Model
 
     public function treatments($value='')
     {
-    	return $this->hasMany('App\Treatment');
+    	return $this->hasMany('App\Treatment')->orderBy('treatments.appointment_id','DESC');
     }
+
+   
 
     public function referredPatient(){
     	return $this->hasMany('App\Referreddoctor','patient_id');

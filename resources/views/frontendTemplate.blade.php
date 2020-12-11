@@ -250,6 +250,11 @@
               <i class="ni ni-circle-08 text-yellow"></i> Booking
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{route('todayAppointment')}}">
+              <i class="ni ni-circle-08 text-yellow"></i> Now
+            </a>
+          </li>
           @endrole
 
          <li class="nav-item">

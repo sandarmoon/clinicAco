@@ -136,17 +136,19 @@ foreach($treatments as $treatment)
                $count= count($t->doctor->referredBy);
 
                $arr=$t->doctor->referredBy;
-
-               $a= $arr[$count-1]->created_at;
+               $to_doctor_id=$arr[$count-1]->to_doctor_id;
+                $a= $arr[$count-1]->created_at;
                $latestReferredByDate= $a->toDateString();
                $todayTreatmentDate=Carbon\Carbon::today()->toDateString();;
+
+              
                @endphp
                 
                 <!--today treament show only  and haven't changedoctor for today 
                  if today treament doctor change to other with wrting reason but still not enter data into  
                  referredDoctor table since reception haven't done for it will show this button -->
 
-               @if((!empty($treatments[0]->reason)) && ($latestReferredByDate!=$todayTreatmentDate))
+               @if((empty($to_doctor_id)) && ($latestReferredByDate==$todayTreatmentDate))
                
 
                 <button class="
@@ -340,6 +342,7 @@ foreach($treatments as $treatment)
                  <input type="hidden" name="patient_id" value="{{$treatments[0]->patient_id}}">
                  <input type="hidden" name="fromDoctor" value="{{$treatments[0]->doctor_id}}">
                  <div class="form-group">
+                  <input type="hidden" name="referredID">
                     <label for="exampleFormControlSelect1">To Whom</label><br/>
                    <select class="col-12 form-control" name="toDoctor" id="changingDoc">
                     <option value="">Choose Doctor</option>
@@ -431,6 +434,7 @@ $('#changingDoc').select2({
     $.get(`/getreason/${did}/${pid}`,function(res){
       if(res){
         $('#changeDoctorForm textarea[name="reason"]').val(res.reason);
+        $('#changeDoctorForm input[name="referredID"]').val(res.id);
         $('#doctor_change_modal').modal('show');
       }
     })
@@ -440,16 +444,22 @@ $('#changingDoc').select2({
   $('#changeDoctorForm').submit(function(e){
    e.preventDefault();
    // alert('helo');
-      var formData=$(this).serialize();
-      console.log(formData);
+      var formdata= new FormData(this);
+      let  id=$('#changeDoctorForm input[name="referredID"]').val();
+      var url="{{route('referredDoctor.update',':id')}}";
+        url=url.replace(':id',id);
+        formdata.append('_method', 'PUT');
       
       $.ajax({
-         url:"{{route('referredDoctor.store')}}",
-         type:"POST",
-         data:formData,
-         processData: false,
+         type:'POST',
+          url: url,
+          data: formdata,
+          cache:false,
+          contentType: false,
+          processData: false,
          success:function(data){
-            $('#doctor_change_modal').modal('hide');
+             $('#doctor_change_modal').modal('hide');
+             $('.doctorChange').hide();
          },
          error:function(data){
             console.log(data);

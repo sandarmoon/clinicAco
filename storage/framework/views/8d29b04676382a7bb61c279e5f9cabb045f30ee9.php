@@ -252,6 +252,11 @@
               <i class="ni ni-circle-08 text-yellow"></i> Booking
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('todayAppointment')); ?>">
+              <i class="ni ni-circle-08 text-yellow"></i> Now
+            </a>
+          </li>
           <?php endif; ?>
 
          <li class="nav-item">

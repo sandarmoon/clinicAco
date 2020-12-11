@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Treatment;
 use App\Medicine;
+use App\Appointment;
 use Carbon\Carbon;
 use Auth;
 use App\Http\Resources\Api\TreatmentResource;
@@ -13,6 +14,7 @@ use App\Http\Resources\Api\PatientResource;
 use App\Http\Resources\Api\MedicineResource;
 use App\Doctor;
 use App\Patient;
+use App\Referreddoctor;
 
 class TreatmentController extends Controller
 {
@@ -38,18 +40,60 @@ class TreatmentController extends Controller
             // }])-> first();
         //end query
 
-          $patient=Patient::
-            whereHas('treatments',function($q) use ($id){
-              //$q->whereDate('created_at',Carbon::today())
-               $q->where('doctor_id','=',$id)
-                ->whereNull('gc_level');
-            })->with(['treatments'=>function($q){
-                $q->whereNotNull('gc_level');
-            }])-> first();
+          // $patients=Patient::
+          //   whereHas('treatments',function($q) use ($id){
+          //     //$q->whereDate('created_at',Carbon::today())
+          //      $q->where('doctor_id','=',$id)
+          //       ->orderBy('appointment_id')
+          //        ->whereNull('gc_level');
+               
+
+          //   })->with('appointment')->get();
+
+         $patients=Appointment::whereHas('treatment',function($q) use ($id){
+              $q->whereDate('created_at',Carbon::today())
+               ->where('doctor_id','=',$id)
+                 ->whereNull('gc_level');
+            })->with('treatment.patient.treatments')
+         ->orderBy('TokenNo','ASC')
+         ->where('status','=',1)
+         ->get();
+           
+           // return $patients;
+
+         // $patients=Treatment::with(['appointment'=>function($e){
+         //  $e->where('status','1');
+            
+         // }])->orderBy('appointment.TokenNo','ASC')
+         // ->where('doctor_id',$id)->get();
+
+         // return $patients;
+
+
+         // $patients=Patient::with(['treatments'=>function($q){
+         //    $q->with(['appointment'=>function($query){
+         //        $query->orderBy('TokenNo','ASC');
+         //    }]);
+         // }])
+         // $patients=Patient::whereHas('treatments',function($q) use ($id){
+         //      $q->whereDate('created_at',Carbon::today())
+         //        ->where('doctor_id','=',$id)
+         //         ->whereNull('gc_level');
+               
+         //    })->orderBy('appointment_id','ASC')
+
+         // ->get();
+
+
+              
+         // return $patients;
+
 
             
+               $patient=$patients[0]->treatment->patient;
+            
 
-        // dd($patient);
+         // dd($patients);
        if($patient!=null){
          return $this->sendResponse(new PatientResource($patient), 'Treatment retrieved successfully.');
      }else{
@@ -220,6 +264,7 @@ class TreatmentController extends Controller
     public function madeTreatment(Request $request,$id){
 
          $authid=Auth::user()->doctors[0]->id;
+
           $request->validate([
              'gc'=>'required',
              'complaint' =>'required',
@@ -305,6 +350,27 @@ class TreatmentController extends Controller
            $type=$injection->injectiontype;
         $treatment->medicines()->attach($injection->injectionid,['type' => $type]);     
         }
+        }
+
+         if(!empty(request('reason'))){
+            $reason=request('reason');
+            $fromDoctor=$authid;
+            $patient_id=$id;
+
+            $assignedDoc=Referreddoctor::where('to_doctor_id',$fromDoctor)
+                        ->where('patient_id',$patient_id)
+                        ->first();
+
+                if($assignedDoc==null){
+                    Referreddoctor::create([
+                        'from_doctor_id'=>$fromDoctor,
+                        'to_doctor_id'=>null,
+                        'patient_id'=>$patient_id,
+                        'reason'=>$reason
+                     ]);
+                }else{
+                    dd('yes it has');
+                }
         }
 
          return response()->json([

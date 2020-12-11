@@ -494,24 +494,24 @@ class TreatmentController extends Controller
         }
         }
 
-        // if(!empty(request('reason'))){
-        //     $reason=request('reason');
-        //     $fromDoctor=$treatment->doctor_id;
-        //     $patient_id=$treatment->patient_id;
-        //     $assignedDoc=Referreddoctor::where('to_doctor_id',$fromDoctor)
-        //                 ->where('patient_id',$patient_id)
-        //                 ->first();
-        //         if($assignedDoc==null){
-        //             Referreddoctor::create([
-        //                 'from_doctor_id'=>$fromDoctor,
-        //                 'to_doctor_id'=>0,
-        //                 'patient_id'=>$patient_id,
-        //                 'reason'=>$reason
-        //              ]);
-        //         }else{
-        //             dd('yes it has');
-        //         }
-        // }
+        if(!empty(request('reason'))){
+            $reason=request('reason');
+            $fromDoctor=$treatment->doctor_id;
+            $patient_id=$treatment->patient_id;
+            $assignedDoc=Referreddoctor::where('to_doctor_id',$fromDoctor)
+                        ->where('patient_id',$patient_id)
+                        ->first();
+                if($assignedDoc==null){
+                    Referreddoctor::create([
+                        'from_doctor_id'=>$fromDoctor,
+                        'to_doctor_id'=>null,
+                        'patient_id'=>$patient_id,
+                        'reason'=>$reason
+                     ]);
+                }else{
+                    dd('yes it has');
+                }
+        }
 
 
 
@@ -557,11 +557,11 @@ class TreatmentController extends Controller
     }
 
     public function getreason($did,$pid){
-         $treatment=Treatment::where('patient_id','=',$pid)
-                ->where('doctor_id','=',$did)
-                ->whereDate('created_at',Carbon::today())
-                ->orderBy('id','desc')
-                ->first();
-        return $treatment;
+         
+                 $referred=Referreddoctor::where('from_doctor_id',$did)
+                        ->where('patient_id',$pid)
+                        ->whereDate('created_at',Carbon::today())
+                        ->first();
+        return $referred;
     }
 }

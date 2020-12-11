@@ -92,7 +92,12 @@ class ReferredDoctorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $assignedDoc=Referreddoctor::find($id);
+        $assignedDoc->to_doctor_id=request('toDoctor');
+        $assignedDoc->save();
+
+         return response()->json(['success'=>'Successfully Doctor Changing!']);
+        
     }
 
     /**

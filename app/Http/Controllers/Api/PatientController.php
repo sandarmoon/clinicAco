@@ -22,9 +22,13 @@ class PatientController extends Controller
      */
     public function index()
     {
-         $reception=Auth::user()->receptions[0]->id;
+         $reception=Auth::user()->receptions[0]->owner->id;
+
+         $patients=Patient::whereHas('reception.owner',function($q)use($reception){
+            $q->where('id',$reception);
+         })->get();
          
-        $patients=PatientResource::collection(Patient::where('reception_id',1)->get());
+        $patients=PatientResource::collection($patients);
        return $this->sendResponse($patients, "Patient are successfully retrived");
 
     }

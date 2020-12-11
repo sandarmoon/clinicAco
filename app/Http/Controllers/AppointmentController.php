@@ -118,12 +118,46 @@ class AppointmentController extends Controller
     public function getAppointment(){
         $appointments=Appointment::with('doctor')
                             ->where('status','!=',1)
+                            ->where('A_Date','>=',Carbon::today()->toDateString())
                             ->get();
        
         $all=AppointmentResource::collection($appointments);
          return Datatables::of($all)->addIndexColumn()->make(true);
 
 
+    }
+
+    public function todayBoodking($did){
+        if($did ==0){
+            $all=Appointment::whereHas('treatment',function($q){
+              $q->whereDate('created_at',Carbon::today())
+                     ->whereNull('gc_level');
+                })->with(['treatment.patient.treatments','doctor.user'])
+            ->orderBy('doctor_id')
+             ->orderBy('TokenNo','ASC')
+             ->where('status','!=',2)
+             ->get();
+         }else{
+             $all=Appointment::whereHas('treatment',function($q)use($did){
+              $q->whereDate('created_at',Carbon::today())
+                    ->where('doctor_id',$did)
+                     ->whereNull('gc_level');
+                })->with(['treatment.patient.treatments','doctor.user'])
+            ->orderBy('doctor_id')           
+             ->orderBy('TokenNo','ASC')
+             ->where('status','!=',2)
+             ->get();
+         }
+       
+
+         return Datatables::of($all)->addIndexColumn()->make(true);
+
+    }
+
+
+    public function todayAppointment(){
+        $doctors=Doctor::all();
+        return view('Appointment.today',compact('doctors'));
     }
 
     public function searchPRN(Request $request){
@@ -159,7 +193,8 @@ class AppointmentController extends Controller
        Treatment::create([
             'patient_id'=>$patient,
             'doctor_id'=>$doctor_id,
-            'charges'=>0
+            'charges'=>0,
+            'appointment_id'=>$appointment->id
             ]);
 
          return response()->json([
@@ -204,6 +239,7 @@ class AppointmentController extends Controller
             'file.*' => 'required|mimes:jpg,jpeg,png,bmp|max:20000'
         ]);
 
+
         if($request->hasfile('file'))
         {
             $upload_dir = 'storages/files/';
@@ -215,6 +251,8 @@ class AppointmentController extends Controller
                 $file->move($upload_dir, $name);
                $path[] = $upload_dir . $name;
             }
+        }else{
+            $path=[];
         }
     // $doctor_id=Doctor::first()->value('id');
     // dd($doctor_id);
@@ -239,7 +277,7 @@ class AppointmentController extends Controller
      $patient->file=json_encode($path);
      $patient->reception_id=1;
      $patient->save();
-     Appointment::create([
+     $a=Appointment::create([
             'name'=>$request->name,
             'phone'=>$request->phoneno,
             'doctor_id'=>$doctor_id,
@@ -252,6 +290,7 @@ class AppointmentController extends Controller
      $treatment->doctor_id=$doctor_id;
      $treatment->patient_id=$patient->id;
      $treatment->charges=0;
+     $treatment->appointment_id=$a->id;
      $treatment->save();
      return redirect()->route('appointment.create');
     }
@@ -260,5 +299,12 @@ class AppointmentController extends Controller
         $appointment=Appointment::find($id);
         $appointment->delete();
         return response()->json(['success'=>'Successfully deleted']);
+    }
+
+    public function toggleDelay($aid,$value){
+       $a=Appointment::find($aid);
+       $a->status=$value;
+       $a->save();
+        return response()->json(['success'=>'Successfully updated']);
     }
 }

@@ -3,6 +3,8 @@
 $treatmentcount=0;
 $appointmentcount=0;
 
+
+
 foreach($survey as $a){
   $treatmentcount+=$a->treatments_count;
   $appointmentcount+=$a->appointments_count;

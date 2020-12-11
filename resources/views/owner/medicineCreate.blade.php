@@ -219,9 +219,9 @@
                             </div>
 
                             <div class="form-group">
-                              <label for="medsize" class="sfont">Medicine Name</label>
+                              <label for="medsize" class="sfont">Medicine Size</label>
                               <span class="Emedsize error d-block" ></span>
-                              <input type="text" name="medsize" id="medsize" placeholder="enter medicine name" class="d-inline form-control ">
+                              <input type="text" name="medsize" id="medsize" placeholder="enter medicine size" class="d-inline form-control ">
                             </div>
                             
 
@@ -344,12 +344,12 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Chemical Things</th>
+                                <th>Qty</th>
+                                <th>In Unit</th>
                                 <th>Phar</th>
                                 <th>bu</th>
                                 <th>card</th>
                                 <th>tab</th>
-                                <th>Qty</th>
-                                <th>In Unit</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -380,7 +380,8 @@
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Chemical Things</th>
-                                <th>Total Quantity</th>
+                                <th>Total Qty</th>
+                                <th>In Unit</th>
                                 <th>Actions</th>
                               </tr>
                             </thead>
@@ -506,6 +507,22 @@
 
 <script>
   $(document).ready(function(){
+
+
+
+    // monthlystockformedicineNew start
+    $.get('/checkMonthlyMedAdding',function(res){
+      console.log(res);
+    })
+    // monthlystockformedicineNew end
+
+
+
+
+
+
+
+
     $('.btn-create').click(function(){
 
       $(this).addClass('btn-success');
@@ -584,6 +601,12 @@
 
                   { "data": "medicine.chemical"
                   } ,
+                  { "data": "qty",
+                   render:function(data){
+                    return data+'tabs';
+                   }
+                  } ,
+
                   {
                         data:function(data){
                           let phar=data.unit1;
@@ -595,100 +618,81 @@
 
 
 
-                           if(phar==null){
-                            phar=1;
-                           }
+                          let onecard=tab;  
+                          let onebu=card * onecard;
+                          let onephar=bu * onebu;
+                          
 
-                            if(bu==null){
-                            bu=1;
-                           }
+                          let unitPhar=0;
+                          let unitBu=0;
+                          let unitCard=0;
+                          let unitTab=0;
+                          var remain=0;
+                        
 
-                            if(card==null){
-                            card=1;
-                           }
+                         
+                              if(qty >= onephar){
+                              unitPhar=Math.floor(qty / onephar);
+                              remain=qty % onephar;
+                               
+                              
 
-                           //  if(phar!=null){
-                           //  phar=0;
-                           // }
+                                if(remain >= onebu){
+                                  unitBu=Math.floor(remain / onebu);
+                                  remain=qty % onebu;
 
+                                }    
+                                if(remain>=onecard){
 
-                          let  tp=(phar * (bu*(tab*card)));
-
-                          let  tb=(bu*(tab*card));
-
-                          let  tc=(tab*card);
-
-                          let  tt=tab;
-                          let remain=0;
-
-                            if(qty > tp){
-
-                                phar=Math.floor(qty / tp);
-                                remain= qty% tp;
-
-                                if(remain > tb){
-
-                                  bu=Math.floor(qty / tb);
-                                  remain= qty% tb;
-
-                                  if(remain > tc ){
-                                     card=Math.floor(qty / tc);
-                                      tab= qty% tc;
-                                  }else{
-                                      card=0;
-                                      tab=remain;
-                                  }
-
-                                }else if(remain > tc){
-                                  bu=0;
-                                   card=Math.floor(qty / tc);
-                                    tab= qty% tc;
+                                  unitCard=Math.floor(remain / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
 
                                 }else{
-                                  bu=0;card=0;
-                                  tab=remain;
-
+                                  unitTab=remain;
                                 }
 
-                                
+                             }else if(qty >= onebu ||phar ==null ){
+                                  unitBu=Math.floor(qty / onebu);
+                                  remain=qty % onebu;
+
+                                  if(remain>=onecard){
+
+                                  unitCard=Math.floor(remain / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
+
+                                }else{
+                                  unitTab=remain;
+                                }
+                             }else if(qty >= onecard || phar==null || bu==null){
+                                  
+
+                                  unitCard=Math.floor(qty / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
+
+                             }
+                           
+                           
+                        
 
 
-                            }else if(qty > tb){
-                              phar=0;
-                               bu=Math.floor(qty / tb);
-                                remain= qty% tb;
-
-                                if(remain > tc ){
-                                     card=Math.floor(qty / tc);
-                                      tab= qty% tc;
-                                  }else{
-                                      card=0;
-                                      tab=remain;
-                                  }
 
 
-                            }else if(qty > tc){
-                              phar=0;
-                              bu=0;
-                              card=Math.floor(qty / tc);
-                              tab= qty% tc;
 
-                            }else{
-                              phar=0;bu=0;card=0;
-                               tab=qty;
-                            }
 
-                            // console.log(phar,bu,card,tab);
 
-                            // return `${phar ?}:phar, ${bu}:bu, <br/>
-                            //         ${card}:card, ${tab}:tab`;
-                            var html='';
 
-                             html+= (phar==0) ? '': phar+":phar,"; 
-                             html+= (bu==0) ? '': bu+":bu,"; 
-                             html+= (card==0) ? '': card+":card,"; 
-                             html+= tab+':tab';
-
+                          
+                              
+                            
+                              var html='';
+                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
+                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
+                             html+= (unitCard==0) ? '': unitCard+":card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             
                              return html;
 
                           // }
@@ -1136,18 +1140,9 @@
 
                       { "data": "chemical"
                       } ,
-                      { "data": "phar"
-                      
-                      } ,
-                      { "data": "bu"
-                      } ,
-                      { "data": "card"
-                      } ,
-                      { "data": "tab"
-                      } ,
                       { "data": "qty"
                       } ,
-                      {
+                       {
                         data:function(data){
                           let phar=data.phar;
                           let bu=data.bu;
@@ -1156,111 +1151,168 @@
                           let qty=data.qty;
                           let r=0;
 
+                          
+                          let onecard=tab;  
+                          let onebu=card * onecard;
+                          let onephar=bu * onebu;
+                          
 
+                          let unitPhar=0;
+                          let unitBu=0;
+                          let unitCard=0;
+                          let unitTab=0;
+                          var remain=0;
+                        
 
-                           if(phar==null){
-                            phar=1;
-                           }
+                         
+                              if(qty >= onephar){
+                              unitPhar=Math.floor(qty / onephar);
+                              remain=qty % onephar;
+                               
+                              
 
-                            if(bu==null){
-                            bu=1;
-                           }
+                                if(remain >= onebu){
+                                  unitBu=Math.floor(remain / onebu);
+                                  remain=qty % onebu;
 
-                            if(card==null){
-                            card=1;
-                           }
+                                }    
+                                if(remain>=onecard){
 
-                           //  if(phar!=null){
-                           //  phar=0;
-                           // }
-
-
-                          let  tp=(phar * (bu*(tab*card)));
-
-                          let  tb=(bu*(tab*card));
-
-                          let  tc=(tab*card);
-
-                          let  tt=tab;
-                          let remain=0;
-
-                            if(qty > tp){
-
-                                phar=Math.floor(qty / tp);
-                                remain= qty% tp;
-
-                                if(remain > tb){
-
-                                  bu=Math.floor(qty / tb);
-                                  remain= qty% tb;
-
-                                  if(remain > tc ){
-                                     card=Math.floor(qty / tc);
-                                      tab= qty% tc;
-                                  }else{
-                                      card=0;
-                                      tab=remain;
-                                  }
-
-                                }else if(remain > tc){
-                                  bu=0;
-                                   card=Math.floor(qty / tc);
-                                    tab= qty% tc;
-
-                                }else{
-                                  bu=0;card=0;
-                                  tab=remain;
+                                  unitCard=Math.floor(remain / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
 
                                 }
 
-                                
+                             }else if(qty >= onebu ||phar ==null ){
+                                  unitBu=Math.floor(qty / onebu);
+                                  remain=qty % onebu;
+
+                                  if(remain>=onecard){
+
+                                  unitCard=Math.floor(remain / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
+
+                                }
+                             }else if(qty >= onecard || phar==null || bu==null){
+                                  
+
+                                  unitCard=Math.floor(qty / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
+
+                             }
+                           
+                           
+                        
 
 
-                            }else if(qty > tb){
-                              phar=0;
-                               bu=Math.floor(qty / tb);
-                                remain= qty% tb;
-
-                                if(remain > tc ){
-                                     card=Math.floor(qty / tc);
-                                      tab= qty% tc;
-                                  }else{
-                                      card=0;
-                                      tab=remain;
-                                  }
 
 
-                            }else if(qty > tc){
-                              phar=0;
-                              bu=0;
-                              card=Math.floor(qty / tc);
-                              tab= qty% tc;
 
-                            }else{
-                              phar=0;bu=0;card=0;
-                               tab=qty;
-                            }
-
-                            // console.log(phar,bu,card,tab);
-
-                            // return `${phar ?}:phar, ${bu}:bu, <br/>
-                            //         ${card}:card, ${tab}:tab`;
-                            var html='';
-
-                             html+= (phar==0) ? '': phar+":phar,"; 
-                             html+= (bu==0) ? '': bu+":bu,"; 
-                             html+= (card==0) ? '': card+":card,"; 
-                             html+= tab+':tab';
-
-                             return html;
-
-                          // }
 
 
 
                           
+                              
+                            
+                              var html='';
+                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
+                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
+                             html+= (unitCard==0) ? '': unitCard+":card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             
+                             return html;
+
+
+                          
+                          // console.log(unitPhar,unitBu,unitCard,unitTab);
+
+
+
+                           /* if(phar==null){
+                           //  phar=1;
+                           // }
+                           //  if(bu==null){
+                           //  bu=1;
+                           // }
+                           //  if(card==null){
+                           //  card=1;
+                           // }
+                           //  if(phar!=null){
+                           //  phar=0;
+                           // }
+                          // let  tp=(phar * (bu*(tab*card)));
+                          // let  tb=(bu*(tab*card));
+                          // let  tc=(tab*card);
+                          // let  tt=tab;
+                          // let remain=0;
+                          //   if(qty > tp){
+                          //       phar=Math.floor(qty / tp);
+                          //       remain= qty% tp;
+                          //       if(remain > tb){
+                          //         bu=Math.floor(qty / tb);
+                          //         remain= qty% tb;
+                          //         if(remain > tc ){
+                          //            card=Math.floor(qty / tc);
+                          //             tab= qty% tc;
+                          //         }else{
+                          //             card=0;
+                          //             tab=remain;
+                          //         }
+                          //       }else if(remain > tc){
+                          //         bu=0;
+                          //          card=Math.floor(qty / tc);
+                          //           tab= qty% tc;
+                          //       }else{
+                          //         bu=0;card=0;
+                          //         tab=remain;
+                          //       }
+                                
+                          //   }else if(qty > tb){
+                          //     phar=0;
+                          //      bu=Math.floor(qty / tb);
+                          //       remain= qty% tb;
+                          //       if(remain > tc ){
+                          //            card=Math.floor(qty / tc);
+                          //             tab= qty% tc;
+                          //         }else{
+                          //             card=0;
+                          //             tab=remain;
+                          //         }
+                          //   }else if(qty > tc){
+                          //     phar=0;
+                          //     bu=0;
+                          //     card=Math.floor(qty / tc);
+                          //     tab= qty% tc;
+                          //   }else{
+                          //     phar=0;bu=0;card=0;
+                          //      tab=qty;
+                          //   }
+                          //   // console.log(phar,bu,card,tab);
+                          //   // return `${phar ?}:phar, ${bu}:bu, <br/>
+                          //   //         ${card}:card, ${tab}:tab`;
+                          //   var html='';
+                          //    html+= (phar==0) ? '': phar+":phar,"; 
+                          //    html+= (bu==0) ? '': bu+":bu,"; 
+                          //    html+= (card==0) ? '': card+":card,"; 
+                          //    html+= tab+':tab';
+                          //    return html;
+                          // }*/
+
+                          return 'hleo';
+                          
                         }
-                      }
+                      },{ "data": "phar"
+                      
+                      } ,
+                      { "data": "bu"
+                      } ,
+                      { "data": "card"
+                      } ,
+                      { "data": "tab"
+                      } ,
 
                      
                   ],

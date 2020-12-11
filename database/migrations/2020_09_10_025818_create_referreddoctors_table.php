@@ -15,8 +15,8 @@ class CreateReferreddoctorsTable extends Migration
     {
         Schema::create('referreddoctors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('from_doctor_id');
-            $table->unsignedBigInteger('to_doctor_id');
+            $table->unsignedBigInteger('from_doctor_id')->nullable();
+            $table->unsignedBigInteger('to_doctor_id')->nullable();
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('status')->default(1);
             $table->string('reason');

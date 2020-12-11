@@ -370,7 +370,7 @@ ul.dot-list li:hover .my-card{
                          <div class="col-lg-6">
                             <div class="form-group">
                                <label for="example-datetime-local-input" class="form-control-label">Appointment Date</label>
-                               <input class="form-control" name="A_date" type="date" value="2018-11-23" min="<?= date('Y-m-d'); ?>" id="example-date-input">
+                               <input class="form-control" name="A_date" type="date"  min="<?= date('Y-m-d'); ?>" id="example-date-input">
                             </div>
                          </div>
                          <div class="col-lg-6">
@@ -506,6 +506,8 @@ ul.dot-list li:hover .my-card{
                 <div class="input-group mb-3">
                   <input type="text" class="form-control" name="PRN" placeholder=" PRN ID" aria-label="Example text with button addon" aria-describedby="button-addon1">
                   <div class="input-group-prepend">
+                    <input type="hidden" name="appointmentNo">
+                    <input type="hidden" name="docNo">
                     <button class="btn btn-outline-primary searchPRN" type="button" id="button-addon1"><i class="ni ni-zoom-split-in"></i></button>
                   </div>
                   
@@ -696,13 +698,18 @@ $(document).ready(function(){
 
        $('.appointmentTable').on('click','.oldPatient',function(){
           $('#patientNo').modal('show');
+           var doctor=$(this).data('doctor');
+          var appointment=$(this).attr('data-id');
+          $('input[name="docNo"]').val(doctor);
+          $('input[name="appointmentNo"]').val(appointment);
        })
 
 
        $('.searchPRN').on('click',function(){
           var value=$('input[name="PRN"]').val();
-          var doctor=$('.oldPatient').data('doctor');
-          var appointment=$('.oldPatient').data('id');
+         var doctor=$('input[name="docNo"]').val();
+          var  appointment=$('input[name="appointmentNo"]').val();
+          console.log(appointment);
           var html='';
 
           $.ajax({
@@ -721,20 +728,19 @@ $(document).ready(function(){
               $('.addTreatment').prop('disabled',false);
 
               html =`<div class="card mb-3">
-                      <div class="row no-gutters">
-                        <div class="col-md-4">
-                          <img src="/${file[0]}" class="card-img" alt="...">
-                        </div>
-                        <div class="col-md-8">
+                      
+                        
+                        <div class="col-md-12">
                           <div class="card-body">
-                            <h5 class="card-title">Patient Name:${patient.name}</h5>
+                            <h3 class="card-title">Patient Name:${patient.name}</h3>
+                            <h5 class="card-title">PRN NO:${patient.PRN}<h5>
                             <p>Age:${patient.age}<p>
                             <p>Allergy:${patient.allergy}<p>
                             
                             <p class="card-text"><small class="text-muted">created at:${moment(patient.created_at).format('Y-M-D')}</small></p>
                           </div>
                         </div>
-                      </div>
+                     
                     </div>`;
                     $('.result').html(html);
              }else{

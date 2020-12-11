@@ -80,6 +80,7 @@ class DoctorController extends Controller
             // dd($all);
         
         }else if($role->name=="Reception"){
+            
             $all=Doctor::where('owner_id',Auth::user()->receptions[0]->owner_id)->get();
 
         }else{

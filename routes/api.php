@@ -57,6 +57,12 @@ Route::middleware('auth:api')->group( function () {
 
 	Route::post('/confirmAppintment','Api\ReceptionController@confirmAppintment');
 
+	//for making assigned control
+	Route::post('/searchAssginment','Api\ReceptionController@assignedDoctor');
+
+	Route::get('/completeAssignment/{assignid}/{todid}','Api\ReceptionController@completeAssignment');
+
+
 });
 // // ==============Reception Management End======================================================
 

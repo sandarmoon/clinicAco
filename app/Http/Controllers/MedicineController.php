@@ -334,11 +334,13 @@ class MedicineController extends Controller
          return Datatables::of($final_array)->addIndexColumn()->toJson();
     }
 
-    public function monthlyStock(){
+    public function monthlyStock($dateS,$dateE){
+
+        // dd('yes');
         $id=Auth::user()->owners[0]->id;
         // dd($id);
-        $dateS = Carbon::now()->startOfMonth();
-        $dateE = Carbon::now()->endofMonth(); 
+        // $dateS = Carbon::now()->startOfMonth();
+        // $dateE = Carbon::now()->endofMonth(); 
         // $dateS='2020-09-01';
         // $dateE='2020-09-30';
 
@@ -352,13 +354,14 @@ class MedicineController extends Controller
          // }
 
 
-
          // ======== ======== ======== ======== ======== ========
         $treatments=Treatment::with('medicines')
         ->whereHas('doctor',function($q) use ($id){
             $q->where('owner_id','=',$id);
         })
         ->whereBetween('created_at',array($dateS,$dateE))->whereNotNull('gc_level')->get();
+
+
         foreach ($treatments as $key => $value) {
                
                   $data2= $value->medicines;
@@ -392,10 +395,11 @@ class MedicineController extends Controller
             }
          }
 
-            // dd($data_treat);
-           // ======== ======== ======== ======== ======== ========
+        //dd($data_treat);
+           // ======= ======== ======== ======== ======== ========
        
         // monthlyStock
+         // dd($dateS,$dateE);
          $month_stock=[];
            $monthStock=Stock::
                     whereHas('medicine',function($q) use ($id){
@@ -406,6 +410,7 @@ class MedicineController extends Controller
                     
                     ->orderBy('medicine_id')
                     ->get();
+            // dd($monthStock);
 
             $data=collect($monthStock);
             $data=$data->groupBy('medicine_id')->toArray();
@@ -413,70 +418,84 @@ class MedicineController extends Controller
 
             foreach($data as $i=>$v){
              $total=0;
-            foreach ($v as $k => $val) {
+                foreach ($v as $k => $val) {
 
-                // dd($val['qty']);
-                $total+=$val['qty'];
+                    // dd($val['qty']);
+                    $total+=$val['qty'];
 
-                 $month_stock[$i]=$total;
-                }
+                     $month_stock[$i]=$total;
+                    }
              }
-                // dd($month_stock);
+                 //dd($month_stock);
 
             // ================================================================
              
-            $lastMonthDay= date('Y-m-d', strtotime('last day of previous month')); 
-            // dd($lastMonthDay);
+
+             if($dateS->equalTo(Carbon::Today())){
+                $lastMonthDay= date('Y-m-d', strtotime('last day of previous month'));
+
+             }else{
+                
+                $date=$dateS->subMonths(1); 
+                $lastMonthDay= $date->lastOfMonth(); 
+               // echo  $data->lastOfMonth()->toDateString();die();
+             }
+
+            
+         // dd($lastMonthDay);
 
             $remain_stock=[];
 
             $monthlymedicine=Monthlymedicine::whereDate('emdate',$lastMonthDay)
                     ->get();
 
-                    // $data=collect($monthlymedicine);
-                    // $data=$data->groupBy('medicine_id')->toArray();
+                    $data=collect($monthlymedicine);
+                    $data=$data->groupBy('medicine_id')->toArray();
                    
+                    // dd($data);
+                    $total=0;
+                    foreach($data as $i=>$v){
+                     
+                        foreach ($v as $k => $val) {
 
-                    // foreach($data as $i=>$v){
-                    //  $total=0;
-                    // foreach ($v as $k => $val) {
+                            // dd($val['qty']);
+                            $total+=$val['qty'];
 
-                    //     // dd($val['qty']);
-                    //     $total+=$val['qty'];
+                             $remain_stock[$i]=$total;
+                            }
+                     }
 
-                    //      $remain_stock[$i]=$total;
-                    //     }
-                    //  }
-
-                      // dd($monthlymedicine);
+                     // dd($month_stock);
 
             // ================================================================
                     // total remain stock 
-                     $remain_total_stock=[];
+                      $remain_total_stock=[];
 
 
 
                       foreach($month_stock as $k=>$m){
                 // dd($m);
-                        if(empty($monthlymedicines)){
-                            foreach($monthlymedicine as $i=>$v){
-                                if($k==$v->medicine_id){
+                        if(!empty($remain_stock)){
+                            foreach($remain_stock as $i=>$v){
+                                if($k==$i){
 
-                                    $remain_total_stock[$k]=$m+$v->qty;
+                                    $remain_total_stock[$k]=$m+$v;
                                     break;
                                 }
                                 else{
-                                     $remain_total_stock[$k]=$m+$v->qty;
+                                     $remain_total_stock[$k]=$m+$v;
                                 }
                                     
                                      $remain_total_stock[$k]=$m;
                                    
                                 
                             }
-                        }
+                        }else{
+
                          $remain_total_stock[$k]=$m;
+                        }
                      }
-                    // dd($remain_total_stock);
+                     // dd($remain_total_stock);
             // ================================================================
                   $final_data=[];  
 
@@ -484,17 +503,21 @@ class MedicineController extends Controller
 
              foreach($remain_total_stock as $k=>$m){
                 // dd($m);
-                foreach($data_treat as $i=>$v){
+                if(!empty($data_treat)){
+                    foreach($data_treat as $i=>$v){
 
-                    if($k==$i){
+                        if($k==$i){
 
-                        $final_data[$k]=$m-$v;
-                        break;
-                    }
+                            $final_data[$k]=$m-$v;
+                            break;
+                        }
+                            
+                            $final_data[$k]=$m;
+                           
                         
-                        $final_data[$k]=$m;
-                       
-                    
+                    }
+                }else{
+                    $final_data=$remain_total_stock;
                 }
              }
              // dd($final_data);
@@ -515,6 +538,44 @@ class MedicineController extends Controller
 
        
               
+
+
+    }
+
+
+    public function  checkMonthlyMedAdding(){
+        // dd('yes');
+        $today = Carbon::now()->toDateString();
+        $currentMonth = Carbon::now();
+        $currentMonth2 = Carbon::now();
+         $lastdayofcurrent=Carbon::now()->endOfMonth()->toDateString();
+        // echo $lastdayofcurrent;
+        // $start = new Carbon('first day of last month');
+        $first = Carbon::create(2020, 11, 30, 0, 0, 0);
+
+        $lastDayoflastMonth  = new Carbon('last day of last month');
+        $ldlM=$lastDayoflastMonth->toDateString();
+        
+        $getMonthlylastMed=collect(Monthlymedicine::get())->groupBy('emdate')->toArray();
+        // dd($getMonthlylastMed['2020-09-30']);
+        
+
+        if($today==$lastdayofcurrent ){
+            // dd('todat');
+            $dateS = Carbon::now()->startOfMonth();
+            $dateE = Carbon::now()->endofMonth(); 
+            $this->monthlyStock($dateS,$dateE);
+        }
+
+        if($today > $ldlM){
+            // dd('lastday');
+            if(!array_key_exists($ldlM, $getMonthlylastMed)){
+                $firstDayoflastMonth  = new Carbon('first day of last month');
+                $lastDayoflastMonth  = new Carbon('last day of last month');
+                //dd('yeah');
+                $this->monthlyStock($firstDayoflastMonth,$lastDayoflastMonth);
+            }
+        }
 
 
     }

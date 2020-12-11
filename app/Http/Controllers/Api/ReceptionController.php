@@ -8,6 +8,7 @@ use App\Reception;
 use App\Appointment;
 use App\Treatment;
 use App\Patient;
+use App\Referreddoctor;
 use App\Doctor;
 use App\Http\Resources\ReceptionResource;
 use App\Http\Resources\Api\PatientResource;
@@ -148,5 +149,28 @@ class ReceptionController extends Controller
             
         ],200);
 
+    }
+
+    public function assignedDoctor(Request $request){
+        $prn=$request->prn;
+        $assignment=Referreddoctor::whereHas('patient',function($q)use($prn){
+            $q->where('PRN',$prn);
+        })->whereNull('to_doctor_id')
+        ->orderBy('created_at','desc')->first();
+        if(!empty($assignment)){
+          return $this->sendResponse($assignment, 'Success');  
+      }else{
+        $assignment=[];
+        return $this->sendResponse($assignment, 'No data found');
+      }
+       
+    }
+
+    public function completeAssignment($aid,$todid){
+         $assignedDoc=Referreddoctor::find($aid);
+            $assignedDoc->to_doctor_id=$todid;
+            $assignedDoc->save();
+
+            return response()->json(['success'=>'Successfully Doctor Changing!']);
     }
 }

@@ -49,10 +49,14 @@ class ReceptionController extends Controller
         ->withCount(['treatments'=>function($q1){
             $q1->whereNotNull('gc_level');
         },'appointments'=> function($q) {
-            $q->where('status',0);
+            $q->where('status',0)
+                ->where('created_at','>=',Carbon::today());
         }])
         ->where('owner_id',$owner_id)
         ->get();
+
+
+
 
         $patientlists=Patient::with(['treatments'=>function($t){
             $t->whereNotNull('gc_level');}])
@@ -68,6 +72,8 @@ class ReceptionController extends Controller
         ->whereDate('created_at', Carbon::today())->get();
         $survey1=Appointment::with('doctor','doctor.user')
         ->where('status',0)
+        ->where('A_Date','>=',Carbon::today()->toDateString())
+        ->limit('10')
         ->get();
         // dd($survey);
           // dd($wpatients);

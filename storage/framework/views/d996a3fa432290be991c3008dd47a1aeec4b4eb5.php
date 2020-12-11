@@ -706,9 +706,9 @@
                 processData: false,
                 success: (data) => {
                   if(data.success){
-                    alert("treatmentsuccessfully")
-                   // localStorage.clear();
-                    // window.location.href = "/appointpatient";
+                    // alert("treatmentsuccessfully")
+                   localStorage.clear();
+                   window.location.href = "/appointpatient";
                   }
                           
                 },

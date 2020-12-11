@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddReasonToTreatmentsTable extends Migration
+class AddAppointmentIdToTreatmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,11 @@ class AddReasonToTreatmentsTable extends Migration
     public function up()
     {
         Schema::table('treatments', function (Blueprint $table) {
-            // $table->string('reason')->nullable();
+              $table->unsignedBigInteger('appointment_id')->nullable();
+                $table->foreign('appointment_id')
+                    ->references('id')
+                    ->on('appointments')
+                    ->onDelete('cascade');
         });
     }
 
@@ -26,7 +30,7 @@ class AddReasonToTreatmentsTable extends Migration
     public function down()
     {
         Schema::table('treatments', function (Blueprint $table) {
-            // $table->dropColumn('reason');
+              $table->dropColumn('appointment_id');
         });
     }
 }

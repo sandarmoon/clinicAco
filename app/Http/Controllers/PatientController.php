@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Patient;
 use App\Doctor;
 use App\Treatment;
+use App\Referreddoctor;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 
@@ -64,6 +65,7 @@ class PatientController extends Controller
             'job'=>'required',
             'file.*' => 'required|mimes:jpg,jpeg,png,bmp|max:20000'
         ]);
+        
 
         if($request->hasfile('file'))
         {
@@ -76,6 +78,8 @@ class PatientController extends Controller
                 $file->move($upload_dir, $name);
                $path[] = $upload_dir . $name;
             }
+        }else{
+            $path=[];
         }
     $doctor_id=Doctor::first()->value('id');
     // dd($doctor_id);
@@ -123,8 +127,12 @@ class PatientController extends Controller
     public function show($id)
     {
          $patient = Patient::find($id);
-          $doctors=Doctor::where('owner_id',1)->get();
-          $treatments=Treatment::where('patient_id',$id)->where('gc_level','!=',null)->get();
+          $doctors=Doctor::with('user')->
+          where('owner_id',1)->get();
+          $treatments=Treatment::where('patient_id',$id)
+                        ->where('gc_level','!=',null)
+                        ->orderBy('id','desc')
+                        ->get();
          return view('patients.show',compact('patient','doctors','treatments'));
     }
 
@@ -217,5 +225,16 @@ class PatientController extends Controller
      $treatment->save();
      Alert::success('status', 'incharge successfully!');
       return redirect('patient');
+    }
+
+    public function getTransferReport($pid){
+       $data= Referreddoctor::with(['fromDoctor.user','toDoctor.user','patient'])
+                ->where('patient_id',$pid)
+                ->orderBy('created_at','desc')
+                ->get();
+       return response()->json([
+            'data' => $data,
+            
+        ]);
     }
 }

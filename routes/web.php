@@ -36,6 +36,11 @@ Route::get('/rdashboard', 'ReceptionController@dashboard')->name('rdashboard');
 
 	Route::get('/getAppointment','AppointmentController@getAppointment')->name('getAppointment');
 
+	Route::get('/todayBoodking/{did}','AppointmentController@todayBoodking')->name('todayBoodking');
+	Route::get('/todayAppointment','AppointmentController@todayAppointment')->name('todayAppointment');
+	Route::get('/toggleDelay/{aid}/{value}','AppointmentController@toggleDelay')->name('toggleDelay');
+
+
 	Route::post('/searchPRN','AppointmentController@searchPRN')->name('searchPRN');
 	Route::post('/confirmAppoints','AppointmentController@confirmAppoints')->name('confirmAppoints');
 
@@ -116,6 +121,9 @@ Route::get('/getDoctor','DoctorController@getDoctor')->name('getDoctor');
 
 //Patient
 Route::resource('patient','PatientController');
+
+Route::get('getTransferReport/{pid}','PatientController@getTransferReport')->name('getTransferReport');
+
 Route::post('incharge','PatientController@incharge')->name('incharge');
 
 Route::resource('reception','ReceptionController');//reception
@@ -189,6 +197,11 @@ Route::get('/monthlyStock','MedicineController@monthlyStock');
 Route::resource('/schedule','ScheduleController');
 // =================================================================
 // schedule end
+
+
+// monthlymedinciestock start
+Route::get('/checkMonthlyMedAdding','MedicineController@checkMonthlyMedAdding')->name('checkMonthlyMedAdding');
+// monthlymedinciestock end
 
 
 

@@ -612,7 +612,7 @@ renderCalendar();
 $(document).ready(function(){
 
   
-    // getAppointment();
+    // gntment();
     $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -691,7 +691,23 @@ $(document).ready(function(){
                 {"data":"appointment.A_Date"},
                 {"data":"appointment.TokenNo"},
                 {"data":"appointment",render:function(data){
-                  return `<button class="btn btn-outline-primary oldPatient" data-id="${data.id}" data-doctor=${data.doctor_id}>Old Patient</button><button class="btn btn-outline-info newPatient">New Patient</button><button data-id="${data.id}" class="btn btn-outline-danger btn-cancel">Cancel</button>`
+                  let d = new Date();
+
+                  let month = d.getMonth()+1;
+                  let day = d.getDate();
+
+                  let output = d.getFullYear() + '-' +
+                      (month<10 ? '0' : '') + month + '-' +
+                      (day<10 ? '0' : '') + day;
+
+                  let bookingDate=data.A_Date;
+                  if(bookingDate == output){
+                    return `<button class="btn btn-outline-primary oldPatient" data-id="${data.id}" data-doctor=${data.doctor_id}>Old Patient</button><button class="btn btn-outline-info newPatient">New Patient</button><button data-id="${data.id}" class="btn btn-outline-danger btn-cancel">Cancel</button>`
+                  }else{
+                    return `<button data-id="${data.id}" class="btn btn-outline-danger btn-cancel">Cancel</button>`;
+                  }
+                  
+
                 }}],
                 info:false
             } );
@@ -867,6 +883,8 @@ $(document).ready(function(){
        })
       
    })
+
+
 
 </script>
 <?php $__env->stopSection(); ?>

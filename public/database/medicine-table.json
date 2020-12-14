@@ -1,0 +1,72 @@
+[
+  {
+    "medicinetype_id": 1,
+    "name": "Liliana",
+    "chemical": "Do occaecat irure culpa aute eiusmod velit et exercitation sit id dolor excepteur voluptate. Qui voluptate exercitation in pariatur exercitation elit sit pariatur do esse Lorem.",
+    "size": "518-mg",
+    "owner_id": 1
+  },
+  {
+    "medicinetype_id": 1,
+    "name": "Weaver",
+    "chemical": "Consequat proident aliqua quis ullamco consequat ex ad id sit duis qui adipisicing laborum. Cupidatat deserunt reprehenderit ipsum labore.",
+    "size": "518-mg",
+    "owner_id": 1
+  },
+  {
+    "medicinetype_id": 1,
+    "name": "Herring",
+    "chemical": "Incididunt ut deserunt excepteur sint anim sit eu fugiat tempor. Anim aliqua reprehenderit duis amet commodo mollit commodo voluptate officia.",
+    "size": "518-mg",
+    "owner_id": 1
+  },
+  {
+    "medicinetype_id": 1,
+    "name": "Addie",
+    "chemical": "Quis voluptate dolor sit velit quis nulla dolore est pariatur id mollit ipsum voluptate eiusmod. Consectetur aliqua labore aliquip eiusmod eu reprehenderit ex amet tempor.",
+    "size": "518-mg",
+    "owner_id": 1
+  },
+  {
+    "medicinetype_id": 1,
+    "name": "Jennings",
+    "chemical": "Labore velit nulla magna pariatur proident. Ut tempor anim anim proident ex culpa officia nostrud incididunt esse Lorem irure.",
+    "size": "518-mg",
+    "owner_id": 1
+  },
+  {
+    "medicinetype_id": 2,
+    "name": "Lucia",
+    "chemical": "Reprehenderit adipisicing veniam proident excepteur laboris. Cupidatat veniam et pariatur Lorem.",
+    "size": "518-mg",
+    "owner_id": 1
+  },
+  {
+    "medicinetype_id": 2,
+    "name": "Sharron",
+    "chemical": "Duis anim adipisicing elit aute esse amet ea reprehenderit dolore cupidatat culpa incididunt cillum. Magna voluptate mollit aliquip sunt voluptate quis ea ad ad sint reprehenderit ad sit laboris.",
+    "size": "518-mg",
+    "owner_id": 1
+  },
+  {
+    "medicinetype_id": 1,
+    "name": "Estela",
+    "chemical": "Nisi pariatur nostrud amet deserunt mollit. Sit commodo deserunt veniam exercitation dolore do aliqua.",
+    "size": "518-mg",
+    "owner_id": 2
+  },
+  {
+    "medicinetype_id": 2,
+    "name": "Gibbs",
+    "chemical": "Dolore voluptate duis nulla enim occaecat pariatur irure fugiat et officia dolore non. Incididunt laboris excepteur incididunt deserunt laboris.",
+    "size": "518-mg",
+    "owner_id": 2
+  },
+  {
+    "medicinetype_id": 2,
+    "name": "Wolfe",
+    "chemical": "Minim est anim esse ea sunt mollit enim pariatur elit sit nostrud dolor enim pariatur. Est eiusmod ut deserunt qui.",
+    "size": "518-mg",
+    "owner_id": 2
+  }
+]

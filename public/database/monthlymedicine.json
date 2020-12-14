@@ -1,0 +1,52 @@
+[
+  {
+    "medicine_id": 1,
+    "emdate": "2020-11-30",
+    "qty": 4
+  },
+  {
+    "medicine_id": 2,
+    "emdate": "2020-11-30",
+    "qty": 18
+  },
+  {
+    "medicine_id": 3,
+    "emdate": "2020-11-30",
+    "qty": 20
+  },
+  {
+    "medicine_id": 4,
+    "emdate": "2020-11-30",
+    "qty": 11
+  },
+  {
+    "medicine_id": 5,
+    "emdate": "2020-11-30",
+    "qty": 18
+  },
+  {
+    "medicine_id": 6,
+    "emdate": "2020-11-30",
+    "qty": 4
+  },
+  {
+    "medicine_id": 7,
+    "emdate": "2020-11-30",
+    "qty": 20
+  },
+  {
+    "medicine_id": 8,
+    "emdate": "2020-11-30",
+    "qty": 20
+  },
+  {
+    "medicine_id": 9,
+    "emdate": "2020-11-30",
+    "qty": 10
+  },
+  {
+    "medicine_id": 10,
+    "emdate": "2020-11-30",
+    "qty": 10
+  }
+]

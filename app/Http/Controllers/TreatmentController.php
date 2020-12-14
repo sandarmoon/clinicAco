@@ -470,19 +470,22 @@ class TreatmentController extends Controller
         $treatment->next_visit_date=request('nextVisitDate1');
         $treatment->next_visit_date2=request('nextVisitDate2');
         $treatment->charges=request('charges');
-        $treatment->reason=request('reason');
+        
 
         $treatment->save();
-        $drugs=json_decode(request('drugs'));
-        // dd(request('drugs'));
-        foreach ($drugs as $key => $drug) {
-            $tab=$drug->tab;
-            //dd($tab);
-            $time=$drug->time;
-            $bf=$drug->bf;
-            $duration=$drug->duration;
-        $treatment->medicines()->attach($drug->drugid,['tab' => $tab, 'interval' => $time,'meal'=>$bf,'during'=>$duration]);     
+        if(!empty(request('drugs'))){
+            $drugs=json_decode(request('drugs'));
+            // dd(request('drugs'));
+            foreach ($drugs as $key => $drug) {
+                $tab=$drug->tab;
+                //dd($tab);
+                $time=$drug->time;
+                $bf=$drug->bf;
+                $duration=$drug->duration;
+            $treatment->medicines()->attach($drug->drugid,['tab' => $tab, 'interval' => $time,'meal'=>$bf,'during'=>$duration]);     
+            }
         }
+        
         //dd(($drugs));
         if(request('injections')){
 
@@ -538,11 +541,16 @@ class TreatmentController extends Controller
             // $treatments=Treatment::where('doctor_id',$doctor_id)->get();
             // dd($treatments);
             $treatments=Treatment::where('doctor_id',$doctor_id)->
-                     whereNotNull('gc_level')->whereDate('created_at',Carbon::today())->
-                      orderBy('created_at','ASC')->get()->unique('patient_id');
+                     whereNotNull('gc_level')->
+                     whereDate('created_at',Carbon::today())
+                     
+                    
+                      ->orderBy('appointment_id')
+                      ->get()->unique('patient_id');
         
         }else{
              $treatments=Treatment::whereNotNull('gc_level')->whereDate('created_at',Carbon::today())->
+             orderBy('appointment_id')->
                       orderBy('created_at','ASC')->get()->unique('patient_id');
             // dd($treatments);
            

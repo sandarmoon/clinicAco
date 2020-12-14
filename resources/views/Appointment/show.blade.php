@@ -678,12 +678,17 @@
 
       //console.log(treatmentid);
       var itemlist=localStorage.getItem("itemlist");
+
       var myitemlist=JSON.parse(itemlist);
 
       var injectionlist=localStorage.getItem("itemlistinjection");
       var myinjectionlist=JSON.parse(injectionlist);
 
-      formData.append('drugs', JSON.stringify(myitemlist.itemlist));
+      if(itemlist){
+     formData.append('drugs', JSON.stringify(myitemlist.itemlist));
+      }
+      // formData.append('drugs', JSON.stringify(myitemlist.itemlist));
+
       if(myinjectionlist){
       formData.append('injections', JSON.stringify(myinjectionlist.itemlist));
       }

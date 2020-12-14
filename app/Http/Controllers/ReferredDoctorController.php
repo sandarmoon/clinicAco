@@ -35,6 +35,12 @@ class ReferredDoctorController extends Controller
      */
     public function store(Request $request)
     {
+
+        request()->validate([
+            'toDoctor' => 'required',
+            'reason' => 'required',
+            
+        ]);
         
          $fromDoctor=$request->fromDoctor;
          $toDoctor=$request->toDoctor;

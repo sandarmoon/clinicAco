@@ -115,9 +115,7 @@ foreach($treatments as $treatment)
 		               	<div style="clear: both;"></div>
 		               	<p class="d-inline-block text-white mr-2">Job:</p> <h4 class="d-inline-block text-white"><?php echo e($treatments[0]->patient->job); ?></h4>
 	               </div>
-	               <!-- <div class="col-md-6 d-xl-block d-lg-block d-md-block d-xm-none d-sm-none d-none ">
-	               		<img src="<?php echo e(asset($file[0])); ?>"  class="img-fluid"alt="helo">
-	               </div> -->
+	               
               </div>
                
             </div>

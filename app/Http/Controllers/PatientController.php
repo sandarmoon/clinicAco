@@ -17,8 +17,45 @@ class PatientController extends Controller
      */
     public function index()
     {
-        $patients=Patient::All();
-        return view('patients.index',compact('patients'));
+
+         $role=Auth::user()->roles[0];
+                       // dd( Auth::user()->owners(0);
+                        if($role->name=='Admin'){
+                        
+                            $id=Auth::user()->owners[0]->id;
+                            // dd($id);
+                            $patients=Patient::whereHas('reception.owner',function($q)use($id){
+                                $q->where('id',$id);
+                             })->get();
+                        
+                        }else if($role->name=="Reception"){
+                            
+                             $id=Auth::user()->receptions[0]->owner->id;
+                            $patients=Patient::whereHas('reception.owner',function($q)use($id){
+                                $q->where('id',$id);
+                             })->get();
+
+                        }else if($role->name=="Doctor"){
+                           
+                             $id=Auth::user()->doctors[0]->owner->id;
+                             $patients=Patient::whereHas('reception.owner',function($q)use($id){
+                                $q->where('id',$id);
+                             })->get();
+                        }else{
+                            $patients=Patient::All();
+                        }
+
+
+
+        
+
+        
+         
+       //  $patients=PatientResource::collection($patients);
+       // return $this->sendResponse($patients, "Patient are successfully retrived");
+
+        // $patients=Patient::All();
+         return view('patients.index',compact('patients'));
     }
 
     /**
@@ -133,6 +170,7 @@ class PatientController extends Controller
                         ->where('gc_level','!=',null)
                         ->orderBy('id','desc')
                         ->get();
+                        // dd('helo');
          return view('patients.show',compact('patient','doctors','treatments'));
     }
 

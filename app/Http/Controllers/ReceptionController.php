@@ -123,8 +123,9 @@ class ReceptionController extends Controller
         $user->name=request('name');
         $user->email=request('email');
         $user->password=Hash::make(request('password'));
-        $user->assignrole('reception');
+      
         $user->save();
+          $user->assignrole('reception');
 
         $reception=new Reception;
         $reception->gender=request('gender');
@@ -259,9 +260,25 @@ class ReceptionController extends Controller
 */
             //dd($receptions);
 
-       $reception = Reception::all();
+       // $reception = Reception::all();
+                     $role=Auth::user()->roles[0];
+                       // dd( Auth::user()->owners(0);
+                        if($role->name=='Admin'){
+                            $all=Reception::where('owner_id',Auth::user()->owners[0]->id)->get();
+                            // dd($all);
+                        
+                        }else if($role->name=="Reception"){
+                            
+                            $all=Reception::where('owner_id',Auth::user()->receptions[0]->owner_id)->get();
 
-       $receptions=UserResource::collection($reception);
+                        }else{
+                            $all=Reception::all();
+                        }
+                        // dd($all);
+                        // $all=  DoctorResource::collection($all);
+                        // return Datatables::of($all)->addIndexColumn()->make(true);
+
+       $receptions=UserResource::collection($all);
 
         return $receptions;
     }

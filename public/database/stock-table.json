@@ -1,0 +1,92 @@
+[
+  {
+    "medicine_id": 1,
+    "unit1": 2,
+    "unit2": 8,
+    "unit3": 3,
+    "unit4": 3,
+    "qty": 144,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 2,
+    "unit1": 1,
+    "unit2": 10,
+    "unit3": 9,
+    "unit4": 9,
+    "qty": 810,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 3,
+    "unit1": 2,
+    "unit2": 7,
+    "unit3": 10,
+    "unit4": 3,
+    "qty": 420,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 4,
+    "unit1": 3,
+    "unit2": 10,
+    "unit3": 10,
+    "unit4": 2,
+    "qty": 600,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 5,
+    "unit1": 1,
+    "unit2": 4,
+    "unit3": 8,
+    "unit4": 7,
+    "qty": 224,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 6,
+    "unit1": 1,
+    "unit2": 5,
+    "unit3": 8,
+    "unit4": 3,
+    "qty": 120,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 7,
+    "unit1": 1,
+    "unit2": 3,
+    "unit3": 3,
+    "unit4": 1,
+    "qty": 9,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 8,
+    "unit1": 2,
+    "unit2": 3,
+    "unit3": 8,
+    "unit4": 8,
+    "qty": 384,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 9,
+    "unit1": 2,
+    "unit2": 10,
+    "unit3": 3,
+    "unit4": 7,
+    "qty": 420,
+    "expire_date": "2021-12-30"
+  },
+  {
+    "medicine_id": 10,
+    "unit1": 3,
+    "unit2": 2,
+    "unit3": 7,
+    "unit4": 9,
+    "qty": 378,
+    "expire_date": "2021-12-30"
+  }
+]

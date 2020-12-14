@@ -30,13 +30,26 @@ class AppointmentController extends Controller
 
             $doctor=Doctor::where('user_id',$user1)->first();
             //$patients=Patient::whereDate('created_at', Carbon::today())->get();
-            $treatments=Treatment::whereDate('created_at',Carbon::today())
-            ->where('doctor_id','=',$doctor->id)
-            ->where('gc_level',null)->get();
+            $treatments=Treatment::select('treatments.*')
+             ->join('appointments','appointments.id','=','appointment_id')
+            ->where('appointments.status',1) 
+            ->whereDate('treatments.created_at',Carbon::today())
+            ->where('treatments.doctor_id','=',$doctor->id)
+            ->where('treatments.gc_level',null)
+            ->orderBy('appointments.TokenNo')
+            ->get();
+            // dd($treatments);
 
         }else{
-            $treatments=Treatment::whereDate('created_at',Carbon::today())
-            ->where('gc_level',null)->get();
+            $treatments=Treatment::select('treatments.*')
+             
+             ->where('appointments.status',1) 
+            ->whereDate('treatments.created_at',Carbon::today())
+
+            ->where('treatments.gc_level',null)
+            ->orderBy('treatments.doctor_id')
+            ->orderBy('appointments.TokenNo')
+            ->get();
         }
         
 
@@ -116,9 +129,13 @@ class AppointmentController extends Controller
     }
 
     public function getAppointment(){
-        $appointments=Appointment::with('doctor')
+        $appointments=Appointment::with(['doctor'=>function($q){
+                                $q->orderBy('id');
+                            }])
                             ->where('status','!=',1)
+                            ->where('status','!=',2)
                             ->where('A_Date','>=',Carbon::today()->toDateString())
+                            ->orderBy('created_at','ASC')
                             ->get();
        
         $all=AppointmentResource::collection($appointments);
@@ -296,15 +313,23 @@ class AppointmentController extends Controller
     }
 
     public function appointmentCancel($id){
+        // dd($id);
         $appointment=Appointment::find($id);
-        $appointment->delete();
+        $appointment->status=2;
+        $appointment->save();
+
         return response()->json(['success'=>'Successfully deleted']);
     }
 
     public function toggleDelay($aid,$value){
+
        $a=Appointment::find($aid);
        $a->status=$value;
        $a->save();
         return response()->json(['success'=>'Successfully updated']);
+    }
+     public function destroy($id)
+    {
+        
     }
 }

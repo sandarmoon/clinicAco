@@ -1,0 +1,41 @@
+[
+  {
+    "name": "Alissa",
+    "email": "rec2@gmail.com",
+    "password": 123456789,
+    "owner_id": 1,
+    "gender": "female",
+    "nrc": "12/BADEB(N)520020",
+    "age": 1,
+    "degree": "Veniam nisi incididunt ea amet officia qui amet ullamco tempor elit veniam.",
+    "education": "Occaecat mollit fugiat nostrud veniam id id enim.",
+    "phone": "09-3466963",
+    "address": "821 Stuart Street, yangon"
+  },
+  {
+    "name": "Parrish",
+    "email": "rec1@gmail.com",
+    "password": 123456789,
+    "owner_id": 1,
+    "gender": "female",
+    "nrc": "12/CBDBD(N)415816",
+    "age": 97,
+    "degree": "Nisi exercitation do fugiat eiusmod voluptate in cupidatat ea adipisicing magna.",
+    "education": "Velit qui est nostrud do nostrud est tempor proident dolore.",
+    "phone": "09-46791875",
+    "address": "118 Cortelyou Road, yangon"
+  },
+  {
+    "name": "Tia",
+    "email": "rec1@gmail.com",
+    "password": 123456789,
+    "owner_id": 2,
+    "gender": "female",
+    "nrc": "12/EDBBD(N)354764",
+    "age": 29,
+    "degree": "Nostrud et velit sint non officia tempor in aliqua tempor do magna.",
+    "education": "Dolore in reprehenderit adipisicing adipisicing ea nisi irure dolor tempor magna proident ea adipisicing cillum.",
+    "phone": "09-37237425",
+    "address": "214 Lawrence Avenue, yangon"
+  }
+]

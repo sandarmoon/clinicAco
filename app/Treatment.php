@@ -42,7 +42,7 @@ class Treatment extends Model
     }
 
     public function appointment(){
-      return $this->belongsTo('App\Appointment');
+      return $this->belongsTo('App\Appointment')->orderBy('id','ASC');
     }
 }
 

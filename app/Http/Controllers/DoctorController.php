@@ -57,12 +57,27 @@ class DoctorController extends Controller
         }])
         ->where('id',$doctor_id->id)
         ->get();
+/*
+        $treatments=Treatment::select('treatments.*')
+             ->join('appointments','appointments.id','=','appointment_id')
+            ->where('appointments.status',1) 
+            ->whereDate('treatments.created_at',Carbon::today())
+            ->where('treatments.doctor_id','=',$doctor->id)
+            ->where('treatments.gc_level',null)
+            ->orderBy('appointments.TokenNo')
+            ->get();
+            dd($treatments);*/
 
-        $wpatients=Treatment::with('patient')
+        $wpatients=Treatment::select('treatments.*')
+             ->join('appointments','appointments.id','=','appointment_id')
+            ->where('appointments.status',1) 
         ->whereNull('gc_level')
-        ->where('doctor_id',$doctor_id->id)
-        ->whereDate('created_at','>=',\Carbon::today()->toDateString())
+        ->where('treatments.doctor_id',$doctor_id->id)
+        ->whereDate('treatments.created_at','>=',\Carbon::today()->toDateString())
+        ->orderBy('appointments.TokenNo')
         ->get();
+
+        // dd($wpatients);
         // $survey=Appointment::where('doctor_id',$doctor_id->id)
         // ->where('status',0)
         // ->get();

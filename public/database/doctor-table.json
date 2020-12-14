@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Blanca",
+    "email": "doctor1@gmail.com",
+    "password": 123456789,
+    "owner_id": 1,
+    "age": 79,
+    "nrc": "12/DDEAD(N)433165",
+    "degree": "Sit adipisicing ea mollit officia consequat quis.",
+    "experience": "Aute voluptate do excepteur commodo elit.",
+    "phone": "09-13201065",
+    "address": "573 Canton Court, yangon"
+  },
+  {
+    "name": "Ericka",
+    "email": "doctor2@gmail.com",
+    "password": 123456789,
+    "owner_id": 1,
+    "age": 53,
+    "nrc": "12/CDBEC(N)314105",
+    "degree": "Officia deserunt minim magna laborum magna sint irure duis ea elit fugiat Lorem.",
+    "experience": "Sunt Lorem mollit sint qui consectetur sunt nisi labore.",
+    "phone": "09-67951979",
+    "address": "644 Beekman Place, yangon"
+  },
+  {
+    "name": "Belinda",
+    "email": "doctor3@gmail.com",
+    "password": 123456789,
+    "owner_id": 1,
+    "age": 64,
+    "nrc": "12/BAEEC(N)843274",
+    "degree": "Ad do eiusmod est consequat laboris Lorem.",
+    "experience": "Excepteur aute pariatur est dolore est laboris amet officia elit esse voluptate.",
+    "phone": "09-27679326",
+    "address": "925 Bouck Court, yangon"
+  },
+  {
+    "name": "Luann",
+    "email": "doctor4@gmail.com",
+    "password": 123456789,
+    "owner_id": 1,
+    "age": 58,
+    "nrc": "12/EEACE(N)165589",
+    "degree": "Elit cillum laboris voluptate consectetur aute excepteur magna.",
+    "experience": "Elit anim excepteur sint anim quis culpa consectetur.",
+    "phone": "09-32976303",
+    "address": "803 Columbia Street, yangon"
+  },
+  {
+    "name": "Gwendolyn",
+    "email": "doctor5@gmail.com",
+    "password": 123456789,
+    "owner_id": 2,
+    "age": 4,
+    "nrc": "12/EBAEA(N)227048",
+    "degree": "Veniam adipisicing et enim excepteur duis eiusmod dolore ut deserunt aliqua officia excepteur.",
+    "experience": "Laborum incididunt tempor ad magna anim non officia.",
+    "phone": "09-34603311",
+    "address": "494 Rewe Street, yangon"
+  }
+]

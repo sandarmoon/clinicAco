@@ -9,15 +9,15 @@
    <div class="col-12" style="margin-top: 0;">
     <nav class="mx-5 my-3">
       <div class="nav nav-tabs my-3"  id="nav-tab" role="tablist">
-        <a class="nav-item nav-link text-info " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ptient History</a>
+        <a class="nav-item nav-link text-info active " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ptient History</a>
 
         <a class="nav-item nav-link text-info" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Treatment History</a>
-        <a class="nav-item nav-link text-warning active" id="nav-transter-tab" data-toggle="tab" href="#nav-transfer" role="tab" aria-controls="nav-profile" aria-selected="false">Transfer History</a>
+        <a class="nav-item nav-link text-warning " id="nav-transter-tab" data-toggle="tab" href="#nav-transfer" role="tab" aria-controls="nav-profile" aria-selected="false">Transfer History</a>
         <input type="hidden" value="<?php echo e($patient->id); ?>" name="PatientId">
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade  mx-3 my-3 " id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+		<div class="tab-pane fade  mx-3 my-3 active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
 			<div class="card ml-4 bg-">
 				<div class="card-header">
@@ -202,7 +202,7 @@
 
     	</div>
 
-      <div class="tab-pane fade show active" id="nav-transfer" role="tabpanel" aria-labelledby="nav-transfer-tab">
+      <div class="tab-pane fade show " id="nav-transfer" role="tabpanel" aria-labelledby="nav-transfer-tab">
         
            <div class="col-lg-12 col-md-12 col-sm-12">
                   <div class="row mb-5">
@@ -321,6 +321,8 @@
   </div>
 </div>
 
+<?php if(!empty($treatment)): ?>
+
 <div class="modal fade"  id="new_Transfer_modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
@@ -338,6 +340,7 @@
         </button>
 
       </div>
+
       
       <div class="modal-body" >
         <form id="newTransferForm" action="" method="post" enctype="multipart/form-data"> 
@@ -349,12 +352,14 @@
                  <input type="hidden" name="patient_id" value="<?php echo e($treatments[0]->patient_id); ?>">
                  <input type="hidden" name="fromDoctor" value="<?php echo e($treatments[0]->doctor_id); ?>">
                  <div class="form-group">
-                    <label for="exampleFormControlSelect1">To Whom</label><br/>
+                    <label for="exampleFormControlSelect1">To Whom</label>
+                    <span class="toDoctor-error text-danger"></span>
                     <div class="doctor_option"></div>
                    
                  </div>
                  <div class="form-group">
                   <label for="" class="form-control-label">Reason For Changing</label>
+                  <span class="reason-error text-danger"></span>
                       <div class="input-group">
                         <textarea class="form-control" name="reason" aria-label="With textarea"></textarea>
                       </div>
@@ -370,6 +375,7 @@
     </div>
   </div>
 </div>
+<?php endif; ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('script'); ?>
 <script>
@@ -561,7 +567,10 @@ function doctors(doctor_from){
             $('#newTransferForm').trigger('reset');
          },
          error:function(data){
-            console.log(data);
+            let errors=data.responseJSON.errors;
+            $.each(errors,function(i,v){
+              $(`.${i}-error`).html(v);
+            })
          }
       })
   })

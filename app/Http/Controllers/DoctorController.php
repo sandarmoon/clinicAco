@@ -40,6 +40,7 @@ class DoctorController extends Controller
             $t->whereNotNull('gc_level')->orderBy('created_at', 'DESC');
         },'appointments'=>function($a){
             $a->where('status',0)
+             ->whereDate('A_Date','>=',Carbon::today()->toDateString())
             ->orderBy('TokenNo', 'ASC')
         ->orderBy('A_Date', 'ASC');
     },'referredFrom.patient'])
@@ -73,7 +74,7 @@ class DoctorController extends Controller
             ->where('appointments.status',1) 
         ->whereNull('gc_level')
         ->where('treatments.doctor_id',$doctor_id->id)
-        ->whereDate('treatments.created_at','>=',\Carbon::today()->toDateString())
+        ->whereDate('treatments.created_at','>=',Carbon::today()->toDateString())
         ->orderBy('appointments.TokenNo')
         ->get();
 

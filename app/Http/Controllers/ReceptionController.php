@@ -58,13 +58,23 @@ class ReceptionController extends Controller
 
 
 
-        $patientlists=Patient::with(['treatments'=>function($t){
-            $t->whereNotNull('gc_level');}])
-        ->where('reception_id',$r->id)->
+        $patientlists=Patient::with([
+            'treatments'=>function($t){
+            $t->whereNotNull('gc_level');},
+
+        ])
+        ->whereHas('reception',function($e)use($owner_id){
+            $e->where('owner_id',$owner_id);
+        })->
         get();
 
-        $patients=Treatment::whereNotNull('gc_level')->
-                      orderBy('created_at','DESC') ->get()->unique('patient_id');
+        $patients=Treatment::whereHas('patient.reception',function($e)use($owner_id){
+                            $e->where('owner_id',$owner_id);
+                        })
+                        ->whereNotNull('gc_level')
+                        ->orderBy('created_at','DESC') 
+                      ->get()
+                      ->unique('patient_id');
            // dd($patientlists);
 
         $wpatients=Treatment::with('patient','doctor','doctor.user')

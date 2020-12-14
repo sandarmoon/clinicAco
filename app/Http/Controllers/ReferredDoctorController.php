@@ -63,7 +63,7 @@ class ReferredDoctorController extends Controller
                 'patient_id'=>$patient_id,
                 'reason'=>$reason
              ]);
-         
+         // dd('helo world');
          return response()->json(['success'=>'Successfully Doctor Changing!']);
     }
 

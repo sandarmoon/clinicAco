@@ -216,7 +216,7 @@ background: linear-gradient(90deg, rgba(85,85,85,1) 22%, rgba(119,119,119,1) 55%
                 <li class="" data-did="{{$doctor->id}}"><div class="bullet big"></div>
                   <div id="did-{{$doctor->id}}" class="card p-3 my-card">
                     
-                     <span style="letter-spacing: 0.1rem">{{$doctor->id}}</span> 
+                     <span style="letter-spacing: 0.1rem">{{$doctor->user->name}}</span> 
                      <span class="small" style="letter-spacing: 0.1rem"><i class="fas fa-clock"></i>19:00am-1:00pm</span> 
                     
                   </div>

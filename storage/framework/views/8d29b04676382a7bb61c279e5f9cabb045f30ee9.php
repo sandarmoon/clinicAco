@@ -193,39 +193,15 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
-          <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
-          <li class="nav-item  active ">
-            <a class="nav-link " href="<?php echo e(route('rdashboard')); ?>">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
-            </a>
-          </li>
-          <?php endif; ?>
-          <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
-          <li class="nav-item  active ">
-            <a class="nav-link " href="<?php echo e(route('ddashboard')); ?>">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
-            </a>
-          </li>
-          <?php endif; ?>
-          <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
           <li class="nav-item  active ">
             <a class="nav-link " href="/">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link " href="/med">
-              <i class="ni ni-align-left-2 text-orange"></i> Medicine
-            </a>
-          </li>
-          <?php endif; ?>
+          
 
           <?php if(auth()->check() && auth()->user()->hasRole('Super_Admin')): ?>
-          <li class="nav-item">
-            <a class="nav-link " href="<?php echo e(route('dashboard')); ?>">
-              <i class="ni ni-glasses-2 text-orange"></i> Dashboard
-            </a>
-          </li>
+          
            <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('owners.index')); ?>">
               <i class="ni ni-glasses-2 text-orange"></i> Owners

@@ -191,7 +191,12 @@
         </form>
         <!-- Navigation -->
         <ul class="navbar-nav">
-          @role('Reception')
+          <li class="nav-item  active ">
+            <a class="nav-link " href="/">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
+          </li>
+          {{-- @role('Reception')
           <li class="nav-item  active ">
             <a class="nav-link " href="{{route('rdashboard')}}">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
@@ -215,15 +220,15 @@
             <a class="nav-link " href="/med">
               <i class="ni ni-align-left-2 text-orange"></i> Medicine
             </a>
-          </li>
-          @endrole
+          </li> 
+          @endrole--}}
 
           @role('Super_Admin')
-          <li class="nav-item">
+          {{--<li class="nav-item">
             <a class="nav-link " href="{{route('dashboard')}}">
               <i class="ni ni-glasses-2 text-orange"></i> Dashboard
             </a>
-          </li>
+          </li>--}}
            <li class="nav-item">
             <a class="nav-link " href="{{route('owners.index')}}">
               <i class="ni ni-glasses-2 text-orange"></i> Owners

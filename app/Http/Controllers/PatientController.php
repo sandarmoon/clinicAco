@@ -26,23 +26,24 @@ class PatientController extends Controller
                             // dd($id);
                             $patients=Patient::whereHas('reception.owner',function($q)use($id){
                                 $q->where('id',$id);
-                             })->get();
+
+                             })->orderBy('id','DESC')->get();
                         
                         }else if($role->name=="Reception"){
                             
                              $id=Auth::user()->receptions[0]->owner->id;
                             $patients=Patient::whereHas('reception.owner',function($q)use($id){
                                 $q->where('id',$id);
-                             })->get();
+                             })->orderBy('id','DESC')->get();
 
                         }else if($role->name=="Doctor"){
                            
                              $id=Auth::user()->doctors[0]->owner->id;
                              $patients=Patient::whereHas('reception.owner',function($q)use($id){
-                                $q->where('id',$id);
-                             })->get();
+                                $q->where('id',$id)->orderBy('id','DESC');
+                             })->orderBy('id','DESC')->get();
                         }else{
-                            $patients=Patient::All();
+                            $patients=Patient::orderBy('id','DESC')->get();
                         }
 
 

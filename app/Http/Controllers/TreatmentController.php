@@ -504,16 +504,29 @@ class TreatmentController extends Controller
             $assignedDoc=Referreddoctor::where('to_doctor_id',$fromDoctor)
                         ->where('patient_id',$patient_id)
                         ->first();
-                if($assignedDoc==null){
-                    Referreddoctor::create([
-                        'from_doctor_id'=>$fromDoctor,
-                        'to_doctor_id'=>null,
-                        'patient_id'=>$patient_id,
-                        'reason'=>$reason
-                     ]);
-                }else{
-                    dd('yes it has');
+                // if($assignedDoc==null){
+                //     Referreddoctor::create([
+                //         'from_doctor_id'=>$fromDoctor,
+                //         'to_doctor_id'=>null,
+                //         'patient_id'=>$patient_id,
+                //         'reason'=>$reason
+                //      ]);
+                // }else{
+                //     $assignedDoc->
+                // }
+
+                if($assignedDoc!=null){
+                    $assignedDoc=Referreddoctor::find($assignedDoc->id);
+                    $assignedDoc->status=0;
+                    $assignedDoc->save();    
                 }
+
+                Referreddoctor::create([
+                    'from_doctor_id'=>$fromDoctor,
+                    'to_doctor_id'=>null,
+                    'patient_id'=>$patient_id,
+                    'reason'=>$reason
+                 ]);
         }
 
 

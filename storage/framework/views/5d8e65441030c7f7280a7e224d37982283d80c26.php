@@ -215,7 +215,7 @@ background: linear-gradient(90deg, rgba(85,85,85,1) 22%, rgba(119,119,119,1) 55%
                 <li class="" data-did="<?php echo e($doctor->id); ?>"><div class="bullet big"></div>
                   <div id="did-<?php echo e($doctor->id); ?>" class="card p-3 my-card">
                     
-                     <span style="letter-spacing: 0.1rem"><?php echo e($doctor->id); ?></span> 
+                     <span style="letter-spacing: 0.1rem"><?php echo e($doctor->user->name); ?></span> 
                      <span class="small" style="letter-spacing: 0.1rem"><i class="fas fa-clock"></i>19:00am-1:00pm</span> 
                     
                   </div>
@@ -257,9 +257,9 @@ background: linear-gradient(90deg, rgba(85,85,85,1) 22%, rgba(119,119,119,1) 55%
                 <div class="col-8">
                   <h3 class="mb-0">Today Appointment</h3>
                 </div>
-                <!-- <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
-                </div> -->
+                <div class="col-4 text-right">
+                  <a href="#!" class="btn btn-sm btn-muted"><?php echo e(Carbon\Carbon::today()->isoFormat('MMMM Do YYYY, h:mm:ss a')); ?></a>
+                </div>
               </div>
             </div>
             <div class="card-body bg-white ">

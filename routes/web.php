@@ -52,9 +52,22 @@ Route::get('/rdashboard', 'ReceptionController@dashboard')->name('rdashboard');
 });
 
 
-Route::group(['middleware' => ['auth','role:Admin']], function () {
+Route::group(['middleware' => ['auth','role:Admin|Doctor|Super_Admin|Reception']], function () {
 
-Route::get('/', 'ExpenseController@index');
+Route::get('/',function(){
+	$user=Auth::user();
+	if($user->hasRole('Admin')){
+		return redirect('/ownerDashboard');
+	}elseif($user->hasRole('Super_Admin')){
+		return redirect('/dashboard');
+	}elseif ($user->hasRole('Doctor')) {
+		return redirect('/ddashboard');
+	}else{
+		return redirect('/rdashboard');
+	}
+});
+Route::get('/ownerDashboard', 'ExpenseController@index');
+
 });
 // Route::get('/', 'ExpenseController@index')->middleware('auth');
 Route::get('/ddashboard', 'DoctorController@dashboard')->name('ddashboard');

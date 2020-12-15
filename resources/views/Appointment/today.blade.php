@@ -258,9 +258,9 @@ background: linear-gradient(90deg, rgba(85,85,85,1) 22%, rgba(119,119,119,1) 55%
                 <div class="col-8">
                   <h3 class="mb-0">Today Appointment</h3>
                 </div>
-                <!-- <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-sm btn-primary">Settings</a>
-                </div> -->
+                <div class="col-4 text-right">
+                  <a href="#!" class="btn btn-sm btn-muted">{{Carbon\Carbon::today()->isoFormat('MMMM Do YYYY')}}</a>
+                </div>
               </div>
             </div>
             <div class="card-body bg-white ">

@@ -88,6 +88,7 @@ class ExpenseController extends Controller
       // var_dump($expense);
       //   die();
        $id=Auth::user()->owners[0]->id;
+       // dd($id);
         Expense::create([
             'date'=>request('date'),
             'description'=>request('description'),
@@ -176,6 +177,7 @@ class ExpenseController extends Controller
     }
 
     public function getExpense(){
+        $id=Auth::user()->owners[0]->id;
         $dateS = Carbon::now()->startOfMonth()->subMonth(3);
         $dateE = Carbon::now()->startOfMonth()->addMonth(1); 
         // echo $dateS.$dateE;
@@ -191,7 +193,10 @@ class ExpenseController extends Controller
         //$records=Treatment::whereBetween('created_at',array($dateS,$dateE))->get();
 
        
-        $data= Treatment::all()
+        $data= Treatment::whereHas('doctor',function($q)use($id){
+            $q->where('owner_id',$id);
+        })
+        ->get()
         
         ->sortByDESC(function ($item) {
         return $item->created_at->month;
@@ -211,6 +216,7 @@ class ExpenseController extends Controller
     }
 
     public function searchReport(Request $request){
+         $id=Auth::user()->owners[0]->id;
          $request->validate([
             'startdate' => 'required',
             'enddate' => 'required',
@@ -226,7 +232,10 @@ class ExpenseController extends Controller
        $date_from = Carbon::parse($startdate)->startOfDay();
         $date_to = Carbon::parse($enddate)->endOfDay();
 
-        $totalIncome = Treatment::whereDate('created_at', '>=', $date_from)
+        $totalIncome = Treatment::whereHas('doctor',function($q)use($id){
+            $q->where('owner_id',$id);
+        })->
+        whereDate('created_at', '>=', $date_from)
             ->whereDate('created_at', '<=', $date_to)
          ->sum('charges');
             // ->get();

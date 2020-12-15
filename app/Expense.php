@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Expense extends Model
 {
     use SoftDeletes;
-    protected $fillable=['date','description','amount','files'];
+    protected $fillable=['date','description','amount','files','owner_id'];
 }

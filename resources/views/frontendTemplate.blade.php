@@ -101,7 +101,7 @@
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="../index.html">
         <img src="{{asset('template/assets/img/theme/l03.png')}}" class="navbar-brand-img" alt="..." >
-        <span class="heading">Gp Clinic</span>
+        <span class="heading">Gp Clinic </span>
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -340,7 +340,21 @@
     <nav class="navbar navbar-top navbar-expand-lg navbar-dark" id="navbar-main">
       <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html"> GP clinic</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="../index.html"> 
+         <span class="text-dark"> Clinic  :</span><?php $user=Auth::user();
+
+          if($user->hasRole('Admin')){
+            echo $user->owners[0]->clinic_name;
+          }elseif($user->hasRole('Super_Admin')){
+            echo 'GP Clinic';
+          }elseif ($user->hasRole('Doctor')) {
+             echo $user->doctors[0]->owner->clinic_name;
+          }else{
+            echo $user->receptions[0]->owner->clinic_name;
+          }
+          ?>
+
+        </a>
         <!-- Form -->
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
           <div class="form-group mb-0">

@@ -263,7 +263,7 @@ class MedicineController extends Controller
 
         $dateS = Carbon::now()->subMonth()->startOfMonth();
         $dateE = Carbon::now()->subMonth()->endofMonth(); 
-        // dd($dateS);
+        // dd($dateS,$date);
         // dd($id);
 
         // $medicines=Stock::where('owner_id','=',$id)
@@ -304,10 +304,11 @@ class MedicineController extends Controller
                     whereDate('emdate',$lastMonthDay)
                     ->get();
 
-                      // dd($monthlymedicines);
+                       // dd($monthlymedicines);
 
                     foreach ($monthlymedicines as $key => $value) {
                         // dd($value->medicine_id);
+                        if(!empty($unit_data)){
                        foreach ($unit_data as $k => $v) {
                             if($value->medicine_id == $v['medicine_id']){
                                 $final_unit_data['medicine']=$value->medicine->name;
@@ -326,6 +327,9 @@ class MedicineController extends Controller
                             }
                             continue;
                        }
+                     }else{
+                        // dd('yes');
+                     }
                     }
 
 
@@ -333,6 +337,25 @@ class MedicineController extends Controller
                     // dd($final_array);
          return Datatables::of($final_array)->addIndexColumn()->toJson();
     }
+
+    // public function getMeds(){
+    //      $id=Auth::user()->owners[0]->id;
+    //        $dateS = Carbon::now()->subMonth()->endOfMonth();
+    //     $dateE = Carbon::now()->endofMonth();  
+
+
+    //     $medicines=Monthlymedicine::
+    //     whereHas('medicine',function($q) use ($id){
+    //             $q->where('owner_id','=',$id);
+    //         })->with('medicine.medicinetype')
+        
+    //      ->whereDate('emdate',$dateS)
+        
+    //     ->orderBy('id','desc')
+    //     ->get();
+    //     dd($medicines);
+
+    // }
 
     public function monthlyStock($dateS,$dateE){
 

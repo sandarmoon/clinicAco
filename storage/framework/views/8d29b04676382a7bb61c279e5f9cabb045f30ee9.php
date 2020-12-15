@@ -199,6 +199,18 @@
             </a>
           </li>
           
+          <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
+          <li class="nav-item  active ">
+            <a class="nav-link " href="/">
+              <i class="ni ni-tv-2 text-primary"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="/med">
+              <i class="ni ni-align-left-2 text-orange"></i> Medicine
+            </a>
+          </li> 
+          <?php endif; ?>
 
           <?php if(auth()->check() && auth()->user()->hasRole('Super_Admin')): ?>
           

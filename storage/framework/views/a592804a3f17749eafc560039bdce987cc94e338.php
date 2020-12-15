@@ -342,13 +342,13 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Type</th>
-                                <th>Chemical Things</th>
                                 <th>Qty</th>
                                 <th>In Unit</th>
                                 <th>Phar</th>
                                 <th>bu</th>
                                 <th>card</th>
                                 <th>tab</th>
+                                <th>Chemical Things</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -1137,8 +1137,6 @@
                       { "data": "type"
                       } ,
 
-                      { "data": "chemical"
-                      } ,
                       { "data": "qty"
                       } ,
                        {
@@ -1165,6 +1163,7 @@
 
                          
                               if(qty >= onephar){
+
                               unitPhar=Math.floor(qty / onephar);
                               remain=qty % onephar;
                                
@@ -1183,7 +1182,8 @@
 
                                 }
 
-                             }else if(qty >= onebu ||phar ==null ){
+                             }else{
+                               if(qty >= onebu ||phar ==null ){
                                   unitBu=Math.floor(qty / onebu);
                                   remain=qty % onebu;
 
@@ -1194,14 +1194,43 @@
                                   remain=0;
 
                                 }
-                             }else if(qty >= onecard || phar==null || bu==null){
+                              }else{
+                                if(qty >= onecard || phar==null || bu==null){
                                   
 
-                                  unitCard=Math.floor(qty / onecard);
+                                    unitCard=Math.floor(qty / onecard);
+                                    unitTab=qty % onecard;
+                                    remain=0;
+
+                               }
+                              }
+                             }
+
+
+                               if(qty >= onebu ||phar ==null ){
+                                console.log('no');
+                                  unitBu=Math.floor(qty / onebu);
+                                  remain=qty % onebu;
+
+                                  if(remain>=onecard){
+
+                                  unitCard=Math.floor(remain / onecard);
                                   unitTab=qty % onecard;
                                   remain=0;
 
-                             }
+                                }
+                              }else{
+                               
+                                // if(qty >= onecard || phar==null || bu==null){
+                                  
+
+                                    unitCard=Math.floor(qty / onecard);
+                                    unitTab=qty % onecard;
+                                    
+
+                               // }
+                              }
+                             
                            
                            
                         
@@ -1311,6 +1340,8 @@
                       { "data": "card"
                       } ,
                       { "data": "tab"
+                      } ,
+                       { "data": "chemical"
                       } ,
 
                      

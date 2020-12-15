@@ -209,7 +209,7 @@
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
-          @endrole
+          @endrole--}}
           @role('Admin')
           <li class="nav-item  active ">
             <a class="nav-link " href="/">
@@ -221,7 +221,7 @@
               <i class="ni ni-align-left-2 text-orange"></i> Medicine
             </a>
           </li> 
-          @endrole--}}
+          @endrole
 
           @role('Super_Admin')
           {{--<li class="nav-item">

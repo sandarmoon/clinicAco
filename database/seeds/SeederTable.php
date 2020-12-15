@@ -112,6 +112,24 @@ class SeederTable extends Seeder
         $medicine->save();
         }
 
+        // old-stock table
+           $json=File::get(public_path('database/old-stock-table.json'));;
+        $data=json_decode($json);
+        foreach ($data as $value) {
+
+             Stock::create([
+                'medicine_id'=>$value->medicine_id,
+                'qty'=>$value->qty,
+                'unit1'=>$value->unit1,
+                'unit2'=>$value->unit2,
+                'unit3'=>$value->unit3,
+                'unit4'=>$value->unit4,
+                'expire_date'=>$value->expire_date,
+                'created_at'=>$value->created_at,
+                'updated_at'=>$value->updated_at
+            ]);
+        }
+
         // stock table
            $json=File::get(public_path('database/stock-table.json'));;
         $data=json_decode($json);
@@ -127,6 +145,10 @@ class SeederTable extends Seeder
 	            'expire_date'=>$value->expire_date
 	        ]);
         }
+
+
+
+
 
         //monthlymedicine
            $json=File::get(public_path('database/monthlymedicine.json'));;

@@ -211,11 +211,7 @@
           </li>
           @endrole--}}
           @role('Admin')
-          <li class="nav-item  active ">
-            <a class="nav-link " href="/">
-              <i class="ni ni-tv-2 text-primary"></i> Dashboard
-            </a>
-          </li>
+          
           <li class="nav-item">
             <a class="nav-link " href="/med">
               <i class="ni ni-align-left-2 text-orange"></i> Medicine

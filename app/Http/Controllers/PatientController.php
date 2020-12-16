@@ -158,10 +158,10 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        $id=Auth::user()->receptions[0]->owner_id;
+        $uid=Auth::user()->receptions[0]->owner_id;
          $patient = Patient::find($id);
           $doctors=Doctor::with('user')->
-          where('owner_id',$id)->get();
+          where('owner_id',$uid)->get();
           $treatments=Treatment::where('patient_id',$id)
                         ->where('gc_level','!=',null)
                         ->orderBy('id','desc')

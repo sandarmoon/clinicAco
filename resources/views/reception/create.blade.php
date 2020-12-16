@@ -111,7 +111,7 @@
                                         </div>
                                         <div class="form-group">
                                           <label for="form-control-label">Phone</label>
-                                            <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" name="phoneno" id="editphoneno"/>
+                                            <input type="text"  name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" name="phoneno" id="editphoneno"/>
                                             <span class="Ephone error d-block" ></span>
                                         </div>
                                         
@@ -189,7 +189,7 @@
                                             <span class="Eemail error d-block" ></span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" name="phoneno" id="phoneno"/>
+                                            <input type="text"  name="txtEmpPhone" class="form-control" placeholder="Your Phone *" value="" name="phoneno" id="phoneno"/>
                                             <span class="Ephone error d-block" ></span>
                                         </div>
                                         

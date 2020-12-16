@@ -258,7 +258,7 @@ background: linear-gradient(90deg, rgba(85,85,85,1) 22%, rgba(119,119,119,1) 55%
                   <h3 class="mb-0">Today Appointment</h3>
                 </div>
                 <div class="col-4 text-right">
-                  <a href="#!" class="btn btn-sm btn-muted"><?php echo e(Carbon\Carbon::today()->isoFormat('MMMM Do YYYY, h:mm:ss a')); ?></a>
+                  <a href="#!" class="btn btn-sm btn-muted"><?php echo e(Carbon\Carbon::today()->isoFormat('MMMM Do YYYY')); ?></a>
                 </div>
               </div>
             </div>

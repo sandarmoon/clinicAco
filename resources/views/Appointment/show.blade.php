@@ -474,7 +474,7 @@
     })
 
      $('.btn-recommending').click(function(){
-      alert('helo');
+      // alert('helo');
       $('#recommending').show();
       $("#drug").hide();
     $("#injection").hide();

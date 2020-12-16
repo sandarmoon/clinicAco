@@ -12,7 +12,9 @@
         <a class="nav-item nav-link text-info active " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ptient History</a>
 
         <a class="nav-item nav-link text-info" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Treatment History</a>
+        <?php if(auth()->check() && auth()->user()->hasAnyRole('Super_Admin|Admin|Reception')): ?>
         <a class="nav-item nav-link text-warning " id="nav-transter-tab" data-toggle="tab" href="#nav-transfer" role="tab" aria-controls="nav-profile" aria-selected="false">Transfer History</a>
+         <?php endif; ?>
         <input type="hidden" value="<?php echo e($patient->id); ?>" name="PatientId">
       </div>
     </nav>
@@ -201,7 +203,7 @@
     		</div>
 
     	</div>
-
+ <?php if(auth()->check() && auth()->user()->hasAnyRole('Super_Admin|Admin|Reception')): ?>
       <div class="tab-pane fade show " id="nav-transfer" role="tabpanel" aria-labelledby="nav-transfer-tab">
         
            <div class="col-lg-12 col-md-12 col-sm-12">
@@ -233,6 +235,7 @@
                 </div>
 
       </div>
+  <?php endif; ?>
     </div>
 
 </div>

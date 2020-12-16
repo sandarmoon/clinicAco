@@ -173,7 +173,9 @@ class AppointmentController extends Controller
 
 
     public function todayAppointment(){
-        $doctors=Doctor::all();
+          $id=Auth::user()->receptions[0]->owner_id;
+          // dd($id);
+        $doctors=Doctor::where('owner_id',$id)->get();
         return view('Appointment.today',compact('doctors'));
     }
 

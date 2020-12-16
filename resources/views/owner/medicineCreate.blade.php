@@ -983,7 +983,7 @@
 
             // $('#AddMedicine').hide();
             var id=$(this).data('id');
-            alert(id);
+            // alert(id);
             var url="{{route('medicine.edit',':id')}}";
             
             url=url.replace(':id',id);
@@ -1009,7 +1009,7 @@
         $('#EditMedicineForm').submit(function(e){
           e.preventDefault()
           let id=$('.medid').val();
-          alert(id);
+          // alert(id);
           let formdata=new FormData(this);
           formdata.append('_method','PATCH');
           let url="{{route('medicine.update',':id')}}";

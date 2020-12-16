@@ -92,15 +92,9 @@ class PatientController extends Controller
             'name'=>'required',
             'fathername'=>'required',
             'age'=>'required|numeric',
-            'child'=>'required',
-            'gender'=>'required',
-            'phoneno'=>'required|numeric',
+            'phoneno'=>'required',
             'address'=>'required',
-            'married'=>'required',
-            'pregnant'=>'required',
-            'weight'=>'required',
-            'allergy'=>'required',
-            'job'=>'required',
+            
             'file.*' => 'required|mimes:jpg,jpeg,png,bmp|max:20000'
         ]);
         
@@ -164,9 +158,10 @@ class PatientController extends Controller
      */
     public function show($id)
     {
+        $id=Auth::user()->receptions[0]->owner_id;
          $patient = Patient::find($id);
           $doctors=Doctor::with('user')->
-          where('owner_id',1)->get();
+          where('owner_id',$id)->get();
           $treatments=Treatment::where('patient_id',$id)
                         ->where('gc_level','!=',null)
                         ->orderBy('id','desc')

@@ -140,8 +140,8 @@ class TreatmentController extends Controller
     // }
 
      public function show($id){
-
-        $doctors=Doctor::all();
+        $id=Auth::user()->receptions[0]->owner_id;
+        $doctors=Doctor::where('owner_id',$id)->get();
          $user=Auth::user();
 
          //Note:: doctor assigned and old assigned filter

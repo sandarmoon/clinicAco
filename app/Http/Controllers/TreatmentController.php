@@ -140,8 +140,8 @@ class TreatmentController extends Controller
     // }
 
      public function show($id){
-        $id=Auth::user()->receptions[0]->owner_id;
-        $doctors=Doctor::where('owner_id',$id)->get();
+        // $id=Auth::user()->receptions[0]->owner_id;
+        $doctors=Doctor::all();
          $user=Auth::user();
 
          //Note:: doctor assigned and old assigned filter
@@ -400,7 +400,8 @@ class TreatmentController extends Controller
 
 
           }else{
-             $doctors=Doctor::all();
+              $id=Auth::user()->receptions[0]->owner_id;
+        $doctors=Doctor::where('owner_id',$id)->get();
             $treatments=Treatment::where('patient_id','=',$pid)
                 ->whereNotNull('gc_level')
                 ->where('doctor_id','=',$did)

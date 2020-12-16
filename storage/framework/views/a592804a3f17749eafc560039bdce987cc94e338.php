@@ -378,7 +378,10 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Type</th>
-                                <th>Chemical Things</th>
+                                <th>Phar</th>
+                                <th>bu</th>
+                                <th>card</th>
+                                <th>tab</th>
                                 <th>Total Qty</th>
                                 <th>In Unit</th>
                                 <th>Actions</th>
@@ -598,7 +601,13 @@
                   { "data": "medicine.medicinetype.name"
                   } ,
 
-                  { "data": "medicine.chemical"
+                  { "data": "unit1"
+                  } ,
+                  { "data": "unit2"
+                  } ,
+                  { "data": "unit3"
+                  } ,
+                  { "data": "unit4"
                   } ,
                   { "data": "qty",
                    render:function(data){
@@ -982,7 +991,7 @@
 
             // $('#AddMedicine').hide();
             var id=$(this).data('id');
-            alert(id);
+            // alert(id);
             var url="<?php echo e(route('medicine.edit',':id')); ?>";
             
             url=url.replace(':id',id);
@@ -1008,7 +1017,7 @@
         $('#EditMedicineForm').submit(function(e){
           e.preventDefault()
           let id=$('.medid').val();
-          alert(id);
+          // alert(id);
           let formdata=new FormData(this);
           formdata.append('_method','PATCH');
           let url="<?php echo e(route('medicine.update',':id')); ?>";

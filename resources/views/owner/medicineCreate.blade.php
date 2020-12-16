@@ -379,7 +379,10 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Type</th>
-                                <th>Chemical Things</th>
+                                <th>Phar</th>
+                                <th>bu</th>
+                                <th>card</th>
+                                <th>tab</th>
                                 <th>Total Qty</th>
                                 <th>In Unit</th>
                                 <th>Actions</th>
@@ -599,7 +602,13 @@
                   { "data": "medicine.medicinetype.name"
                   } ,
 
-                  { "data": "medicine.chemical"
+                  { "data": "unit1"
+                  } ,
+                  { "data": "unit2"
+                  } ,
+                  { "data": "unit3"
+                  } ,
+                  { "data": "unit4"
                   } ,
                   { "data": "qty",
                    render:function(data){

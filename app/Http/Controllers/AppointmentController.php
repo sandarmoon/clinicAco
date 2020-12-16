@@ -180,8 +180,13 @@ class AppointmentController extends Controller
     }
 
     public function searchPRN(Request $request){
+         $id=Auth::user()->receptions[0]->owner_id;
         $PRN= $request->PRN;
-        $patient=Patient::where('PRN','=',$PRN)->first();
+        $patient=Patient::whereHas('reception',function($q)use ($id){
+            $q->where('owner_id',$id);
+        })
+        ->where('PRN','=',$PRN)
+        ->first();
         // if($patient ==null){
         //     return response()->json([
         //         'success' => 'Patient Not Found'

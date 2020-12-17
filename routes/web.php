@@ -70,7 +70,7 @@ Route::get('/ownerDashboard', 'ExpenseController@index');
 
 });
 // Route::get('/', 'ExpenseController@index')->middleware('auth');
-Route::get('/ddashboard', 'DoctorController@dashboard')->name('ddashboard');
+Route::get('/ddashboard', 'DoctorController@dashboard')->name('ddashboard')->middleware('auth');
 // Route::get('/rdashboard', 'ReceptionController@dashboard')->name('rdashboard');
 Route::get('/t', function(){
 	return view('timeline');
@@ -98,9 +98,9 @@ Route::group(['middleware' => ['auth','role:Doctor|Super_Admin']], function () {
 
 
 
-Route::get('/getTreatments','TreatmentController@getTreatments')->name('getTreatments');
+Route::get('/getTreatments','TreatmentController@getTreatments')->name('getTreatments')->middleware('auth');
 
-Route::resource('/referredDoctor','ReferredDoctorController');//doctor route
+Route::resource('/referredDoctor','ReferredDoctorController')->middleware('auth');//doctor route
 
 
 
@@ -133,13 +133,13 @@ Route::get('/getDoctor','DoctorController@getDoctor')->name('getDoctor');
 
 
 //Patient
-Route::resource('patient','PatientController');
+Route::resource('patient','PatientController')->middleware('auth');
 
-Route::get('getTransferReport/{pid}','PatientController@getTransferReport')->name('getTransferReport');
+Route::get('getTransferReport/{pid}','PatientController@getTransferReport')->name('getTransferReport')->middleware('auth');
 
-Route::post('incharge','PatientController@incharge')->name('incharge');
+Route::post('incharge','PatientController@incharge')->name('incharge')->middleware('auth');
 
-Route::resource('reception','ReceptionController');//reception
+Route::resource('reception','ReceptionController')->middleware('auth');//reception
 
 Route::get('print','PrintOutController@index')->name('print');//reception
 
@@ -149,18 +149,18 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 //Profit-expense
-Route::resource('/expense','ExpenseController');
+Route::resource('/expense','ExpenseController')->middleware('auth');
 
-Route::get('/getExpense','ExpenseController@getExpense')->name('getExpense');
-Route::post('/searchReport','ExpenseController@searchReport')->name('searchReport');
+Route::get('/getExpense','ExpenseController@getExpense')->name('getExpense')->middleware('auth');
+Route::post('/searchReport','ExpenseController@searchReport')->name('searchReport')->middleware('auth');
 
 // AppointmentPatient
 
-Route::get('/appointpatient','AppointmentController@appointpatient')->name('appointpatient');
+Route::get('/appointpatient','AppointmentController@appointpatient')->name('appointpatient')->middleware('auth');
 //appointment of doctor
 // treatmentstart
-Route::get('/appointpatienthistory/{treatment_id}/{patient_id}','AppointmentController@patient')->name('appointpatienthistory');
-Route::post('/appmedicine','AppointmentController@getmedicine')->name('appmedicine');
+Route::get('/appointpatienthistory/{treatment_id}/{patient_id}','AppointmentController@patient')->name('appointpatienthistory')->middleware('auth');
+Route::post('/appmedicine','AppointmentController@getmedicine')->name('appmedicine')->middleware('auth');
 // tretementend
 
 
@@ -191,13 +191,13 @@ Route::post('/appmedicine','AppointmentController@getmedicine')->name('appmedici
 // booking end
 
 // treatment record
-Route::get('/patientRecordD/{did}/{pid}','TreatmentController@patientRecordD')->name('patientRecordD');
+Route::get('/patientRecordD/{did}/{pid}','TreatmentController@patientRecordD')->name('patientRecordD')->middleware('auth');
 
 Route::get('/getreason/{did}/{pid}','TreatmentController@getreason')->name('getreason');
 
 // medicales create by OwnerControlle
 
-Route::get('/med','MedicineController@medicineCreateByOwner')->name('medName');
+Route::get('/med','MedicineController@medicineCreateByOwner')->name('medName')->middleware('auth');
 Route::get('/getmed','MedicineController@getmed')->name('getmed');
 Route::post('/ss','MedicineController@stockStore')->name('stock.store');
 

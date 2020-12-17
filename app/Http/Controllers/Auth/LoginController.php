@@ -41,6 +41,7 @@ class LoginController extends Controller
     }
      protected function authenticated(Request $request, $user)
     {
+        
          // dd($request);
         if($user->hasRole('Reception')){
             return redirect('/rdashboard');

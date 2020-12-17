@@ -18,6 +18,7 @@ class DoctorResource extends JsonResource
             'doctor'=>parent::toArray($request),
             'doctorinfo'=>$this->user,
             'ownerinfo'=>$this->owner,
+            'treatments_count'=>$this->treatments_count
         ];
     }
 }

@@ -47,13 +47,29 @@ class ReceptionController extends Controller
 
         },'user'])
         ->withCount(['treatments'=>function($q1){
-            $q1->whereNotNull('gc_level');
+            $q1->whereDate('created_at',Carbon::today())
+            ->whereNotNull('gc_level');
         },'appointments'=> function($q) {
-            $q->where('status',0)
-                ->where('created_at','>=',Carbon::today());
+            
+            // $q->whereHas('treatment',function($q){
+            //     $q->whereNull('gc_level');
+            // })
+                $q->where('status',0)
+                ->where('A_Date','>=',Carbon::today()->toDateString());
+        }])
+        ->withCount(['appointments as todaydoctorBooking'=> function($q) {
+            // $q
+            // ->whereHas('treatment',function($q){
+            //     $q->whereNull('gc_level');
+            // })
+           $q->where('status',1)
+                ->where('A_Date','>=',Carbon::today()->toDateString());
         }])
         ->where('owner_id',$owner_id)
         ->get();
+
+
+        // dd($survey);
 
 
 

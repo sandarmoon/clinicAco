@@ -22,7 +22,8 @@ class ExpenseController extends Controller
        $id= Auth::user()->id;
 
         $survey=Owner::withCount(['doctors','receptions','treatments','appointments'=> function($q) {
-            $q->where('status',0);
+            $q->where('status',0)
+            ->whereDate('A_Date','>=',Carbon::today()->toDateString());
         }])
         ->where('user_id',$id)
         ->get();
@@ -45,7 +46,7 @@ class ExpenseController extends Controller
         }])
        
         ->get();
-          // dd($survey);
+           // dd($survey);
 
         return view('adminDashboard',compact('survey'));
     }

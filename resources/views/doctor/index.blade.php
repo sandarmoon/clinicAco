@@ -25,6 +25,7 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Clinic</th>
+                <th>Treatment Count</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -111,6 +112,7 @@
                     {"data":"doctorinfo.email"},
                     {"data":"doctor.phone"},
                     {"data":"ownerinfo.clinic_name"},
+                     {"data":"treatments_count"},
                     { "data": "doctor.id",
                       sortable:false,
                       render:function(data){

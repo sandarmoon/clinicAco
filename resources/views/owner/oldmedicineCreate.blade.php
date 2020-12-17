@@ -1,4 +1,5 @@
-<?php $__env->startSection('style'); ?>
+@extends('frontendTemplate')
+@section('style')
 <style>
 .my-list .list-group-item:first-child {
      border-top-left-radius: 0px; 
@@ -34,8 +35,8 @@
 
 
 </style>
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('content'); ?>
+@endsection
+@section('content')
  <!-- Page content -->
 
 
@@ -53,7 +54,7 @@
               <div class="p-4 row">
                 <div class="col-xl-6 col-lg-12 col-md-12">  
                     <h3 class=" p-0 pr-4 mt-3 ">Medicine Management</h3>
-                     <h6 class="small text-muted mb-4">Clinic Name :<?php echo e(Auth::check()? Auth::user()->owners[0]->clinic_name:''); ?></h6>
+                     <h6 class="small text-muted mb-4">Clinic Name :{{Auth::check()? Auth::user()->owners[0]->clinic_name:''}}</h6>
                 </div>
                 <div class="col-xl-6 col-lg-12 col-md-12 row mt-xl-3 ">
                   <div class="col-xl-12 col-lg-12 col-md-12 " id="searchform">
@@ -230,9 +231,9 @@
                               <span class="Etype_id error d-block" ></span>
                                 <select class="form-control" name="type_id"  id="medicineType">
                                   <option value="">Choose Type</option>
-                                  <?php $__currentLoopData = $medTypes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $medType): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                  <option value="<?php echo e($medType->id); ?>"><?php echo e($medType->name); ?></option>
-                                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                  @foreach($medTypes as $medType)
+                                  <option value="{{$medType->id}}">{{$medType->name}}</option>
+                                  @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
@@ -331,12 +332,11 @@
                  <div class="d-none" id="monthMdiv" >
                  <!-- start table list n-->
               
-                 
+                  
                         <!-- Card header -->
                         
                         <!-- Light table -->
                         <div class="table-responsive p-4">
-                           <h3 class="heading">Stock leftOver</h3>
                           <table class="table align-items-center" id="mmtable">
                             <thead class="thead-light">
                               <tr>
@@ -463,9 +463,9 @@
                             <label for="umedicineType" class="sfont">Choose Medicine Type</label>
                             <select class="form-control" name="typeid"  id="umedicineType">
                                <option value="">Choose Type</option>
-                              <?php $__currentLoopData = $medTypes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $medType): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                              <option class="medtype-<?php echo e($medType->id); ?>" value="<?php echo e($medType->id); ?>"><?php echo e($medType->name); ?></option>
-                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                              @foreach($medTypes as $medType)
+                              <option class="medtype-{{$medType->id}}" value="{{$medType->id}}">{{$medType->name}}</option>
+                              @endforeach
                             </select>
                           </div>
                           <div class="form-group">
@@ -503,9 +503,9 @@
       </div> -->
       
     </div>
-  
-<?php $__env->stopSection(); ?>
-<?php $__env->startSection('script'); ?>
+	
+@endsection
+@section('script')
 
 
 <script>
@@ -575,8 +575,8 @@
     function getData(){
           var i=1;
               $('#medicineTable').DataTable({
+              
               "processing": true,
-        "serverSide": true,
               destroy:true,
               "sort":false,
               pagingType: 'full_numbers',
@@ -589,13 +589,13 @@
                    sLast: '<i class="fa fa-step-forward"></i>'
                    }
                  } ,
-                
+                 "serverSide": true,
                  "stateSave": true,  //restore table state on page reload,
                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
-              "ajax": "<?php echo e(route('getMedicine')); ?>",
+              "ajax": "{{route('getMedicine')}}",
               "columns":[
 
-                   {"data":'DT_RowIndex'},
+                   {data:'DT_RowIndex'},
 
                   { "data": "medicine.name" },
 
@@ -622,33 +622,26 @@
                           let bu=data.unit2;
                           let card=data.unit3;
                           let tab=data.unit4;
+                          
                           let qty=data.qty;
                           let r=0;
-                           let remain=0;
 
-                           let unitPhar=0;
-                          let unitBu=0;
-                          let unitCard=0;
-                          let unitTab=0;
 
-                          if(phar!=null){
-
-                            
 
                           let onecard=tab;  
                           let onebu=card * onecard;
                           let onephar=bu * onebu;
                           
 
-                           unitPhar=0;
-                           unitBu=0;
-                           unitCard=0;
-                           unitTab=0;
-                         
+                          let unitPhar=0;
+                          let unitBu=0;
+                          let unitCard=0;
+                          let unitTab=0;
+                          var remain=0;
                         
 
                          
-                            if(qty >= onephar){
+                              if(qty >= onephar){
                               unitPhar=Math.floor(qty / onephar);
                               remain=qty % onephar;
                                
@@ -690,101 +683,28 @@
                                   remain=0;
 
                              }
-
-                              var html='';
-                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                             html+= (unitCard==0) ? '': unitCard+":card,"; 
-                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
-                             
-                             return html;
-                         }//ifphar is not null end
-                         else{
-                          if(bu != null){
-
-                            let onecard=tab;  
-                              let onebu=card * onecard;
-                               if(qty >= onebu ){
-                                  unitBu=Math.floor(qty / onebu);
-                                  remain=qty % onebu;
-
-                                  if(remain>=onecard){
-
-                                  unitCard=Math.floor(remain / onecard);
-                                  unitTab=qty % onecard;
-                                  remain=0;
-
-                                }else{
-                                  unitTab=remain;
-                                }
-                             }else if(qty >= onecard ){
-                                  
-
-                                  unitCard=Math.floor(qty / onecard);
-                                  unitTab=qty % onecard;
-                                  remain=0;
-
-                             }
-
-                              var html='';
-                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                             html+= (unitCard==0) ? '': unitCard+":card,"; 
-                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
-                             
-                             return html;
-
-                          }else{
-                               let onecard=tab;
-                               if(card!=null){
-                                if(qty >= onecard ){
-                                  
-
-                                      unitCard=Math.floor(qty / onecard);
-                                      unitTab=qty % onecard;
-                                      remain=0;
-
-                                 }
-                               }else{
-                                 unitTab=tab;
-                               }
-                            
-                             // console.log(unitCard);
-
-                              var html='';
-                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                             html+= (unitCard==0) ? '': unitCard+":card,"; 
-                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
-                             
-                             return html;
-                          }
+                           
+                           
+                        
 
 
 
-                             
-                         }
+
+
+
+
+
+                          
                               
-
-                          // if(bu==null){
-                          //   let onecard=tab;
-                          //   if(qty >= onecard ){
-                                  
-
-                          //         unitCard=Math.floor(qty / onecard);
-                          //         unitTab=qty % onecard;
-                          //         remain=0;
-
-                          //    }
-                          //    // console.log(unitCard);
-
-                          //     var html='';
-                          //    html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                          //    html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                          //    html+= (unitCard==0) ? '': unitCard+":card,"; 
-                          //    html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                            
+                              var html='';
+                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
+                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
+                             html+= (unitCard==0) ? '': unitCard+":card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
                              
-                          //    return html;
+                             return html;
+
                           // }
 
 
@@ -795,7 +715,7 @@
 ,
 
                   { "data":function(data){
-                    // console.warn(data);
+                    console.warn(data);
                       return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data.medicine.id}" data-name="${data.medicine.name}"><i class="ni ni-settings"></i></button>`;
                                 // <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data.id}"> <i class="ni ni-fat-delete"></i></button>
                     }
@@ -943,7 +863,7 @@
      // adding qty for eixting value
      $('#qtyform').submit(function(e){
         e.preventDefault();
-        let url="<?php echo e(route('stock.store')); ?>";
+        let url="{{route('stock.store')}}";
 
         let formdata= new FormData(this);
          $.ajax({
@@ -999,7 +919,7 @@
             // var id=$( "#medicineType option:selected" ).val();
             // var chemical=$('#chemical').val();
             let formdata=new FormData(this);
-            let url="<?php echo e(route('medicine.store')); ?>"
+            let url="{{route('medicine.store')}}"
           
              $.ajax({
                 url:url,
@@ -1074,7 +994,7 @@
             // $('#AddMedicine').hide();
             var id=$(this).data('id');
             // alert(id);
-            var url="<?php echo e(route('medicine.edit',':id')); ?>";
+            var url="{{route('medicine.edit',':id')}}";
             
             url=url.replace(':id',id);
             $.get(url,function(res){
@@ -1102,7 +1022,7 @@
           // alert(id);
           let formdata=new FormData(this);
           formdata.append('_method','PATCH');
-          let url="<?php echo e(route('medicine.update',':id')); ?>";
+          let url="{{route('medicine.update',':id')}}";
           url=url.replace(':id',id);
           $.ajax({
             url:url,
@@ -1218,7 +1138,7 @@
                      "serverSide": true,
                      "stateSave": true,  //restore table state on page reload,
                    "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
-                  "ajax": "<?php echo e(route('getm')); ?>",
+                  "ajax": "{{route('getm')}}",
                   "columns":[
 
                        {"data":'DT_RowIndex'},
@@ -1451,5 +1371,4 @@
 </script>
 
 
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/owner/medicineCreate.blade.php ENDPATH**/ ?>
+@endsection

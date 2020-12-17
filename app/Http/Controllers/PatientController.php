@@ -158,14 +158,94 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        $uid=Auth::user()->receptions[0]->owner_id;
+         $role=Auth::user()->roles[0];
+         $user=Auth::user();
          $patient = Patient::find($id);
+        if($user->hasRole('Doctor')){
+           $doctors=Doctor::with('user')->
+          where('owner_id',Auth::user()->doctors[0]->owner_id)->get();
+            $doctor=Doctor::where('user_id',$user->id)->first();
+           
+            $doctor_id=$doctor->id;
+            // dd($doctor_id);
+            
+
+            $lastassginP=Referreddoctor::
+                        where('patient_id',$id)
+                        ->orderBy('created_at','DESC')->first();
+                        
+            $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)
+                        ->where('patient_id',$id)
+                        ->orderBy('created_at','DESC')->first();
+          // dd($lastassginP);
+            
+            if($assignedDoc!=null){ 
+                //yes  you are assingned but still don't know last or not last 
+                if($lastassginP->to_doctor_id == $assignedDoc->to_doctor_id){
+                    //yes you are last
+
+                    $treatments=Treatment::where('patient_id',$id)->
+                     whereNotNull('gc_level')->
+                      orderBy('created_at','DESC')->get();
+
+                }else{
+                    // yes you are not last
+                    if($assignedDoc->status==0){
+                        
+                        $dolastassgin=Referreddoctor::where('from_doctor_id',$assignedDoc->to_doctor_id)
+                        ->where('patient_id',$assignedDoc->patient_id)
+                        ->orderBy('created_at','DESC')
+                        ->first();
+
+                            $status=$assignedDoc->status;
+                           $removeDate=$dolastassgin->created_at;
+                            // dd($removeDate);
+                           $treatments=
+                           Treatment::whereDate('created_at','<=',$removeDate)
+                           ->whereNotNull('gc_level')
+                        ->where('patient_id',$id)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+
+                    }else{
+                        dd('helo2');
+                    }
+                }
+            }else{
+                //you  r frist for patient
+                $treatments=Treatment::where('doctor_id',Auth::user()->doctors[0]->id)
+                            ->whereNotNull('gc_level')
+                            ->where('patient_id',$id)->get();
+
+            }
+
+        }elseif ($user->hasRole('Reception')) {
+            $uid=Auth::user()->receptions[0]->owner_id;
+        
           $doctors=Doctor::with('user')->
           where('owner_id',$uid)->get();
           $treatments=Treatment::where('patient_id',$id)
                         ->where('gc_level','!=',null)
                         ->orderBy('id','desc')
                         ->get();
+        }elseif ($user->hasRole('Admin')) {
+          $uid=Auth::user()->id;
+        
+          $doctors=Doctor::with('user')->
+          where('owner_id',$uid)->get();
+          $treatments=Treatment::where('patient_id',$id)
+                        ->where('gc_level','!=',null)
+                        ->orderBy('id','desc')
+                        ->get();
+        }else{
+            $doctors=all();
+            $treatments=Treatment::where('patient_id',$id)
+                        ->where('gc_level','!=',null)
+                        ->orderBy('id','desc')
+                        ->get();
+        }
+           
+          
                         // dd('helo');
          return view('patients.show',compact('patient','doctors','treatments'));
     }

@@ -332,11 +332,12 @@
                  <div class="d-none" id="monthMdiv" >
                  <!-- start table list n-->
               
-                  
+                 
                         <!-- Card header -->
                         
                         <!-- Light table -->
                         <div class="table-responsive p-4">
+                           <h3 class="heading">Stock leftOver</h3>
                           <table class="table align-items-center" id="mmtable">
                             <thead class="thead-light">
                               <tr>
@@ -503,7 +504,7 @@
       </div> -->
       
     </div>
-	
+  
 @endsection
 @section('script')
 
@@ -575,8 +576,8 @@
     function getData(){
           var i=1;
               $('#medicineTable').DataTable({
-              
               "processing": true,
+        "serverSide": true,
               destroy:true,
               "sort":false,
               pagingType: 'full_numbers',
@@ -589,13 +590,13 @@
                    sLast: '<i class="fa fa-step-forward"></i>'
                    }
                  } ,
-                 "serverSide": true,
+                
                  "stateSave": true,  //restore table state on page reload,
                "lengthMenu": [[10, 20, 50, -1], [10, 20, 50, "All"]],
               "ajax": "{{route('getMedicine')}}",
               "columns":[
 
-                   {data:'DT_RowIndex'},
+                   {"data":'DT_RowIndex'},
 
                   { "data": "medicine.name" },
 
@@ -624,23 +625,31 @@
                           let tab=data.unit4;
                           let qty=data.qty;
                           let r=0;
+                           let remain=0;
 
+                           let unitPhar=0;
+                          let unitBu=0;
+                          let unitCard=0;
+                          let unitTab=0;
 
+                          if(phar!=null){
+
+                            
 
                           let onecard=tab;  
                           let onebu=card * onecard;
                           let onephar=bu * onebu;
                           
 
-                          let unitPhar=0;
-                          let unitBu=0;
-                          let unitCard=0;
-                          let unitTab=0;
-                          var remain=0;
+                           unitPhar=0;
+                           unitBu=0;
+                           unitCard=0;
+                           unitTab=0;
+                         
                         
 
                          
-                              if(qty >= onephar){
+                            if(qty >= onephar){
                               unitPhar=Math.floor(qty / onephar);
                               remain=qty % onephar;
                                
@@ -682,20 +691,42 @@
                                   remain=0;
 
                              }
-                           
-                           
-                        
 
+                              var html='';
+                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
+                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
+                             html+= (unitCard==0) ? '': unitCard+":card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             
+                             return html;
+                         }//ifphar is not null end
+                         else{
+                          if(bu != null){
 
+                            let onecard=tab;  
+                              let onebu=card * onecard;
+                               if(qty >= onebu ){
+                                  unitBu=Math.floor(qty / onebu);
+                                  remain=qty % onebu;
 
+                                  if(remain>=onecard){
 
+                                  unitCard=Math.floor(remain / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
 
+                                }else{
+                                  unitTab=remain;
+                                }
+                             }else if(qty >= onecard ){
+                                  
 
+                                  unitCard=Math.floor(qty / onecard);
+                                  unitTab=qty % onecard;
+                                  remain=0;
 
+                             }
 
-                          
-                              
-                            
                               var html='';
                              html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
                              html+= (unitBu==0) ? '': unitBu+":bu,"; 
@@ -704,6 +735,57 @@
                              
                              return html;
 
+                          }else{
+                               let onecard=tab;
+                               if(card!=null){
+                                if(qty >= onecard ){
+                                  
+
+                                      unitCard=Math.floor(qty / onecard);
+                                      unitTab=qty % onecard;
+                                      remain=0;
+
+                                 }
+                               }else{
+                                 unitTab=tab;
+                               }
+                            
+                             // console.log(unitCard);
+
+                              var html='';
+                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
+                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
+                             html+= (unitCard==0) ? '': unitCard+":card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             
+                             return html;
+                          }
+
+
+
+                             
+                         }
+                              
+
+                          // if(bu==null){
+                          //   let onecard=tab;
+                          //   if(qty >= onecard ){
+                                  
+
+                          //         unitCard=Math.floor(qty / onecard);
+                          //         unitTab=qty % onecard;
+                          //         remain=0;
+
+                          //    }
+                          //    // console.log(unitCard);
+
+                          //     var html='';
+                          //    html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
+                          //    html+= (unitBu==0) ? '': unitBu+":bu,"; 
+                          //    html+= (unitCard==0) ? '': unitCard+":card,"; 
+                          //    html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             
+                          //    return html;
                           // }
 
 
@@ -714,7 +796,7 @@
 ,
 
                   { "data":function(data){
-                    console.warn(data);
+                    // console.warn(data);
                       return `<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data.medicine.id}" data-name="${data.medicine.name}"><i class="ni ni-settings"></i></button>`;
                                 // <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data.id}"> <i class="ni ni-fat-delete"></i></button>
                     }

@@ -13,6 +13,7 @@ use App\Reception;
 use App\Doctor;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use App\Referreddoctor;
 use App\Appointment;
 class AppointmentController extends Controller
 {
@@ -58,27 +59,109 @@ class AppointmentController extends Controller
     }
 
 
+    // public function patient(Request $request)
+    // {
+    //    $id=Auth::user()->doctors[0]->owner_id;
+    //     $patient_id=request('patient_id');
+    //     $treatment_id=request('treatment_id');
+    // 	$patient=Patient::find($patient_id);
+    //     //dd($treatment_id);
+    //     $drugs=Medicine::
+    //                 Where('medicinetype_id',1)->where('owner_id',$id)->get();
+    //     //dd($drugs);
+    //     $injections=Medicine::where('medicinetype_id',2)->where('owner_id',$id)->get();
+    //     // dd($injections);
+    //     $treatments=Treatment::where('patient_id',$patient_id)->where('gc_level','!=',null)->get();
+    //    /* $treatmentdrugs= $treatments->medicines()
+    //                      ->wherePivot('type', '!=', Null)
+    //                      ->get();
+    //     dd($treatmentdrugs);*/
+    //    // dd($treatments);
+    // 	 return view('Appointment.show',compact('patient','drugs','injections','treatments','treatment_id'));
+
+    // }
+
     public function patient(Request $request)
     {
-       $id=Auth::user()->doctors[0]->owner_id;
+
+       $uid=Auth::user()->doctors[0]->owner_id;
         $patient_id=request('patient_id');
         $treatment_id=request('treatment_id');
-    	$patient=Patient::find($patient_id);
+        $patient=Patient::find($patient_id);
         //dd($treatment_id);
         $drugs=Medicine::
-                    Where('medicinetype_id',1)->where('owner_id',$id)->get();
+                    Where('medicinetype_id',1)->where('owner_id',$uid)->get();
         //dd($drugs);
-        $injections=Medicine::where('medicinetype_id',2)->where('owner_id',$id)->get();
+        $injections=Medicine::where('medicinetype_id',2)->where('owner_id',$uid)->get();
         // dd($injections);
-        $treatments=Treatment::where('patient_id',$patient_id)->where('gc_level','!=',null)->get();
-       /* $treatmentdrugs= $treatments->medicines()
-                         ->wherePivot('type', '!=', Null)
-                         ->get();
-        dd($treatmentdrugs);*/
-       // dd($treatments);
-    	 return view('Appointment.show',compact('patient','drugs','injections','treatments','treatment_id'));
+
+        // $treatments=Treatment::where('patient_id',$patient_id)
+        //             ->where('gc_level','!=',null)
+        //             ->get();
+
+        // start here
+            $user=Auth::user();
+            $doctor=Doctor::where('user_id',$user->id)->first();
+           
+            $doctor_id=$doctor->id;
+            // dd($doctor_id);
+            $id=$patient->id;
+
+            $lastassginP=Referreddoctor::
+                        where('patient_id',$id)
+                        ->orderBy('created_at','DESC')->first();
+                        
+            $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)
+                        ->where('patient_id',$id)
+                        ->orderBy('created_at','DESC')->first();
+          // dd($lastassginP);
+            
+            if($assignedDoc!=null){ 
+                //yes  you are assingned but still don't know last or not last 
+                if($lastassginP->to_doctor_id == $assignedDoc->to_doctor_id){
+                    //yes you are last
+
+                    $treatments=Treatment::where('patient_id',$id)->
+                     whereNotNull('gc_level')->
+                      orderBy('created_at','DESC')->get();
+
+                }else{
+                    // yes you are not last
+                    if($assignedDoc->status==0){
+                        
+                        $dolastassgin=Referreddoctor::where('from_doctor_id',$assignedDoc->to_doctor_id)
+                        ->where('patient_id',$assignedDoc->patient_id)
+                        ->orderBy('created_at','DESC')
+                        ->first();
+
+                            $status=$assignedDoc->status;
+                           $removeDate=$dolastassgin->created_at;
+                            // dd($removeDate);
+                           $treatments=
+                           Treatment::whereDate('created_at','<=',$removeDate)
+                           ->whereNotNull('gc_level')
+                        ->where('patient_id',$id)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+
+                    }else{
+                        dd('helo2');
+                    }
+                }
+            }else{
+                //you  r frist for patient
+                $treatments=Treatment::where('doctor_id',Auth::user()->doctors[0]->id)
+                            ->whereNotNull('gc_level')
+                            ->where('patient_id',$id)->get();
+
+            }
+        //end here
+       
+         return view('Appointment.show',compact('patient','drugs','injections','treatments','treatment_id'));
 
     }
+
+
     
     public function getmedicine(Request $request)
     {

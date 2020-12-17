@@ -124,7 +124,7 @@ div.dataTables_wrapper div.dataTables_filter input {
             <div class="card-body">
               <div class="row">
                 <div class="col">
-                  <h5 class="card-title text-uppercase text-muted mb-0">Appointment</h5>
+                  <h5 class="card-title text-uppercase text-muted mb-0">Booking</h5>
                   <span class="h2 font-weight-bold mb-0"><?php echo e($appointmentcount); ?></span>
                 </div>
                 <div class="col-auto">
@@ -247,7 +247,7 @@ div.dataTables_wrapper div.dataTables_filter input {
                   <div class="row align-items-center">
                     <div class="col">
                      
-                      <h3 class="mb-0">Doctor list</h3>
+                      <h3 class="mb-0">Doctor list  for <?php echo e(\Carbon::today()->toDateString()); ?> </h3>
                      
                     </div>
                     
@@ -265,8 +265,9 @@ div.dataTables_wrapper div.dataTables_filter input {
                       <tr>
                         <th scope="col">Name</th>
                         
-                        <th scope="col">Treatment</th>
+                        
                         <th scope="col">Appointment</th>
+                        <th scope="col">Treatment</th>
                        
                         
                         
@@ -277,14 +278,16 @@ div.dataTables_wrapper div.dataTables_filter input {
                      <!-- count($survey[0]->appointments) -->
                      
 
+
                      <?php $__currentLoopData = $survey; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $a): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     
                       <tr>
                         <td><?php echo e($a->user->name); ?></td>
                         
                         
+                        
+                        <td><?php echo e($a->todaydoctorBooking); ?></td>
                         <td><?php echo e($a->treatments_count); ?></td>
-                        <td><?php echo e($a->appointments_count); ?></td>
                        
                       </tr>
                       

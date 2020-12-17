@@ -36,11 +36,12 @@ class DoctorController extends Controller
         $id= Auth::user()->id;
        $doctor_id=Doctor::where('user_id',$id)->first();
        $d=$doctor_id->id;
+
         $survey=Doctor::with(['treatments'=>function($t){
             $t->whereNotNull('gc_level')->orderBy('created_at', 'DESC');
         },'appointments'=>function($a){
-            $a->where('status',0)
-             ->whereDate('A_Date','>=',Carbon::today()->toDateString())
+            $a->where('status',1)
+             ->whereDate('A_Date',Carbon::today()->toDateString())
             ->orderBy('TokenNo', 'ASC')
         ->orderBy('A_Date', 'ASC');
     },'referredFrom.patient'])
@@ -51,7 +52,11 @@ class DoctorController extends Controller
         ->withCount(['treatments'=>function($q1){
             $q1->whereNotNull('gc_level');
         },'appointments'=> function($q) {
-            $q->where('status',0);
+            $q->whereHas('treatment',function($q){
+                $q->whereNull('gc_level');
+            })
+            ->where('status',1)
+             ->whereDate('A_Date','=',Carbon::today()->toDateString());
         },'referredBy','referredFrom'=>function($q2) {
            
            $q2->where('status','1');
@@ -92,17 +97,27 @@ class DoctorController extends Controller
         $role=Auth::user()->roles[0];
        // dd( Auth::user()->owners(0);
         if($role->name=='Admin'){
-            $all=Doctor::where('owner_id',Auth::user()->owners[0]->id)->get();
+            $all=Doctor::where('owner_id',Auth::user()->owners[0]->id)
+                 ->withCount(['treatments'=>function($q1){
+            $q1->whereNotNull('gc_level');
+        }])->get();
             // dd($all);
         
         }else if($role->name=="Reception"){
             
-            $all=Doctor::where('owner_id',Auth::user()->receptions[0]->owner_id)->get();
+            $all=Doctor::where('owner_id',Auth::user()->receptions[0]->owner_id)
+                ->withCount(['treatments'=>function($q1){
+            $q1->whereNotNull('gc_level');
+        }])
+            ->get();
 
         }else{
-            $all=Doctor::all();
+            $all=Doctor::withCount(['treatments'=>function($q1){
+                 $q1->whereNotNull('gc_level');
+            }])->get();
+           
         }
-        // dd($all);
+         // dd($all);
         $all=  DoctorResource::collection($all);
         return Datatables::of($all)->addIndexColumn()->make(true);
     }

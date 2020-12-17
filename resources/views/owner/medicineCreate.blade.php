@@ -132,11 +132,11 @@
 
                           
                             <div class="col">
-                              <label for="">Phar:</label>
+                              <label for="">Package:</label>
                               <input type="text" name="phar"  class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
                             </div>
                             <div class="col">
-                              <label for="">Bu:</label>
+                              <label for="">Box:</label>
                               <input type="text" name="bu"  class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
                             </div>
                             <div class="col">
@@ -260,11 +260,11 @@
 
                               
                                 <div class="col">
-                                  <label for="">Phar:</label>
+                                  <label for="">Package:</label>
                                   <input type="text" name="cphar"  class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
                                 </div>
                                 <div class="col">
-                                  <label for="">Bu:</label>
+                                  <label for="">Box:</label>
                                   <input type="text" name="cbu"  class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
                                 </div>
                                 
@@ -346,10 +346,10 @@
                                 <th>Type</th>
                                 <th>Qty</th>
                                 <th>In Unit</th>
-                                <th>Phar</th>
-                                <th>bu</th>
-                                <th>card</th>
-                                <th>tab</th>
+                                <th>Package</th>
+                                <th>Box</th>
+                                <th>Card</th>
+                                <th>Tab</th>
                                 <th>Chemical Things</th>
                               </tr>
                             </thead>
@@ -380,10 +380,10 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Type</th>
-                                <th>Phar</th>
-                                <th>bu</th>
-                                <th>card</th>
-                                <th>tab</th>
+                                <th>Package</th>
+                                <th>Box</th>
+                                <th>Card</th>
+                                <th>Tab</th>
                                 <th>Total Qty</th>
                                 <th>In Unit</th>
                                 <th>Actions</th>
@@ -603,11 +603,20 @@
                   { "data": "medicine.medicinetype.name"
                   } ,
 
-                  { "data": "unit1"
+                  { "data": "unit1",
+                      render:function(data){
+                        return data==undefined ? '-':data;
+                      }
                   } ,
-                  { "data": "unit2"
+                  { "data": "unit2",
+                      render:function(data){
+                        return data==undefined ? '-':data;
+                      }
                   } ,
-                  { "data": "unit3"
+                  { "data": "unit3",
+                      render:function(data){
+                        return data==undefined ? '-':data;
+                      }
                   } ,
                   { "data": "unit4"
                   } ,
@@ -693,10 +702,10 @@
                              }
 
                               var html='';
-                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                             html+= (unitCard==0) ? '': unitCard+":card,"; 
-                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             html+= (unitPhar==0) ? '': unitPhar+":Package,"; 
+                             html+= (unitBu==0) ? '': unitBu+":Box,"; 
+                             html+= (unitCard==0) ? '': unitCard+":Card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":Tab,"; 
                              
                              return html;
                          }//ifphar is not null end
@@ -728,10 +737,10 @@
                              }
 
                               var html='';
-                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                             html+= (unitCard==0) ? '': unitCard+":card,"; 
-                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             html+= (unitPhar==0) ? '': unitPhar+":Package,"; 
+                             html+= (unitBu==0) ? '': unitBu+":Box,"; 
+                             html+= (unitCard==0) ? '': unitCard+":Card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":Tab,"; 
                              
                              return html;
 
@@ -753,10 +762,10 @@
                              // console.log(unitCard);
 
                               var html='';
-                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                             html+= (unitCard==0) ? '': unitCard+":card,"; 
-                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             html+= (unitPhar==0) ? '': unitPhar+":Package,"; 
+                             html+= (unitBu==0) ? '': unitBu+":Box,"; 
+                             html+= (unitCard==0) ? '': unitCard+":Card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":Tab,"; 
                              
                              return html;
                           }
@@ -1338,10 +1347,10 @@
                               
                             
                               var html='';
-                             html+= (unitPhar==0) ? '': unitPhar+":phar,"; 
-                             html+= (unitBu==0) ? '': unitBu+":bu,"; 
-                             html+= (unitCard==0) ? '': unitCard+":card,"; 
-                             html+= (unitTab==0) ? '': unitTab+":tab,"; 
+                             html+= (unitPhar==0) ? '': unitPhar+":Package,"; 
+                             html+= (unitBu==0) ? '': unitBu+":Box,"; 
+                             html+= (unitCard==0) ? '': unitCard+":Card,"; 
+                             html+= (unitTab==0) ? '': unitTab+":Tab,"; 
                              
                              return html;
 
@@ -1424,12 +1433,21 @@
                           return 'hleo';
                           
                         }
-                      },{ "data": "phar"
+                      },{ "data": "phar",
+                      render:function(data){
+                        return data==undefined ? '-':data;
+                      }
                       
                       } ,
-                      { "data": "bu"
+                      { "data": "bu",
+                      render:function(data){
+                        return data==undefined ? '-':data;
+                      }
                       } ,
-                      { "data": "card"
+                      { "data": "card",
+                      render:function(data){
+                        return data==undefined ? '-':data;
+                      }
                       } ,
                       { "data": "tab"
                       } ,

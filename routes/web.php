@@ -65,10 +65,10 @@ Route::get('/',function(){
 	}else{
 		return redirect('/rdashboard');
 	}
-})->middleware('auth');
+});
 Route::get('/ownerDashboard', 'ExpenseController@index');
 
-})->middleware('auth');
+});
 // Route::get('/', 'ExpenseController@index')->middleware('auth');
 Route::get('/ddashboard', 'DoctorController@dashboard')->name('ddashboard')->middleware('auth');
 // Route::get('/rdashboard', 'ReceptionController@dashboard')->name('rdashboard');

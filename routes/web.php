@@ -17,7 +17,7 @@ Route::get('/timeline', function () {
 
 // login page
 
-Route::get('/dashboard','ExpenseController@superadmindashboard')->name('dashboard');
+Route::get('/dashboard','ExpenseController@superadmindashboard')->name('dashboard')->middleware('auth');
 
 
 Route::group(['middleware' => ['auth','role:Reception|Super_Admin']], function () {
@@ -65,10 +65,10 @@ Route::get('/',function(){
 	}else{
 		return redirect('/rdashboard');
 	}
-});
+})->middleware('auth');
 Route::get('/ownerDashboard', 'ExpenseController@index');
 
-});
+})->middleware('auth');
 // Route::get('/', 'ExpenseController@index')->middleware('auth');
 Route::get('/ddashboard', 'DoctorController@dashboard')->name('ddashboard')->middleware('auth');
 // Route::get('/rdashboard', 'ReceptionController@dashboard')->name('rdashboard');
@@ -127,7 +127,7 @@ Route::get('/getOwners','OwnerController@getOwners')->name('getOwners');
 
 
 //Doctor
-Route::resource('doctor','DoctorController');
+Route::resource('doctor','DoctorController')->middleware('auth');
 
 Route::get('/getDoctor','DoctorController@getDoctor')->name('getDoctor');
 

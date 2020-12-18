@@ -6,10 +6,10 @@
   $patientid=$uriarray[2];
 
  @endphp
-<div class="row">
-   <div class="col-12" style="margin-top: 130px;">
+<div class="row card">
+   <div class="col-12" style="margin-top: 0px;">
     <nav class="mx-5 my-3">
-      <div class="nav nav-tabs my-3"  id="nav-tab" role="tablist">
+      <div class="nav nav-tabs "  id="nav-tab" role="tablist">
         <a class="nav-item nav-link text-info active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ptient History</a>
         <a class="nav-item nav-link text-info" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Treatment</a>
 
@@ -31,38 +31,118 @@
                 </div>
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-6">
-                        <p class="card-text"><strong>Patient ID:  </strong>{{$patient->id}} </p>
-                        <p class="card-text"><strong>Age:  </strong> {{$patient->age}}@php 
-                          if($patient->child==0){
-                          echo "year";
-                        }else{
-                        echo"month";
-                      }
-                    @endphp</p>
-                    <p class="card-text"><strong>Gender: </strong>{{$patient->gender}}</p>
-                    <p class="card-text"><strong>Phone No: </strong>{{$patient->phoneno}}</p> 
+                 <div class="card-body">
+                    <form>
+                      <!-- <h6 class="heading-small text-muted mb-4">General information</h6> -->
+                      <div class="pl-lg-4">
+                        <div class=" align-items-center">
+                        <div class="flex">
+                           <img src="{{asset('template/assets/img/patient.png')}}" width="60" class="rounded-circle float-left d-inline-block mr-4 mt-3 ">  
+                           <div>
+                             <h4 class=" p-0 pr-4 mt-3 d-inline-block ">Name: {{$patient->name}}</h4>
+                             <h6 class="small text-muted  mb-4">PRN No: {{$patient->PRN}} </h6>
+                           </div>
+                           
+                        </div>
+                        
+                      </div>
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-first-name">job </label>
+                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative" placeholder="First name" value="{{$patient->job}}">
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-first-name">Age </label>
+                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative" placeholder="First name" value='{{$patient->age}}@php 
+                                                if($patient->child==0){
+                                                echo " year";
+                                                }else{
+                                                echo " month";
+                                                }
+                                                @endphp'>
+                            </div>
+                          </div>
+                          <div class="col-lg-4">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-last-name">Martial</label>
+                              <input type="text" id="input-last-name" disabled="disabled" class=" text-dark form-control form-control-alternative" placeholder="Last name" value='@php 
+                                                if($patient->married_status==0){
+                                                echo " Yes";
+                                                }else{
+                                                echo " No";
+                                                }
+                                                @endphp'>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr class="my-4" />
+                      <!-- Address -->
+                      <a href="#health-div" data-toggle="collapse"><h6 class="heading-small text-primary mb-4">Health information</h6></a>
+                      <div id="health-div"  class="collapse pl-lg-4">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-city">Pregnant Status</label>
+                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative" placeholder="City" value='@php 
+                                          if($patient->pregnant==0){
+                                          echo " Yes";
+                                        }else{
+                                        echo " No";
+                                      }
+                                    @endphp'>
+                            </div>
+                          </div>   
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-address">Known Drug Allergy  </label>
+                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" placeholder="A few words about you ...">{{$patient->allergy}}</textarea>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <hr class="my-4" />
+                      <!-- Address -->
+                      <a href="#contact-div" data-toggle="collapse"><h6 class="heading-small text-primary mb-4">Contact information</h6></a>
+                      <div id="contact-div" class="collapse pl-lg-4">
+                        <div class="row">
+                          <div class="col-lg-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-city">Phone</label>
+                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative" placeholder="City" value="{{$patient->phoneno}}">
+                            </div>
+                          </div>   
+                        </div>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="form-group">
+                              <label class="form-control-label" for="input-address">Address</label>
+                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" placeholder="A few words about you ...">{{$patient->address}}</textarea>
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </div>
+                      <hr class="my-4" />
+                      <!-- Description -->
+                       <a href="#test-div" data-toggle="collapse"><h6 class="heading-small text-primary mb-4">Test Result</h6></a>
+                      <div id="test-div"  class="collapse pl-lg-4">
+                        <div class="form-group">
+                          @foreach(json_decode($patient->file) as $photo)
+                          <a target="_blank" href="{{asset($photo)}}">
+                            <img src="{{asset($photo)}}" width="100px" height="100px">
+                          </a>
+                          @endforeach
+                        </div>
+                      </div>
+                    </form>
                   </div>
-                  <div class="col-6">
-                    <p class="card-text"><strong>Address: </strong>{{$patient->address}}</p>
-                    <p class="card-text"><strong>Body Weight: </strong>{{$patient->body_weight}}</p>
-                    <p class="card-text"><strong>Known Drug Allergy: </strong>{{$patient->allergy}}</p>
-                    <p class="card-text"><strong>Jobs: </strong>{{$patient->job}}</p>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-12">
-                    <h3>patient file</h3>
-                    @foreach(json_decode($patient->file) as $photo)
-                    <a target="_blank" href="{{asset($photo)}}">
-                      <img src="{{asset($photo)}}" width="100px" height="100px">
-                    </a>
-                    @endforeach
-                  </div>  
-                </div>     
-              </div>
             </div>
           </div>
 
@@ -181,7 +261,7 @@
    <div class="card-body bg-secondary">
     <div class="mx-2">
       <form method="post" action="{{route('treatment.store')}}" enctype="multipart/form-data" id="myform">
-        <input type="hidden" name="patientid" value="<?php echo $patientid ?>">
+       
 
         <div class="row">
           <div class="col-md-12">
@@ -192,69 +272,84 @@
           </div>
         </div>
         <input type="hidden" name="treatment-id" value="{{$treatment_id}}" class="treatment-id">
-        <div class="form-group">
-          <label>GC Level</label>
-          <input type="text" name="gc" class="form-control">
-          <span class="Egc error d-block" ></span>
+        
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>GC Level</label>
+            <input type="text" name="gc" class="form-control">
+            <span class="Egc error d-block" ></span>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Temperature</label>
+            <input type="text" name="temperature" class="form-control">
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Temperature</label>
-          <input type="text" name="temperature" class="form-control">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Body Weight</label>
+            <input type="text" name="bodyWeight" class="form-control" value="">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>SPO2</label>
+            <input type="text" name="spo2" class="form-control">
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>Body Weight</label>
-          <input type="text" name="bodyWeight" class="form-control" value="">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>PR</label>
+            <input type="text" name="pr" class="form-control">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>BP</label>
+            <input type="text" name="bp" class="form-control">
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>SPO2</label>
-          <input type="text" name="spo2" class="form-control">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>RBS</label>
+            <input type="text" name="rbs" class="form-control">
+          </div>
+
+           <div class="form-group col-md-6">
+            <label>Underlying Diseases with receiving treatment</label>
+            <input type="text" name="ud" class="form-control">
+          </div>
         </div>
 
-        <div class="form-group">
-          <label>PR</label>
-          <input type="text" name="pr" class="form-control">
-        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Complaint and History</label>
+            <textarea class="form-control" name="complaint"></textarea>
+            <span class="Ecomplaint error d-block" ></span>
+          </div>
 
-        <div class="form-group">
-          <label>BP</label>
-          <input type="text" name="bp" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>RBS</label>
-          <input type="text" name="rbs" class="form-control">
-        </div>
-
-        <div class="form-group">
-          <label>Complaint and History</label>
-          <textarea class="form-control" name="complaint"></textarea>
-          <span class="Ecomplaint error d-block" ></span>
-        </div>
-
-        <div class="form-group">
-          <label>On Examination</label>
-          <textarea class="form-control" name="onexam"></textarea>
+          <div class="form-group col-md-6">
+            <label>On Examination</label>
+            <textarea class="form-control" name="onexam"></textarea>
+          </div>
         </div>
 
 
-        <div class="form-group">
-          <label>Relevant Info</label>
-          <textarea name="relevantinfo" class="form-control"></textarea>
-        </div>
+       <div class="form-row">
+          <div class="form-group col-md-6">
+            <label>Relevant Info</label>
+            <textarea name="relevantinfo" class="form-control"></textarea>
+          </div>
 
-        <div class="form-group">
-          <label>Underlying Diseases with receiving treatment</label>
-          <input type="text" name="ud" class="form-control">
-        </div>
+         
 
-        <div class="form-group">
-          <label>Diagnosis</label>
-          <input type="text" name="diagnosis" class="form-control">
-          <span class="Edia error d-block" ></span>
-        </div>
+          <div class="form-group col-md-6">
+            <label>Diagnosis</label>
+            <input type="text" name="diagnosis" class="form-control">
+            <span class="Edia error d-block" ></span>
+          </div>
+       </div>
 
 
 
@@ -266,8 +361,8 @@
             <a class="btn btn-secondary btn-injection" drole="button" >
               <label>Injection / Procedure</label>
             </a>
-            <a class="btn btn-secondary btn-recommending"  role="button" >
-              <label class="text-danger">Making  Recommending</label>
+            <a class="btn btn-secondary btn-recommending mt-xl-0 mt-lg-0 mt-md-2 mt-sm-2 mt-sx-2 mt-2"  role="button" >
+              <label class="text-danger">Making  Referral</label>
             </a>
           </p>
 

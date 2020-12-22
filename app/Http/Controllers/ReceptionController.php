@@ -129,12 +129,12 @@ class ReceptionController extends Controller
         //dd($request);
          request()->validate([
             'name'=>'required',
-            'txtEmpPhone' => 'required|min:3',
-            'address' => 'required|min:10',
+            
+           
             'email' => 'required|email|unique:users,email',
             'password'=>'required|min:8',
-            'education'=>'required',
-            'file' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
+           
+            
         ]);
 
            if ($request->hasfile('file')) {
@@ -143,6 +143,8 @@ class ReceptionController extends Controller
             $name = $image->getClientOriginalName();
             $image -> move(public_path().'/storages/files',$name);
             $path = '/storages/files/'.$name;
+        }else{
+            $path=null;
         }
         //dd($path);
         $user=new User;

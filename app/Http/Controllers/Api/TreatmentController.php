@@ -27,7 +27,7 @@ class TreatmentController extends Controller
     {
 
          $id=Auth::user()->doctors[0]->id;
-
+         // dd($id);
         // $id=1;
          // old query
             // $patient=Patient::
@@ -51,8 +51,8 @@ class TreatmentController extends Controller
           //   })->with('appointment')->get();
 
          $patients=Appointment::whereHas('treatment',function($q) use ($id){
-              $q->whereDate('created_at',Carbon::today())
-               ->where('doctor_id','=',$id)
+              // $q->whereDate('created_at',Carbon::today())
+              $q->where('doctor_id','=',$id)
                  ->whereNull('gc_level');
             })->with('treatment.patient.treatments')
          ->orderBy('TokenNo','ASC')

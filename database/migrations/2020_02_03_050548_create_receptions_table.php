@@ -17,11 +17,11 @@ class CreateReceptionsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('owner_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('gender');
-            $table->string('phoneno');
-            $table->string('education');
-            $table->text('address');
-            $table->text('file');
+            $table->string('gender')->nullable();
+            $table->string('phoneno')->nullable();
+            $table->string('education')->nullable();
+            $table->text('address')->nullable();
+            $table->text('file')->nullable();
             $table->softDeletes();
             $table->timestamps();
             

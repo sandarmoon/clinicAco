@@ -399,10 +399,22 @@ class TreatmentController extends Controller
                     }
 
 
+          }else if($user->hasRole('Reception')){
+
+                 $id=Auth::user()->receptions[0]->owner_id;
+                 $doctors=Doctor::where('owner_id',$id)->get();
+                 $treatments=Treatment::where('patient_id','=',$pid)
+                    ->whereNotNull('gc_level')
+                    ->where('doctor_id','=',$did)
+                    ->orderBy('created_at','desc')
+                    ->get();
+                     return view('patients.healthRecord',compact('treatments','doctors'));
           }else{
-              $id=Auth::user()->receptions[0]->owner_id;
-        $doctors=Doctor::where('owner_id',$id)->get();
-            $treatments=Treatment::where('patient_id','=',$pid)
+
+              // $id=Auth::user()->receptions[0]->owner_id;
+             // $doctors=Doctor::where('owner_id',$id)->get();
+            $doctors=Doctor::all();
+             $treatments=Treatment::where('patient_id','=',$pid)
                 ->whereNotNull('gc_level')
                 ->where('doctor_id','=',$did)
                 ->orderBy('created_at','desc')

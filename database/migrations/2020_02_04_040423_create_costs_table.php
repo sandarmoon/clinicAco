@@ -15,9 +15,9 @@ class CreateCostsTable extends Migration
     {
         Schema::create('costs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->text('description');
-            $table->string('amount');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->string('amount')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

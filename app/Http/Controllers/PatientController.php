@@ -238,7 +238,7 @@ class PatientController extends Controller
                         ->orderBy('id','desc')
                         ->get();
         }else{
-            $doctors=all();
+            $doctors=Doctor::all();
             $treatments=Treatment::where('patient_id',$id)
                         ->where('gc_level','!=',null)
                         ->orderBy('id','desc')

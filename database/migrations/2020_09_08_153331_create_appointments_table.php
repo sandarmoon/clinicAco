@@ -15,11 +15,11 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->unsignedBigInteger('doctor_id');
-            $table->string('phone');
-            $table->string('A_Date');
-            $table->string('TokenNo');
+            $table->string('phone')->nullable();
+            $table->string('A_Date')->nullable();
+            $table->string('TokenNo')->nullable();
             $table->string('status')->default('0');
             $table->softDeletes();
             $table->timestamps();

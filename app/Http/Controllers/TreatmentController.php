@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Treatment;
 use App\Patient;
+use App\Medicine;
 use App\Referreddoctor;
 use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\TreatmentResource;
@@ -358,6 +359,7 @@ class TreatmentController extends Controller
 
           $user=Auth::user();
           if($user->hasRole('Doctor')){
+
              $doctors=Doctor::where('owner_id',Auth::user()->doctors[0]->owner_id)->get();
              $doctor=Doctor::where('user_id',$user->id)->first();
             $doctor_id=$doctor->id;
@@ -369,7 +371,7 @@ class TreatmentController extends Controller
                     ->orderBy('created_at','DESC')->first();
 
                     if($assignedDoc!=null){ 
-                 // dd('helo1');//This login doctor is assigned by someoone
+                  // dd('helo1');//This login doctor is assigned by someoone
 
                         if($lastassginP->to_doctor_id == $assignedDoc->to_doctor_id){
                              $treatments=Treatment::where('patient_id','=',$pid)
@@ -396,6 +398,16 @@ class TreatmentController extends Controller
                             // dd($treatments);
                              return view('patients.healthRecord',compact('treatments','doctors'));
                          }
+                    }else{
+                        // dd('helo3');
+                         // $id=Auth::user()->receptions[0]->owner_id;
+                         // $doctors=Doctor::where('owner_id',$id)->get();
+                         $treatments=Treatment::where('patient_id','=',$pid)
+                            ->whereNotNull('gc_level')
+                            ->where('doctor_id','=',$did)
+                            ->orderBy('created_at','desc')
+                            ->get();
+                             return view('patients.healthRecord',compact('treatments','doctors'));
                     }
 
 
@@ -433,7 +445,122 @@ class TreatmentController extends Controller
      */
     public function edit($id)
     {
-        //
+         $drugs=Medicine::
+                    Where('medicinetype_id',1)->where('owner_id',Auth::user()->doctors[0]->owner_id)->get();
+        //dd($drugs);
+        $injections=Medicine::where('medicinetype_id',2)->where('owner_id',Auth::user()->doctors[0]->owner_id)->get();
+         $role=Auth::user()->roles[0];
+       // dd( Auth::user()->owners(0);
+        
+
+          $user=Auth::user();
+         
+            $pid=$id;
+            $doctors=Doctor::where('owner_id',Auth::user()->doctors[0]->owner_id)->get();
+             $doctor=Doctor::where('user_id',$user->id)->first();
+            $doctor_id=$doctor->id;
+            $lastassginP=Referreddoctor::
+                        where('patient_id',$pid)
+                        ->orderBy('id','DESC')->first();
+             $assignedDoc=Referreddoctor::where('to_doctor_id',$doctor_id)
+                    ->where('patient_id',$pid)
+                    ->orderBy('created_at','DESC')->first();
+
+                    if($assignedDoc!=null){ 
+                  // dd('helo1');//This login doctor is assigned by someoone
+
+                        if($lastassginP->to_doctor_id == $assignedDoc->to_doctor_id){
+                             $treatments=Treatment::where('patient_id','=',$pid)
+                            ->where('doctor_id','=',$doctor_id)
+                            ->orderBy('id','desc')
+                            ->get();
+                            // dd($treatments);
+                             
+                         }else{
+
+                            
+
+                            $dolastassgin=Referreddoctor::where('from_doctor_id',$assignedDoc->to_doctor_id)
+                                ->where('patient_id',$assignedDoc->patient_id)
+                                ->orderBy('created_at','DESC')
+                                ->first();
+                                 $removeDate=$dolastassgin->created_at;
+                             // dd($dolastassgin);
+                             $treatments=Treatment::where('patient_id','=',$pid)
+                             ->whereNotNull('gc_level')
+                            ->where('doctor_id','=',$doctor_id)
+                            ->whereDate('created_at','<=',$removeDate)
+                             ->orderBy('created_at','desc')
+                            ->get();
+                            // dd($treatments);
+                            
+                         }
+                    }else{
+
+                        // $id=Auth::user()->doctors[0]->owner_id;
+                         // $doctors=Doctor::where('owner_id',$id)->get();
+                         $treatments=Treatment::where('patient_id','=',$pid)
+                            ->whereNotNull('gc_level')
+                            ->where('doctor_id','=',$doctor_id)
+                            ->where('created_at','<=',Carbon::now()->subDays(1))
+                            ->get();
+                             // return view('patients.healthRecord',compact('treatments','doctors'));
+                    }
+                     // dd($treatments);
+
+          
+
+
+
+
+
+
+
+            // // $doctor_id=$user->doctors[0]->id;
+            $todayTreatment=Treatment::with(['medicines',
+                                'doctor.referredBy'=>function($q) use ($doctor_id,$id){
+                                    $q->where('from_doctor_id',$doctor_id)
+                                        ->where('patient_id',$id)
+                                        ->whereDate('created_at',Carbon::today());
+                                }])
+                        ->whereNotNull('gc_level')
+                        ->where('doctor_id',$doctor_id)
+                        ->where('patient_id',$id)
+                        ->whereDate('created_at',Carbon::today())->first();
+
+
+            $useddrugslist=[];
+            $finalUsedDrugList=[];
+            $alltreaments=$todayTreatment->medicines;
+
+           if(!empty($alltreaments)){
+             foreach($alltreaments as $key => $alldrugs){
+                
+                
+
+                    
+                 $useddrugslist['drug_type']=$alldrugs->medicinetype_id;
+                 $useddrugslist['drugid']=$alldrugs->pivot->medicine_id;
+                  $useddrugslist['drug']=$alldrugs->name;
+                  $useddrugslist['tab']=$alldrugs->pivot->tab;
+                 $useddrugslist['times']= $alldrugs->pivot->interval;
+                $useddrugslist['bf']=  $alldrugs->pivot->meal;
+                 $useddrugslist['during']= $alldrugs->pivot->during;
+                 $useddrugslist['type']= $alldrugs->pivot->type;
+                array_push($finalUsedDrugList, $useddrugslist);
+                
+                
+            }
+           }
+           // dd($finalUsedDrugList);
+                          
+
+            $patient=Patient::find($id);
+                         // dd($todayTreatment);
+          
+
+          // }
+          return view('treatment.edit',compact('todayTreatment','patient','treatments','drugs','injections','finalUsedDrugList'));
     }
 
     /**
@@ -601,5 +728,134 @@ class TreatmentController extends Controller
                         ->whereDate('created_at',Carbon::today())
                         ->first();
         return $referred;
+    }
+
+    public function treatmentUpdateByDoctor(Request $request,$treatment_id){
+        // dd($request);
+        // $request->validate([
+        //      'gc'=>'required',
+        //      'complaint' =>'required',
+        //      'diagnosis' =>'required',
+        //      'charges' =>'required|numeric',
+        //  ]);
+
+           if($request->hasfile('file'))
+        {
+            $upload_dir = 'storages/files/';
+
+            $files = $request->file('file');
+            foreach($files as $file)
+            {
+                $name = time().uniqid(rand()).'.'.$file->getClientOriginalExtension();
+                $file->move($upload_dir, $name);
+               $path[] = $upload_dir . $name;
+            }
+        }else{
+            $path=null;
+        }
+
+        $treatment=Treatment::find($treatment_id); 
+
+        $oldDurgs=json_decode(request('used_Drug_list'));
+        if(!empty($oldDurgs)){
+            foreach ($oldDurgs as $key => $value) {
+               $treatment->medicines()->detach($value->drugid);
+            }
+        }
+        $treatment->file=json_encode($path);
+        $treatment->gc_level=request('gc');
+        $treatment->temperature=request('temperature');
+        $treatment->body_weight=request('bodyWeight');
+        $treatment->spo2=request('spo2');
+        $treatment->pr=request('pr');
+        $treatment->bp=request('bp');
+        $treatment->rbs=request('rbs');
+        $treatment->complaint=request('complaint');
+        $treatment->examination=request('onexam');
+        $treatment->relevant_info=request('relevantinfo');
+        $treatment->chronic_disease=request('ud');
+        $treatment->diagnosis=request('diagnosis');
+        $treatment->external_medicine=request('externalMedicine');
+        $treatment->next_visit_date=request('nextVisitDate1');
+        $treatment->next_visit_date2=request('nextVisitDate2');
+        $treatment->charges=request('charges');
+
+        $treatment->save();
+        if(!empty(request('drugs'))){
+            $drugs=json_decode(request('drugs'));
+            // dd(request('drugs'));
+            foreach ($drugs as $key => $drug) {
+                $tab=$drug->tab;
+                //dd($tab);
+                $time=$drug->time;
+                $bf=$drug->bf;
+                $duration=$drug->duration;
+            $treatment->medicines()->attach($drug->drugid,['tab' => $tab, 'interval' => $time,'meal'=>$bf,'during'=>$duration]);     
+            }
+        }
+        
+        //dd(($drugs));
+        if(request('injections')){
+
+        $injections=json_decode(request('injections'));
+
+        foreach ($injections as $key => $injection) {
+           $type=$injection->injectiontype;
+        $treatment->medicines()->attach($injection->injectionid,['type' => $type]);     
+        }
+        }
+
+        if(!empty(request('reason'))){
+            $reason=request('reason');
+            $fromDoctor=$treatment->doctor_id;
+            $patient_id=$treatment->patient_id;
+            $assignedDoc=Referreddoctor::where('from_doctor_id',$fromDoctor)
+                        ->where('patient_id',$patient_id)
+                        ->whereDate('created_at',Carbon::today())
+                        ->first();
+                         // dd($assignedDoc);
+           
+                // if($assignedDoc==null){
+                //     Referreddoctor::create([
+                //         'from_doctor_id'=>$fromDoctor,
+                //         'to_doctor_id'=>null,
+                //         'patient_id'=>$patient_id,
+                //         'reason'=>$reason
+                //      ]);
+                // }else{
+                //     $assignedDoc->
+                // }
+
+                if($assignedDoc!=null){
+
+                    $assignedDoc=Referreddoctor::find($assignedDoc->id);
+                    $assignedDoc->reason=$reason;
+                    $assignedDoc->save();    
+                }else{
+
+                      $lastAssignedDoc=Referreddoctor::where('to_doctor_id',$fromDoctor)
+                        ->where('patient_id',$patient_id)
+                         ->orderBy('created_at','desc')
+                        ->first();
+                        // dd($lastAssignedDoc);
+                        if($lastAssignedDoc!=null){
+                            $assignedDoc=Referreddoctor::find($lastAssignedDoc->id);
+                            $assignedDoc->status=0;
+                            $assignedDoc->save(); 
+                        }
+
+                         Referreddoctor::create([
+                            'from_doctor_id'=>$fromDoctor,
+                            'to_doctor_id'=>null,
+                            'patient_id'=>$patient_id,
+                            'reason'=>$reason
+                         ]);
+
+                }
+
+                 return response()->json(['success'=>'Record is successfully updated']);
+
+               
+        }
     }
 }

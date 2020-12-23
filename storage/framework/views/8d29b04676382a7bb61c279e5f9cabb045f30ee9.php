@@ -480,6 +480,8 @@
   <!--   Optional JS   -->
   <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')); ?>"></script>
   <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')); ?>"></script>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!--   Argon JS   -->
   <!-- <script src="<?php echo e(asset('template/assets/js/argon-dashboard.min.js?v=1.1.1')); ?>"></script> -->
   <!-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> -->

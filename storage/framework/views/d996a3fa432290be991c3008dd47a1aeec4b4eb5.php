@@ -49,13 +49,13 @@
                           <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-control-label" for="input-first-name">job </label>
-                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative" placeholder="First name" value="<?php echo e($patient->job); ?>">
+                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value="<?php echo e($patient->job); ?>">
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-control-label" for="input-first-name">Age </label>
-                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative" placeholder="First name" value='<?php echo e($patient->age); ?><?php 
+                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value='<?php echo e($patient->age); ?><?php 
                                                 if($patient->child==0){
                                                 echo " year";
                                                 }else{
@@ -67,7 +67,7 @@
                           <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-control-label" for="input-last-name">Martial</label>
-                              <input type="text" id="input-last-name" disabled="disabled" class=" text-dark form-control form-control-alternative" placeholder="Last name" value='<?php 
+                              <input type="text" id="input-last-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value='<?php 
                                                 if($patient->married_status==0){
                                                 echo " Yes";
                                                 }else{
@@ -86,7 +86,7 @@
                           <div class="col-lg-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-city">Pregnant Status</label>
-                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative" placeholder="City" value='<?php 
+                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative"  value='<?php 
                                           if($patient->pregnant==0){
                                           echo " Yes";
                                         }else{
@@ -100,7 +100,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-address">Known Drug Allergy  </label>
-                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" placeholder="A few words about you ..."><?php echo e($patient->allergy); ?></textarea>
+                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" ><?php echo e($patient->allergy); ?></textarea>
                             </div>
                           </div>
                         </div>
@@ -114,7 +114,7 @@
                           <div class="col-lg-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-city">Phone</label>
-                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative" placeholder="City" value="<?php echo e($patient->phoneno); ?>">
+                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative"  value="<?php echo e($patient->phoneno); ?>">
                             </div>
                           </div>   
                         </div>
@@ -122,7 +122,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-address">Address</label>
-                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" placeholder="A few words about you ..."><?php echo e($patient->address); ?></textarea>
+                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" ><?php echo e($patient->address); ?></textarea>
                             </div>
                           </div>
                         </div>

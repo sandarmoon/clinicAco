@@ -80,8 +80,8 @@
 		                   	<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
 		                   	@endrole
 		                        <button class="btn btn-warning btn-sm d-inline-block btn-Detail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
-		                        @role('Doctor')
-		                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>  @endrole`
+		                        {{--@role('Doctor')
+		                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>  @endrole--}}`
 
 		                   }}
 		                   
@@ -98,6 +98,16 @@
 		     	var id=$(this).data('id');
 		     	console.log(id);
 		     	location.href='/treatment/'+id;
+		     })
+
+		      $('#treatmentTable tbody').on('click','.btnEdit',function(){
+		     	var id=$(this).data('id');
+		     	var url="{{route('treatment.edit',':id')}}";
+		      
+		          url=url.replace(':id',id);
+		          // $(this).attr('href',url);
+		          window.location.href=url;
+		     	
 		     })
 	} );
 		

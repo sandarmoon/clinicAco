@@ -1,5 +1,4 @@
-@extends('frontendTemplate')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <div class="row card">
    <div class="col-12" style="margin-top: 0px;">
@@ -32,10 +31,10 @@
                       <div class="pl-lg-4">
                         <div class=" align-items-center">
                         <div class="flex">
-                           <img src="{{asset('template/assets/img/patient.png')}}" width="60" class="rounded-circle float-left d-inline-block mr-4 mt-3 ">  
+                           <img src="<?php echo e(asset('template/assets/img/patient.png')); ?>" width="60" class="rounded-circle float-left d-inline-block mr-4 mt-3 ">  
                            <div>
-                             <h4 class=" p-0 pr-4 mt-3 d-inline-block ">Name: {{$patient->name}}</h4>
-                             <h6 class="small text-muted  mb-4">PRN No: {{$patient->PRN}} </h6>
+                             <h4 class=" p-0 pr-4 mt-3 d-inline-block ">Name: <?php echo e($patient->name); ?></h4>
+                             <h6 class="small text-muted  mb-4">PRN No: <?php echo e($patient->PRN); ?> </h6>
                            </div>
                            
                         </div>
@@ -45,31 +44,31 @@
                           <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-control-label" for="input-first-name">job </label>
-                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value="{{$patient->job}}">
+                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value="<?php echo e($patient->job); ?>">
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-control-label" for="input-first-name">Age </label>
-                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value='{{$patient->age}}@php 
+                              <input type="text" id="input-first-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value='<?php echo e($patient->age); ?><?php 
                                                 if($patient->child==0){
                                                 echo " year";
                                                 }else{
                                                 echo " month";
                                                 }
-                                                @endphp'>
+                                                ?>'>
                             </div>
                           </div>
                           <div class="col-lg-4">
                             <div class="form-group">
                               <label class="form-control-label" for="input-last-name">Martial</label>
-                              <input type="text" id="input-last-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value='@php 
+                              <input type="text" id="input-last-name" disabled="disabled" class=" text-dark form-control form-control-alternative"  value='<?php 
                                                 if($patient->married_status==0){
                                                 echo " Yes";
                                                 }else{
                                                 echo " No";
                                                 }
-                                                @endphp'>
+                                                ?>'>
                             </div>
                           </div>
                         </div>
@@ -82,13 +81,13 @@
                           <div class="col-lg-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-city">Pregnant Status</label>
-                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative"  value='@php 
+                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative"  value='<?php 
                                           if($patient->pregnant==0){
                                           echo " Yes";
                                         }else{
                                         echo " No";
                                       }
-                                    @endphp'>
+                                    ?>'>
                             </div>
                           </div>   
                         </div>
@@ -96,7 +95,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-address">Known Drug Allergy  </label>
-                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" >{{$patient->allergy}}</textarea>
+                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" ><?php echo e($patient->allergy); ?></textarea>
                             </div>
                           </div>
                         </div>
@@ -110,7 +109,7 @@
                           <div class="col-lg-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-city">Phone</label>
-                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative"  value="{{$patient->phoneno}}">
+                              <input type="text" disabled="disabled" id="input-city" class="text-dark form-control form-control-alternative"  value="<?php echo e($patient->phoneno); ?>">
                             </div>
                           </div>   
                         </div>
@@ -118,7 +117,7 @@
                           <div class="col-md-12">
                             <div class="form-group">
                               <label class="form-control-label" for="input-address">Address</label>
-                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" >{{$patient->address}}</textarea>
+                              <textarea disabled="disabled" rows="4" class="text-dark form-control form-control-alternative" ><?php echo e($patient->address); ?></textarea>
                             </div>
                           </div>
                         </div>
@@ -129,11 +128,11 @@
                        <a href="#test-div" data-toggle="collapse"><h6 class="heading-small text-primary mb-4">Test Result</h6></a>
                       <div id="test-div"  class="collapse pl-lg-4">
                         <div class="form-group">
-                          @foreach(json_decode($patient->file) as $photo)
-                          <a target="_blank" href="{{asset($photo)}}">
-                            <img src="{{asset($photo)}}" width="100px" height="100px">
+                          <?php $__currentLoopData = json_decode($patient->file); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                          <a target="_blank" href="<?php echo e(asset($photo)); ?>">
+                            <img src="<?php echo e(asset($photo)); ?>" width="100px" height="100px">
                           </a>
-                          @endforeach
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                       </div>
                     </form>
@@ -141,31 +140,32 @@
             </div>
           </div>
 
-          @php $i=1; @endphp
-          @foreach($treatments as $treatment)
+          <?php $i=1; ?>
+          <?php $__currentLoopData = $treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <div class="card my-3">
             <div class="card-header" id="headingOne">
               <h2 class="mb-0">
-                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="true" aria-controls="collapseOne">
-                  {{$treatment->created_at}}
+                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<?php echo e($i); ?>" aria-expanded="true" aria-controls="collapseOne">
+                  <?php echo e($treatment->created_at); ?>
+
                 </button>
               </h2>
             </div>
 
-            <div id="collapse{{$i}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div id="collapse<?php echo e($i); ?>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
                <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                  <p class="card-text"><strong>Complaint:  </strong>{{$treatment->complaint}} </p>
-                  <p class="card-text"><strong>SPO2:</strong>{{$treatment->spo2}} </p>
-                  <p class="card-text"><strong>PR:  </strong>{{$treatment->pr}} </p>
-                  <p class="card-text"><strong>Temperature:</strong>{{$treatment->temperature}} </p>
-                  <p class="card-text"><strong>Blood pressure:</strong>{{$treatment->bp}} </p>
-                  <p class="card-text"><strong>RB2:</strong>{{$treatment->rbs}} </p>
-                  <p class="card-text"><strong>Diagnosis:</strong>{{$treatment->diagnosis}} </p>
-                  <p class="card-text"><strong>Body Weight:</strong>{{$treatment->body_weight}} </p>
-                  <p class="card-text"><strong>Next Visit Date:</strong>{{$treatment->next_visit_date}} </p>
-                  <p class="card-text"><strong>relevant_info:</strong>{{$treatment->relevant_info}} </p>
+                  <p class="card-text"><strong>Complaint:  </strong><?php echo e($treatment->complaint); ?> </p>
+                  <p class="card-text"><strong>SPO2:</strong><?php echo e($treatment->spo2); ?> </p>
+                  <p class="card-text"><strong>PR:  </strong><?php echo e($treatment->pr); ?> </p>
+                  <p class="card-text"><strong>Temperature:</strong><?php echo e($treatment->temperature); ?> </p>
+                  <p class="card-text"><strong>Blood pressure:</strong><?php echo e($treatment->bp); ?> </p>
+                  <p class="card-text"><strong>RB2:</strong><?php echo e($treatment->rbs); ?> </p>
+                  <p class="card-text"><strong>Diagnosis:</strong><?php echo e($treatment->diagnosis); ?> </p>
+                  <p class="card-text"><strong>Body Weight:</strong><?php echo e($treatment->body_weight); ?> </p>
+                  <p class="card-text"><strong>Next Visit Date:</strong><?php echo e($treatment->next_visit_date); ?> </p>
+                  <p class="card-text"><strong>relevant_info:</strong><?php echo e($treatment->relevant_info); ?> </p>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12">
                   <div class="row my-5">
@@ -181,23 +181,23 @@
                             <th>Duration</th>
                           </thead>
                           <tbody>
-                            @php
+                            <?php
                             $alltreaments=$treatment->medicines;
 
                             
-                            @endphp
-                            <!-- {{$alltreaments}} -->
-                            @foreach($alltreaments as $key => $alldrugs)
-                            @if($alldrugs->pivot->type==null)
+                            ?>
+                            <!-- <?php echo e($alltreaments); ?> -->
+                            <?php $__currentLoopData = $alltreaments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $alldrugs): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($alldrugs->pivot->type==null): ?>
                             <tr>
-                              <td>{{$alldrugs->name}}</td>
-                              <td>{{$alldrugs->pivot->tab}}</td>
-                              <td>{{$alldrugs->pivot->interval}}</td>
-                              <td>{{$alldrugs->pivot->meal}}</td>
-                              <td>{{$alldrugs->pivot->during}}</td>
+                              <td><?php echo e($alldrugs->name); ?></td>
+                              <td><?php echo e($alldrugs->pivot->tab); ?></td>
+                              <td><?php echo e($alldrugs->pivot->interval); ?></td>
+                              <td><?php echo e($alldrugs->pivot->meal); ?></td>
+                              <td><?php echo e($alldrugs->pivot->during); ?></td>
                             </tr>
-                            @endif
-                            @endforeach
+                            <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </tbody>
                         </table>
                       </div>
@@ -213,18 +213,18 @@
                             <th>injection type</th>
                           </thead>
                           <tbody>
-                            @php
+                            <?php
                             $alltreaments=$treatment->medicines;
-                            @endphp
-                            <!-- {{$alltreaments}} -->
-                            @foreach($alltreaments as $key => $allinjections)
-                            @if($allinjections->pivot->type)
+                            ?>
+                            <!-- <?php echo e($alltreaments); ?> -->
+                            <?php $__currentLoopData = $alltreaments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $allinjections): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php if($allinjections->pivot->type): ?>
                             <tr>
-                              <td>{{$allinjections->name}}</td>
-                              <td>{{$allinjections->pivot->type}}</td>
+                              <td><?php echo e($allinjections->name); ?></td>
+                              <td><?php echo e($allinjections->pivot->type); ?></td>
                             </tr>
-                            @endif
-                            @endforeach
+                            <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </tbody>
                         </table>
                       </div>
@@ -236,8 +236,8 @@
             </div>
           </div>
         </div>
-        @php $i++; @endphp
-        @endforeach
+        <?php $i++; ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       </div>
     </div>
 
@@ -266,62 +266,64 @@
                      </div>
                   </div>
                </div>
-               <input type="hidden" name="treatment-id" value="{{$todayTreatment->id}}" class="treatment-id">
+               <input type="hidden" name="treatment-id" value="<?php echo e($todayTreatment->id); ?>" class="treatment-id">
 
-               <input type="hidden" name="used_Drug_list" value="{{json_encode($finalUsedDrugList)}}" class="">
+               <input type="hidden" name="used_Drug_list" value="<?php echo e(json_encode($finalUsedDrugList)); ?>" class="">
 
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label>GC Level</label>
-                     <input type="text" name="gc" value="{{$todayTreatment->gc_level}}" class="form-control">
+                     <input type="text" name="gc" value="<?php echo e($todayTreatment->gc_level); ?>" class="form-control">
                      <span class="Egc error d-block" ></span>
                   </div>
                   <div class="form-group col-md-6">
                      <label>Temperature</label>
-                     <input type="text" name="temperature" value="{{$todayTreatment->temperature}}" class="form-control">
+                     <input type="text" name="temperature" value="<?php echo e($todayTreatment->temperature); ?>" class="form-control">
                   </div>
                </div>
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label>Body Weight</label>
-                     <input type="text" name="bodyWeight" value="{{$todayTreatment->body_weight}}" class="form-control" value="">
+                     <input type="text" name="bodyWeight" value="<?php echo e($todayTreatment->body_weight); ?>" class="form-control" value="">
                   </div>
                   <div class="form-group col-md-6">
                      <label>SPO2</label>
-                     <input type="text" name="spo2" value="{{$todayTreatment->spo2}}"  class="form-control">
+                     <input type="text" name="spo2" value="<?php echo e($todayTreatment->spo2); ?>"  class="form-control">
                   </div>
                </div>
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label>PR</label>
-                     <input type="text" name="pr" value="{{$todayTreatment->pr}}" class="form-control">
+                     <input type="text" name="pr" value="<?php echo e($todayTreatment->pr); ?>" class="form-control">
                   </div>
                   <div class="form-group col-md-6">
                      <label>BP</label>
-                     <input type="text" name="bp" value="{{$todayTreatment->bp}}" class="form-control">
+                     <input type="text" name="bp" value="<?php echo e($todayTreatment->bp); ?>" class="form-control">
                   </div>
                </div>
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label>RBS</label>
-                     <input type="text" name="rbs" value="{{$todayTreatment->rbs}}" class="form-control">
+                     <input type="text" name="rbs" value="<?php echo e($todayTreatment->rbs); ?>" class="form-control">
                   </div>
                   <div class="form-group col-md-6">
                      <label>Underlying Diseases with receiving treatment</label>
-                     <input type="text" name="ud" value="{{$todayTreatment->ud}}" class="form-control">
+                     <input type="text" name="ud" value="<?php echo e($todayTreatment->ud); ?>" class="form-control">
                   </div>
                </div>
                <div class="form-row">
                   <div class="form-group col-md-6">
                      <label>Complaint and History</label>
-                     <textarea class="form-control"  name="complaint"> {{$todayTreatment->complaint}}
+                     <textarea class="form-control"  name="complaint"> <?php echo e($todayTreatment->complaint); ?>
+
                      </textarea>
                      <span class="Ecomplaint error d-block" ></span>
                   </div>
                   <div class="form-group col-md-6">
                      <label>On Examination</label>
                      <textarea class="form-control"  name="onexam">
-                       {{$todayTreatment->examination}}
+                       <?php echo e($todayTreatment->examination); ?>
+
                      </textarea>
                   </div>
                </div>
@@ -329,12 +331,13 @@
                   <div class="form-group col-md-6">
                      <label>Relevant Info</label>
                      <textarea name="relevantinfo" class="form-control">
-                       {{$todayTreatment->relevant_info}}
+                       <?php echo e($todayTreatment->relevant_info); ?>
+
                      </textarea>
                   </div>
                   <div class="form-group col-md-6">
                      <label>Diagnosis</label>
-                     <input type="text" name="diagnosis" value="{{$todayTreatment->diagnosis}}" class="form-control">
+                     <input type="text" name="diagnosis" value="<?php echo e($todayTreatment->diagnosis); ?>" class="form-control">
                      <span class="Edia error d-block" ></span>
                   </div>
                </div>
@@ -356,9 +359,10 @@
                         <div class="form-group">
                            <label for="exampleFormControlTextarea1">Please Write Reason</label>
                            <textarea class="form-control" id="exampleFormControlTextarea1" name="reason" rows="3">
-                             @if(!empty($todayTreatment->doctor->referredBy[0]->reason))
-                             {{trim($todayTreatment->doctor->referredBy[0]->reason)}}
-                             @endif
+                             <?php if(!empty($todayTreatment->doctor->referredBy[0]->reason)): ?>
+                             <?php echo e(trim($todayTreatment->doctor->referredBy[0]->reason)); ?>
+
+                             <?php endif; ?>
                            </textarea>
                         </div>
                      </div>
@@ -372,9 +376,9 @@
                                  <div class="col-md-6 col-sm-6 pr-0">
                                     <div class="form-group">
                                        <select name="drug"  class="form-control form-control-sm js-example-basic-single drugselect" style="width: 100%;">
-                                          @foreach($drugs as $drug)
-                                          <option value="{{$drug->id}}">{{$drug->name}}</option>
-                                          @endforeach
+                                          <?php $__currentLoopData = $drugs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $drug): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                          <option value="<?php echo e($drug->id); ?>"><?php echo e($drug->name); ?></option>
+                                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                        </select>
                                        <!-- <input type="text" name="drug" id="drug" class="form-control form-control-sm"> -->
                                     </div>
@@ -438,9 +442,9 @@
                               <div class="col-md-6">
                                  <div class="form-group">
                                     <select name="injection" id="injection" class="form-control form-control-sm js-example-basic-single injection" style="width: 100%;">
-                                       @foreach($injections as $injection)
-                                       <option value="{{$injection->id}}">{{$injection->name}}</option>
-                                       @endforeach
+                                       <?php $__currentLoopData = $injections; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $injection): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                       <option value="<?php echo e($injection->id); ?>"><?php echo e($injection->name); ?></option>
+                                       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                  </div>
                               </div>
@@ -471,7 +475,8 @@
                <div class="form-group">
                   <label>External Medicine:</label>
                   <textarea name="externalMedicine" class="form-control">
-                   {{trim($todayTreatment->external_medicine)}}
+                   <?php echo e(trim($todayTreatment->external_medicine)); ?>
+
                   </textarea>
                </div>
                <!-- <input type="hidden" name="externalMedicine" value=""> -->
@@ -479,19 +484,19 @@
                   <div class="col-md-6">
                      <div class="form-group">
                         <label>Next Visit Date:</label>
-                        <input type="date" value="{{($todayTreatment->next_visit_date)}}" name="nextVisitDate1" class="form-control">
+                        <input type="date" value="<?php echo e(($todayTreatment->next_visit_date)); ?>" name="nextVisitDate1" class="form-control">
                      </div>
                   </div>
                   <div class="col-md-6">
                      <div class="form-group">
                         <label>Next Visit Date 2:</label>
-                        <input type="date" value="{{($todayTreatment->next_visit_date)}}" name="next_visit_date2" class="form-control">
+                        <input type="date" value="<?php echo e(($todayTreatment->next_visit_date)); ?>" name="next_visit_date2" class="form-control">
                      </div>
                   </div>
                </div>
                <div class="form-group">
                   <label>Charges</label>
-                  <input type="number" name="charges" value="{{$todayTreatment->charges}}" class="form-control">
+                  <input type="number" name="charges" value="<?php echo e($todayTreatment->charges); ?>" class="form-control">
                   <span class="Echarge error d-block" ></span>
                </div>
                <div class="form-group">
@@ -508,8 +513,8 @@
 </div>
 
 
-@endsection
-@section('script')
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('script'); ?>
 <script type="text/javascript">
   $(document).ready(function(){
     showtable();
@@ -855,13 +860,13 @@
 //       formData.append('injections', JSON.stringify(myinjectionlist.itemlist));
 //       }
 
-//     /* $.post("{{route('treatment.store')}}",{formData:formData,myitemlist:myitemlist,myinjectionlist:myinjectionlist},function(response){
+//     /* $.post("<?php echo e(route('treatment.store')); ?>",{formData:formData,myitemlist:myitemlist,myinjectionlist:myinjectionlist},function(response){
 
 //      })*/
 //       var treatmentid=$(".treatment-id").val();
 //       alert('treatmentid');
 
-//     var url="{{route('treatment.update',':id')}}";
+//     var url="<?php echo e(route('treatment.update',':id')); ?>";
 //       url=url.replace(':id',treatmentid);
 //       // console.log(url);
 //      $.ajax({
@@ -924,7 +929,7 @@
        var treatmentid=$(".treatment-id").val();
        // alert(treatmentid);
 
-        var url="{{route('treatmentUpdateByDoctor',':id')}}";
+        var url="<?php echo e(route('treatmentUpdateByDoctor',':id')); ?>";
           url=url.replace(':id',treatmentid);
           // console.log(url);
          $.ajax({
@@ -974,4 +979,5 @@
    
 </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('frontendTemplate', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/treatment/edit.blade.php ENDPATH**/ ?>

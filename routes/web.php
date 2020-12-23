@@ -85,7 +85,15 @@ Route::resource('/medicineType','MedicineTypeController');
 
 // Treatments
 Route::resource('/treatment','TreatmentController');
+
+Route::put('/treatmentUpdateByDoctor/{treatment_id}','TreatmentController@treatmentUpdateByDoctor')->name('treatmentUpdateByDoctor');
+
+
+
 });
+
+
+
 
 
 

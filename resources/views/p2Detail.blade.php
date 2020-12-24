@@ -9,6 +9,7 @@
 	                <div class="col-8">
 	                	 
 		              <img src="{{asset('template/assets/img/theme/team-4-800x800.jpg')}}" width="60" class="rounded-circle float-left d-inline-block mr-4 mt-3">
+		              <h3>hello world I am developer of this project</h3>
 		                  
 	                  <h3 class=" p-0 pr-4 mt-3 ">Mary Brown</h3>
 	                   <h6 class="small text-muted mb-4">doctor of clinic Name</h6>

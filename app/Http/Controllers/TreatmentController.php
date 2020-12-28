@@ -412,7 +412,7 @@ class TreatmentController extends Controller
 
 
           }else if($user->hasRole('Reception')){
-
+           
                  $id=Auth::user()->receptions[0]->owner_id;
                  $doctors=Doctor::where('owner_id',$id)->get();
                  $treatments=Treatment::where('patient_id','=',$pid)

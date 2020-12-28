@@ -133,13 +133,19 @@ foreach($treatments as $treatment)
                 @role('Reception')
                 @php
                $t=$treatments[0];
+
+
                $count= count($t->doctor->referredBy);
 
+               if($count > 0){
                $arr=$t->doctor->referredBy;
                $to_doctor_id=$arr[$count-1]->to_doctor_id;
                 $a= $arr[$count-1]->created_at;
                $latestReferredByDate= $a->toDateString();
-               $todayTreatmentDate=Carbon\Carbon::today()->toDateString();;
+               $todayTreatmentDate=Carbon\Carbon::today()->toDateString();
+               }
+
+               
 
               
                @endphp
@@ -147,7 +153,7 @@ foreach($treatments as $treatment)
                 <!--today treament show only  and haven't changedoctor for today 
                  if today treament doctor change to other with wrting reason but still not enter data into  
                  referredDoctor table since reception haven't done for it will show this button -->
-
+              @if($count > 0)
                @if((empty($to_doctor_id)) && ($latestReferredByDate==$todayTreatmentDate))
                
 
@@ -158,7 +164,7 @@ foreach($treatments as $treatment)
                   <h5 class="text-uppercase text-muted ls-1 mb-1">Doctor Examination</h5>
                
                @endif
-
+               @endif
                   
                 @endrole
                 <h3 class="mb-0">Doctor Examination</h3>

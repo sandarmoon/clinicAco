@@ -225,6 +225,11 @@ Route::get('/checkMonthlyMedAdding','MedicineController@checkMonthlyMedAdding')-
 // monthlymedinciestock end
 
 
+// for password reset()
+
+Route::post('reset_password_without_token', 'AccountsController@validatePasswordRequest');
+Route::post('reset_password_with_token', 'AccountsController@resetPassword');
+
 
 
 

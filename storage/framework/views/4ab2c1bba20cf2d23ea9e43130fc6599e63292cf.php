@@ -19,33 +19,33 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>GP clinic</title>
   <!-- Favicon -->
-  <link href="{{asset('template/assets/img/brand/favicon.png')}}" rel="icon" type="image/png">
+  <link href="<?php echo e(asset('template/assets/img/brand/favicon.png')); ?>" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital@1&display=swap" rel="stylesheet">
 
   <!-- Icons -->
-  <link href="{{asset('template/assets/js/plugins/nucleo/css/nucleo.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/js/plugins/nucleo/css/nucleo.css')); ?>" rel="stylesheet" />
 
-  <link href="{{asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')); ?>" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-  <!-- <link rel="stylesheet" type="text/css" href="{{asset('template/assets/css/dataTables.css')}}"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="<?php echo e(asset('template/assets/css/dataTables.css')); ?>"> -->
   <!-- CSS Files -->
-  <link href="{{asset('template/assets/css/argon-dashboard.css?v=1.1.1')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/css/argon-dashboard.css?v=1.1.1')); ?>" rel="stylesheet" />
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
- <!--  <link href="{{asset('template/table/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet"> -->
+ <!--  <link href="<?php echo e(asset('template/table/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet"> -->
 
 
-  <!-- <link href="{{asset('template/assets/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet"> -->
+  <!-- <link href="<?php echo e(asset('template/assets/datatables/dataTables.bootstrap4.css')); ?>" rel="stylesheet"> -->
 
-  <link href="{{asset('template/assets/css/mine.css')}}" rel="stylesheet">
-  <link href="{{asset('dist/css/select2.min.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/css/mine.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('dist/css/select2.min.css')); ?>" rel="stylesheet" />
   
   <style type="text/css">
     @media (max-width: 720px){
@@ -84,7 +84,7 @@
     }
     
   </style>
-  @yield('style')
+  <?php echo $__env->yieldContent('style'); ?>
 
 </head>
 
@@ -156,44 +156,96 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container mt--8 pb-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-7">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-transparent ">
-              
-              
-            <div class="card-body px-lg-3 py-lg-3">
-               <p class="text-lead text-dark">Enter your user account's verified email address and we will send you a password reset link.</p>
-              <form role="from" id="resetformsubmit" method="POST" action="">
-                        @csrf
-                <div class="form-group mb-3">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Email" name="email" type="email">
-                  </div>
-                </div>
+   <div class="container mt--8 pb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
                 
-                
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary my-4">Send Password reset with email</button>
+
+                <div class="card-body">
+                   <form method="POST" action="<?php echo e(url('/reset_password_with_token')); ?>">
+                        <?php echo csrf_field(); ?>
+
+                        <input type="hidden" name="token" value="<?php echo e($token); ?>">
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right"><?php echo e(__('E-Mail Address')); ?></label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="email" value="<?php echo e($email ?? old('email')); ?>" required autocomplete="email" autofocus>
+
+                                <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong><?php echo e($message); ?></strong>
+                                    </span>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Password')); ?></label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>" name="password" required autocomplete="new-password">
+
+                                <?php $__errorArgs = ['password'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong><?php echo e($message); ?></strong>
+                                    </span>
+                                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Confirm Password')); ?></label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <?php echo e(__('Reset Password')); ?>
+
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-              </form>
             </div>
-          </div>
-         <!--  <div class="row mt-3">
-            <div class="col-6">
-              <a href="#" class="text-light"><small>Forgot password?</small></a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="#" class="text-light"><small>Create new account</small></a>
-            </div>
-          </div> -->
         </div>
-      </div>
     </div>
+</div>
    <!--  <footer class="py-5">
       <div class="container">
         <div class="row align-items-center justify-content-xl-between">
@@ -223,66 +275,33 @@
     </footer> -->
   </div>
  <!--   Core   -->
-  <script src="{{asset('template/assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/jquery/dist/jquery.min.js')); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="{{asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')); ?>"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-  <script src="{{asset('template/assets/datatables/jquery.dataTables.js')}}"></script>
-  <script src="{{asset('template/assets/datatables/dataTables.bootstrap4.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/datatables/jquery.dataTables.js')); ?>"></script>
+  <script src="<?php echo e(asset('template/assets/datatables/dataTables.bootstrap4.js')); ?>"></script>
   <!--   Optional JS   -->
-  <script src="{{asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')}}"></script>
-  <script src="{{asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')); ?>"></script>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!--   Argon JS   -->
-  <!-- <script src="{{asset('template/assets/js/argon-dashboard.min.js?v=1.1.1')}}"></script> -->
+  <!-- <script src="<?php echo e(asset('template/assets/js/argon-dashboard.min.js?v=1.1.1')); ?>"></script> -->
   <!-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> -->
 
-  <!--  <script src="{{asset('template/table/datatables/jquery.dataTables.min.js')}}"></script> -->
-  <!-- <script src="{{asset('template/table/datatables/dataTables.bootstrap4.min.js')}}"></script> -->
+  <!--  <script src="<?php echo e(asset('template/table/datatables/jquery.dataTables.min.js')); ?>"></script> -->
+  <!-- <script src="<?php echo e(asset('template/table/datatables/dataTables.bootstrap4.min.js')); ?>"></script> -->
 
   <!-- Page level custom scripts -->
-  <!-- <script src="{{asset('template/table/js/demo/datatables-demo.js')}}"></script> -->
+  <!-- <script src="<?php echo e(asset('template/table/js/demo/datatables-demo.js')); ?>"></script> -->
   <script type="text/javascript" src=""></script>
-  <script src="{{asset('template/table/datatables/icon.js')}}"></script>
-  <!-- <script src="{{asset('dist/js/select2.min.js')}}"></script> -->
+  <script src="<?php echo e(asset('template/table/datatables/icon.js')); ?>"></script>
+  <!-- <script src="<?php echo e(asset('dist/js/select2.min.js')); ?>"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <script type="text/javascript">
-      $(document).ready(function(){
-           $('#resetformsubmit').submit(function(e){
-            var formData=new FormData(this);
-            e.preventDefault();
-            $.ajax({
-                url:"{{ url('/reset_password_without_token') }}",
-                type:'POST',
-                data:formData,
-                cache:false,
-                contentType: false,
-                processData: false,
-                success:function(data){
-                    if(data.status ==0){
-                        swal({
-                          icon: "error",
-                          text:data.message
-                        });
-                    }else{
-                        swal({
-                          icon: "success",
-                          text:data.message
-                        }).then(() => {
-                        location.href="/login";
-                        });;
-                    }
-                },
-                error:function(error){
-                    console.log('error');
-                }
-            })
-           }) 
-      })
-  </script>
+  
 
   <script>
 
@@ -297,9 +316,9 @@
      
       
   </script>
-  @include('sweetalert::alert')
-  @yield('script')
+  <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+  <?php echo $__env->yieldContent('script'); ?>
 
 </body>
 
-</html>
+</html><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/auth/passwords/reset.blade.php ENDPATH**/ ?>

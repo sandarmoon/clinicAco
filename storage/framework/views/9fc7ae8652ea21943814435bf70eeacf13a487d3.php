@@ -153,7 +153,7 @@ unset($__errorArgs, $__bag); ?>
           </div>
           <div class="row mt-3">
             <div class="col-6">
-              <a href="#" class="text-light"><small>Forgot password?</small></a>
+              <a  href="<?php echo e(route('password.request')); ?>" class="text-light"><small>Forgot password?</small></a>
             </div>
             <div class="col-6 text-right">
               <a href="javascript::void(0)" class="text-light doc"><small><i class="ni ni-curved-next"></i> Read Documentation</small></a>

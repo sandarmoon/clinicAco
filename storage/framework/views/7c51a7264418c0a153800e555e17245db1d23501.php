@@ -19,33 +19,33 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>GP clinic</title>
   <!-- Favicon -->
-  <link href="{{asset('template/assets/img/brand/favicon.png')}}" rel="icon" type="image/png">
+  <link href="<?php echo e(asset('template/assets/img/brand/favicon.png')); ?>" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital@1&display=swap" rel="stylesheet">
 
   <!-- Icons -->
-  <link href="{{asset('template/assets/js/plugins/nucleo/css/nucleo.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/js/plugins/nucleo/css/nucleo.css')); ?>" rel="stylesheet" />
 
-  <link href="{{asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css')); ?>" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
-  <!-- <link rel="stylesheet" type="text/css" href="{{asset('template/assets/css/dataTables.css')}}"> -->
+  <!-- <link rel="stylesheet" type="text/css" href="<?php echo e(asset('template/assets/css/dataTables.css')); ?>"> -->
   <!-- CSS Files -->
-  <link href="{{asset('template/assets/css/argon-dashboard.css?v=1.1.1')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/css/argon-dashboard.css?v=1.1.1')); ?>" rel="stylesheet" />
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 
- <!--  <link href="{{asset('template/table/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet"> -->
+ <!--  <link href="<?php echo e(asset('template/table/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet"> -->
 
 
-  <!-- <link href="{{asset('template/assets/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet"> -->
+  <!-- <link href="<?php echo e(asset('template/assets/datatables/dataTables.bootstrap4.css')); ?>" rel="stylesheet"> -->
 
-  <link href="{{asset('template/assets/css/mine.css')}}" rel="stylesheet">
-  <link href="{{asset('dist/css/select2.min.css')}}" rel="stylesheet" />
+  <link href="<?php echo e(asset('template/assets/css/mine.css')); ?>" rel="stylesheet">
+  <link href="<?php echo e(asset('dist/css/select2.min.css')); ?>" rel="stylesheet" />
   
   <style type="text/css">
     @media (max-width: 720px){
@@ -84,7 +84,7 @@
     }
     
   </style>
-  @yield('style')
+  <?php echo $__env->yieldContent('style'); ?>
 
 </head>
 
@@ -166,7 +166,7 @@
             <div class="card-body px-lg-3 py-lg-3">
                <p class="text-lead text-dark">Enter your user account's verified email address and we will send you a password reset link.</p>
               <form role="from" id="resetformsubmit" method="POST" action="">
-                        @csrf
+                        <?php echo csrf_field(); ?>
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
@@ -223,30 +223,30 @@
     </footer> -->
   </div>
  <!--   Core   -->
-  <script src="{{asset('template/assets/js/plugins/jquery/dist/jquery.min.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/jquery/dist/jquery.min.js')); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="{{asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js')); ?>"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-  <script src="{{asset('template/assets/datatables/jquery.dataTables.js')}}"></script>
-  <script src="{{asset('template/assets/datatables/dataTables.bootstrap4.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/datatables/jquery.dataTables.js')); ?>"></script>
+  <script src="<?php echo e(asset('template/assets/datatables/dataTables.bootstrap4.js')); ?>"></script>
   <!--   Optional JS   -->
-  <script src="{{asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')}}"></script>
-  <script src="{{asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')}}"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')); ?>"></script>
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <!--   Argon JS   -->
-  <!-- <script src="{{asset('template/assets/js/argon-dashboard.min.js?v=1.1.1')}}"></script> -->
+  <!-- <script src="<?php echo e(asset('template/assets/js/argon-dashboard.min.js?v=1.1.1')); ?>"></script> -->
   <!-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> -->
 
-  <!--  <script src="{{asset('template/table/datatables/jquery.dataTables.min.js')}}"></script> -->
-  <!-- <script src="{{asset('template/table/datatables/dataTables.bootstrap4.min.js')}}"></script> -->
+  <!--  <script src="<?php echo e(asset('template/table/datatables/jquery.dataTables.min.js')); ?>"></script> -->
+  <!-- <script src="<?php echo e(asset('template/table/datatables/dataTables.bootstrap4.min.js')); ?>"></script> -->
 
   <!-- Page level custom scripts -->
-  <!-- <script src="{{asset('template/table/js/demo/datatables-demo.js')}}"></script> -->
+  <!-- <script src="<?php echo e(asset('template/table/js/demo/datatables-demo.js')); ?>"></script> -->
   <script type="text/javascript" src=""></script>
-  <script src="{{asset('template/table/datatables/icon.js')}}"></script>
-  <!-- <script src="{{asset('dist/js/select2.min.js')}}"></script> -->
+  <script src="<?php echo e(asset('template/table/datatables/icon.js')); ?>"></script>
+  <!-- <script src="<?php echo e(asset('dist/js/select2.min.js')); ?>"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script type="text/javascript">
@@ -255,7 +255,7 @@
             var formData=new FormData(this);
             e.preventDefault();
             $.ajax({
-                url:"{{ url('/reset_password_without_token') }}",
+                url:"<?php echo e(url('/reset_password_without_token')); ?>",
                 type:'POST',
                 data:formData,
                 cache:false,
@@ -297,9 +297,9 @@
      
       
   </script>
-  @include('sweetalert::alert')
-  @yield('script')
+  <?php echo $__env->make('sweetalert::alert', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+  <?php echo $__env->yieldContent('script'); ?>
 
 </body>
 
-</html>
+</html><?php /**PATH /Applications/XAMPP/xamppfiles/htdocs/myprj/gp-clinic/resources/views/auth/passwords/email.blade.php ENDPATH**/ ?>

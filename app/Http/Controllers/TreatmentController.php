@@ -853,9 +853,10 @@ class TreatmentController extends Controller
 
                 }
 
-                 return response()->json(['success'=>'Record is successfully updated']);
+                 
 
                
         }
+        return response()->json(['success'=>'Record is successfully updated']);
     }
 }

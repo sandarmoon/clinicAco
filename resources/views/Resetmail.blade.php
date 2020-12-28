@@ -5,5 +5,5 @@ But don’t worry! You can use the following link to reset your password:
 {{$url}}
 
 
-Thanks,
+Thanks,Have a nice day!
 The MyanGP Team

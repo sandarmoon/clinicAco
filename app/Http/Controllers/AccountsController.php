@@ -41,7 +41,7 @@ class AccountsController extends Controller
 
          try{
 
-          Mail::send(['text'=>'resetMail'], $data, function($message) use ($email) {
+          Mail::send(['text'=>'Resetmail'], $data, function($message) use ($email) {
              $message->to($email, 'Please reset your password')->subject
                 ('Please reset your password');
              $message->from('_mainaccount@bobomm.me','Myan GP Clinic');

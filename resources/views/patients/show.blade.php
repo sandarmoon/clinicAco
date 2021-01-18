@@ -10,11 +10,11 @@
    <div class="col-12" style="margin-top: 0;">
     <nav class="mx-5 my-3">
       <div class="nav nav-tabs my-3"  id="nav-tab" role="tablist">
-        <a class="nav-item nav-link text-info active " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ptient History</a>
+        <a class="nav-item nav-link text-info active " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Patient History</a>
 
         <a class="nav-item nav-link text-info" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Treatment History</a>
         @hasanyrole('Super_Admin|Admin|Reception')
-        <a class="nav-item nav-link text-warning " id="nav-transter-tab" data-toggle="tab" href="#nav-transfer" role="tab" aria-controls="nav-profile" aria-selected="false">Transfer History</a>
+        <a class="nav-item nav-link text-warning " id="nav-transter-tab" data-toggle="tab" href="#nav-transfer" role="tab" aria-controls="nav-profile" aria-selected="false">Referral History</a>
          @endhasanyrole
         <input type="hidden" value="{{$patient->id}}" name="PatientId">
       </div>
@@ -117,11 +117,13 @@
           @foreach($treatments as $k=>$treatment)
           <div class="card my-3 ml-5">
             <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
+              <h2 class="mb-0 d-inline-block">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{$i}}" aria-expanded="true" aria-controls="collapseOne">
                   {{$treatment->created_at}}
+
                 </button>
               </h2>
+              <a href="{{route('pdf-create-treatment-report',$treatment->id)}}" target="_blank" class="btn btn-info float-right ">Print</a>
             </div>
 
             <div id="collapse{{$i}}" class="collapse <?=($k==0)? 'show':''?>" aria-labelledby="headingOne bg-secondary" data-parent="#accordionExample">

@@ -20,8 +20,12 @@ class CreateExpensesTable extends Migration
             $table->string('amount')->nullable();
             $table->string('files')->nullable();
             $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('category_id');
              $table->foreign('owner_id')
                 ->references('id')->on('owners')
+                ->onDelete('cascade');
+                $table->foreign('category_id')
+                ->references('id')->on('categories')
                 ->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();

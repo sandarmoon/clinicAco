@@ -25,7 +25,7 @@
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
                     <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Patient Info
+                      Patient Information
                     </button>
                   </h2>
                 </div>
@@ -275,7 +275,7 @@
         
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label>GC Level</label>
+            <label>GC Level<span class="text-danger">(required)</span></label>
             <input type="text" name="gc" class="form-control">
             <span class="Egc error d-block" ></span>
           </div>
@@ -324,7 +324,7 @@
 
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label>Complaint and History</label>
+            <label>Complaint and History<span class="text-danger">(required)</span></label>
             <textarea class="form-control" name="complaint"></textarea>
             <span class="Ecomplaint error d-block" ></span>
           </div>
@@ -345,7 +345,7 @@
          
 
           <div class="form-group col-md-6">
-            <label>Diagnosis</label>
+            <label>Diagnosis<span class="text-danger">(required)</span></label>
             <input type="text" name="diagnosis" class="form-control">
             <span class="Edia error d-block" ></span>
           </div>
@@ -521,7 +521,7 @@
     </div>
 
     <div class="form-group">
-      <label>Charges</label>
+      <label>Charges<span class="text-danger">(required)</span></label>
       <input type="number" name="charges" class="form-control">
       <span class="Echarge error d-block" ></span>
     </div>

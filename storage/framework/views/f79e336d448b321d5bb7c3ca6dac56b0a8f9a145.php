@@ -74,11 +74,16 @@
 		                   {"data":"patient.age"},
 		                   {"data":"patient.id",
 		                   render:function(data){
+		                   	let url="<?php echo e(route('bill-check-out',':pid')); ?>";
+		                   	url=url.replace(':pid',data);
 		                   	return `
 		                   	<?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
 		                   	<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
 		                   	<?php endif; ?>
-		                        <button class="btn btn-warning btn-sm d-inline-block btn-Detail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
+		                        <button class="btn btn-warning btn-sm d-inline-block btn-checkout "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
+		                        <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
+		                        <a class="btn btn-success btn-sm d-inline-block "  href="${url}">check out</a>
+		                        <?php endif; ?>
 		                        `
 
 		                   }}

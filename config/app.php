@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'Asia/Yangon',
+    'timezone' => 'Asia/Rangoon',
 
     /*
     |--------------------------------------------------------------------------
@@ -178,6 +178,11 @@ return [
         //spatie
         Spatie\Permission\PermissionServiceProvider::class,
 
+        //for dompdf
+        Barryvdh\DomPDF\ServiceProvider::class,
+        //for excel mattwebsite
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
 
     ],
 
@@ -231,6 +236,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Carbon' => 'Carbon\Carbon',
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

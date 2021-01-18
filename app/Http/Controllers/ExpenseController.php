@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use App\Expense;
 use App\Treatment;
 use App\Owner;
+use App\Category;
+use App\Exports\ReportExport;
 use Carbon;
+use Yajra\DataTables\Facades\DataTables;
 use DB;
 use Auth;
-
+use Excel;
+use Illuminate\Support\Collection;
 class ExpenseController extends Controller
 {
     /**
@@ -28,7 +32,7 @@ class ExpenseController extends Controller
         ->where('user_id',$id)
         ->get();
     
-        return view('expense.index',compact('survey'));
+        return view('expenseTutorial',compact('survey'));
     }
 
     public function superadmindashboard(){
@@ -75,6 +79,7 @@ class ExpenseController extends Controller
             'date' => 'required',
             'description' => 'required',
             'amount' => 'required',
+            'category' => 'required',
         ]);
 
         $expense=array();
@@ -95,7 +100,8 @@ class ExpenseController extends Controller
             'description'=>request('description'),
             'amount'=>request('amount'),
             'files'=>json_encode($expense),
-            'owner_id'=>$id
+            'owner_id'=>$id,
+            'category_id'=>request('category')
         ]);
         echo "successfully";
         
@@ -159,6 +165,7 @@ class ExpenseController extends Controller
          $expense->description=request('description');
          $expense->date=request('date');
          $expense->amount=request('amount');
+         $expense->category_id=request('category');
          $expense->files=$filepath;
          $expense->update();
          echo "successfully";
@@ -212,8 +219,10 @@ class ExpenseController extends Controller
         })->map
         ->sum('charges');
         $id=Auth::user()->owners[0]->id;
-        $expenses=Expense::where('owner_id',$id)->orderBy('id','DESC')->get();
-        return response()->json(['expenses'=>$expenses,'report'=>$data]);;
+        $expenses=Expense::with('category')
+        ->where('owner_id',$id)->orderBy('id','DESC')->get();
+        // return response()->json(['expenses'=>$expenses,'report'=>$data]);;
+        return Datatables::of($expenses)->addIndexColumn()->make(true);
     }
 
     public function searchReport(Request $request){
@@ -243,6 +252,315 @@ class ExpenseController extends Controller
             //dd($totalIncome);
 
        return response()->json(['totalExpense'=>$totalexpense,'totalIncome'=>$totalIncome]);
+    }
+
+
+    public function expenseList(){
+        $id=Auth::user()->owners[0]->id;
+        $categories=Category::where('owner_id',$id)->get();
+        return view('expense.expenseList',compact('categories'));
+    }
+
+    public function sampleReport(){
+         $id=Auth::user()->owners[0]->id;
+        $categories=Category::where('owner_id',$id)->get();
+        
+    return view('expense.transactionReport',compact('categories'));
+ }
+ public function report(){
+         $id=Auth::user()->owners[0]->id;
+        $categories=Category::where('owner_id',$id)->get();
+        
+    return view('expense.report',compact('categories'));
+ }
+
+    public function getexpenseReports(Request $request){
+        $startdate=$request->sDate;
+        $enddate=$request->eDate;
+        $name=$request->name;
+
+        $totalIncome=0;
+        $totalExpense=0;
+
+
+
+        $id=Auth::user()->owners[0]->id;
+
+        if($startdate ==$enddate){
+                $totalExpense=Expense::where('owner_id',$id)
+                        ->whereDate('date',$startdate)
+                        ->sum('amount');
+
+                $totalIncome=Treatment::whereHas('doctor',function($q)use ($id){
+                    $q->where('owner_id',$id);
+                })->whereNotNull('gc_level')
+                ->whereDate('created_at',$startdate)
+                ->sum('charges');
+
+                 $data['totalIncome']=$totalIncome;
+                $data['totalExpense']=$totalExpense;
+            }else{
+                $totalExpense=Expense::where('owner_id',$id)
+                        ->whereBetween('date',array($startdate,$enddate))
+                        ->sum('amount');
+
+                $totalIncome=Treatment::whereHas('doctor',function($q)use ($id){
+                    $q->where('owner_id',$id);
+                })->whereNotNull('gc_level')
+                ->whereBetween('created_at',array($startdate,$enddate))
+                ->sum('charges');
+
+                 $data['totalIncome']=$totalIncome;
+                $data['totalExpense']=$totalExpense;
+            }
+
+       
+
+
+        if($name=="expense"){
+
+           if($startdate ==$enddate){
+
+                $expenseData=Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->whereDate('date',$startdate)
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+
+           }else{
+                $expenseData=Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->whereBetween('date',array($startdate,$enddate))
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+           }
+
+
+            
+            $data['expense']=$expenseData;
+
+        }else{
+
+            if($startdate == $enddate){
+
+                $incomeData=Treatment::whereHas('doctor',function($q)use ($id){
+                                $q->where('owner_id',$id);
+                            })
+                            ->with(['patient','doctor'])
+                            ->whereNotNull('gc_level')
+                            ->whereDate('created_at',$startdate)
+
+                            // ->limit(5)
+                            ->orderBy('created_at','DESC')
+                            ->get();
+
+            }else{
+
+                $incomeData=Treatment::whereHas('doctor',function($q)use ($id){
+                                $q->where('owner_id',$id);
+                            })
+                            ->with(['patient','doctor'])
+                            ->whereNotNull('gc_level')
+                            ->whereBetween('created_at',array($startdate,$enddate))
+
+                            // ->limit(5)
+                            ->orderBy('created_at','DESC')
+                            ->get();
+            }
+             
+             $data=$incomeData;
+        }
+
+      
+
+    // $expenseData =Expense::where('owner_id',$id)
+    //             ->whereBetween('date',array($startdate,$enddate))
+    //             ->groupBy('date')
+    //            ->get();
+    // $mapping=$expenseData->map(function($p){
+    //     return ['date'=>$p->sum('amount')];
+    // });
+        // $mapping=Expense::where('owner_id',$id)
+        // ->whereBetween('date', array($startdate,$enddate))
+        // ->get();
+
+      /* $expenses= Expense::where('owner_id',$id)
+                ->whereBetween('date',array($startdate,$enddate))
+                 ->get();
+
+             $expenselist=collect($expenses)->groupBy(function ($proj) {
+                                    return $proj->date;
+                                })
+                                ->map(function ($month) {
+                                    return $month->sum('amount');
+                                });*/
+    
+ // $data['expensef']=$expenselist;
+               
+
+        // $mapping=Treatment::select('created_at', DB::raw('sum(charges) as total'))
+        //     ->whereHas('doctor',function($q)use ($id){
+        //         $q->where('owner_id',$id);
+        //     })
+        //     ->whereNotNull('gc_level')
+        //     ->whereBetween('created_at',array($startdate,$enddate))
+        //     // ->limit(5)
+        //     ->orderBy('created_at','DESC')
+        //      ->groupBy('created_at')
+        //      ->get();
+        
+
+             /*$incomes = Treatment::whereHas('doctor',function($q)use ($id){
+                                    $q->where('owner_id',$id);
+                                })
+                                ->whereNotNull('gc_level')
+                                ->whereBetween('created_at',array($startdate,$enddate))
+                                // ->limit(5)
+                                ->orderBy('created_at','DESC')
+                                ->get();
+                        
+
+                  $incomelist=collect($incomes)->groupBy(function ($proj) {
+                                    return $proj->created_at->format('Y-m-d');
+                                })
+                                ->map(function ($month) {
+                                    return $month->sum('charges');
+                                })->toArray();*/
+
+                // $data['income']=$incomelist;
+
+        // return response()->json([
+        //     'status'=>200,
+        //     'data'=>$data
+        // ]);
+
+                                return Datatables::of($income)->make(true);
+
+    }
+    public function getexpenseReport(Request $request){
+        $id=Auth::user()->owners[0]->id;
+        $startdate=$request->sDate;
+        $enddate=$request->eDate;
+        $name=$request->name;
+        // echo $name;die();
+
+        $data=null;
+        $enddate=Carbon::create($enddate)->addDay(1);
+        if($name=="income"){
+            $data=Treatment::whereHas('doctor',function($q)use ($id){
+                                $q->where('owner_id',$id);
+                            })
+                            ->with(['patient','doctor'])
+                            ->whereNotNull('gc_level')
+                            ->whereBetween('created_at',array($startdate,$enddate))
+
+                            // ->limit(5)
+                            ->orderBy('created_at','DESC')
+                            ->get();
+        }else{
+            $data=Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->whereBetween('date',array($startdate,$enddate))
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+        }
+        
+
+
+                            
+                return Datatables::of($data)->make(true);            
+
+
+    }
+    public function filterExpensbyCategory(Request $request){
+        $cid=$request->cid;
+        $startdate=$request->startdate;
+        $enddate=$request->enddate;
+        $id=Auth::user()->owners[0]->id;
+        $expenseData=null;
+        if($cid>0){
+         if($startdate ==$enddate){
+
+                $expenseData=Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->where('category_id',$cid)
+                        ->whereDate('date',$startdate)
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+
+           }else{
+                $expenseData=Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->where('category_id',$cid)
+                        ->whereBetween('date',array($startdate,$enddate))
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+           }
+        }else{
+            if($startdate ==$enddate){
+
+                $expenseData=Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->whereDate('date',$startdate)
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+
+           }else{
+                $expenseData=Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->whereBetween('date',array($startdate,$enddate))
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get();
+           }
+        }
+             $expense=$expenseData;
+             // return $expense;
+        return response()->json([
+            'status'=>200,
+            'data'=>$expense
+        ]);
+
+        // echo $cid;
+    }
+
+    public function exportExcel(Request $request){
+        $id=Auth::user()->owners[0]->id;
+        $owner=Auth::user()->owners[0];
+        $startdate=$request->sDate;
+        $enddate=$request->eDate;
+        $enddate=Carbon::create($enddate)->addDay(1);
+        // dd($request);
+
+        $data=collect(Expense::with('category')
+                        ->where('owner_id',$id)
+                        ->whereBetween('date',array($startdate,$enddate))
+
+                        // ->limit(5)
+                        ->orderBy('created_at','DESC')
+                        ->get())->toArray();
+
+        // Excel::create('Export data', function($excel) use($data) {
+        //      $excel->sheet('Sheet 1', function($sheet) use($data) {
+        //         $firstSheet=$data->toArray();
+        //          $sheet->fromArray($firstSheet);
+        //      });
+        // })->download('xlsx');
+                  return      Excel::download(new ReportExport($startdate,$enddate,$id,$owner),'expense.xlsx');
+       
     }
 
     

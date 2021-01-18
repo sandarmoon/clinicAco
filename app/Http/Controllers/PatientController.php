@@ -5,6 +5,8 @@ use App\Patient;
 use App\Doctor;
 use App\Treatment;
 use App\Referreddoctor;
+use Yajra\DataTables\Facades\DataTables;
+use App\Http\Resources\DoctorResource;
 use RealRashid\SweetAlert\Facades\Alert;
 use Auth;
 
@@ -21,8 +23,9 @@ class PatientController extends Controller
          $role=Auth::user()->roles[0];
                        // dd( Auth::user()->owners(0);
                         if($role->name=='Admin'){
-                        
+                            
                             $id=Auth::user()->owners[0]->id;
+                            $doctors=Doctor::where('owner_id',$id)->get();
                             // dd($id);
                             $patients=Patient::whereHas('reception.owner',function($q)use($id){
                                 $q->where('id',$id);
@@ -31,7 +34,10 @@ class PatientController extends Controller
                         
                         }else if($role->name=="Reception"){
                             
+                            
                              $id=Auth::user()->receptions[0]->owner->id;
+                              $doctors=Doctor::where('owner_id',$id)->get();
+
                             $patients=Patient::whereHas('reception.owner',function($q)use($id){
                                 $q->where('id',$id);
                              })->orderBy('id','DESC')->get();
@@ -39,10 +45,12 @@ class PatientController extends Controller
                         }else if($role->name=="Doctor"){
                            
                              $id=Auth::user()->doctors[0]->owner->id;
+                              $doctors=Doctor::where('owner_id',$id)->get();
                              $patients=Patient::whereHas('reception.owner',function($q)use($id){
                                 $q->where('id',$id)->orderBy('id','DESC');
                              })->orderBy('id','DESC')->get();
                         }else{
+                            $doctors=Doctor::all();
                             $patients=Patient::orderBy('id','DESC')->get();
                         }
 
@@ -56,7 +64,7 @@ class PatientController extends Controller
        // return $this->sendResponse($patients, "Patient are successfully retrived");
 
         // $patients=Patient::All();
-         return view('patients.index',compact('patients'));
+         return view('patients.index',compact('patients','doctors'));
     }
 
     /**
@@ -351,4 +359,62 @@ class PatientController extends Controller
             
         ]);
     }
+
+    public function getpatientlistforRec(){
+      
+         $id=Auth::user()->receptions[0]->owner->id;
+
+        $data=Patient::whereHas('reception.owner',function($q)use($id){
+            $q->where('id',$id);
+         })->orderBy('id','DESC')->get();
+
+
+        return Datatables::of($data)->addIndexColumn()->make(true);
+        
+
+    }
+
+    public function getpatientlistforRecforSingleDoctor(){
+         $id=Auth::user()->receptions[0]->owner->id;
+
+        $data=Patient::whereHas('reception.owner',function($q)use($id){
+            $q->where('id',$id);
+         })->orderBy('id','DESC')->get();
+
+
+        return Datatables::of($data)->addIndexColumn()->make(true);
+    }
+
+    // bill checkout after treatment
+    public function billCheckOut($pid){
+        $treatment=Treatment::with('medicines')
+        ->where('patient_id',$pid)
+        ->orderBy('id','desc')->first();
+
+        return view('reception/billCheckout',compact('treatment'));
+       
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

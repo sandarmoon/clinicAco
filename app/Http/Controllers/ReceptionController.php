@@ -93,7 +93,10 @@ class ReceptionController extends Controller
                       ->unique('patient_id');
            // dd($patientlists);
 
-        $wpatients=Treatment::with('patient','doctor','doctor.user')
+        $wpatients=Treatment::whereHas('patient.reception',function($e)use($owner_id){
+                            $e->where('owner_id',$owner_id);
+                        })
+        ->with('patient','doctor','doctor.user')
         ->whereNull('gc_level')
         ->whereDate('created_at', Carbon::today())->get();
         $survey1=Appointment::with('doctor','doctor.user')

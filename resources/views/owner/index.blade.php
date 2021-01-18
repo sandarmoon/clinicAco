@@ -163,13 +163,16 @@
                   data:{"_method": 'DELETE'},
                   dataType:'json',
                   success:function(res){
-                    if(res.success){
-                    $('.success').removeClass('d-none');
-                    $('.success').addClass('text-danger');
-                        $('.success').show();
-                        $('.success').text('successfully Deleted');
-                        $('.success').hide(3000);
-                        getOnwers();
+                    if(res.status==200){
+                    
+                          swal({
+                          icon: "success",
+                          text:res.message
+                        }).then(() => {
+                             $('#ownerTable').DataTable().ajax.reload();
+                        });;
+                    
+                        
 
                     }},
                     

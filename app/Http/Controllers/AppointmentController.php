@@ -179,10 +179,10 @@ class AppointmentController extends Controller
     }
 
     public function getToken(Request $request){
-     // dd($request);
+      // dd($request);
         $token=Appointment::where('doctor_id',$request->id)
             ->where('A_Date','=',$request->date)->orderBy('id','desc')->first();
-            // dd($token);
+             // dd($token);
         $no=1;
         if($token==null){
             return $no;

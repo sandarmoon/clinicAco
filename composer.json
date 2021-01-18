@@ -10,12 +10,16 @@
     "require": {
         "php": "^7.2",
         "ajcastro/eager-load-pivot-relations": "^0.2.2",
+        "barryvdh/laravel-dompdf": "^0.9.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/passport": "7.5.1",
         "laravel/tinker": "^2.0",
+        "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "^2.30",
+        "phpoffice/phpspreadsheet": "^1.16",
         "realrashid/sweet-alert": "^3.1",
+        "remember/laravel-spreadsheet": "^0.0.3",
         "spatie/laravel-permission": "^3.6",
         "yajra/laravel-datatables-oracle": "^9.9"
     },

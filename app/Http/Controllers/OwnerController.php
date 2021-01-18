@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use URL;
 use Session;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Validator;
 
 
 
@@ -67,7 +68,24 @@ class OwnerController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-         request()->validate([
+        // request()->validate([
+        //     'avatar' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'name'=>'required',
+        //     'password'=>'required',
+        //     'email'=>'required|unique:users',
+        //     'clinic_name'=>'required',
+        //     'clinic_logo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        //     'clinic_time'=>'required',
+        //     'phone'=>'required',
+        //     'address'=>'required',
+        // ]);
+
+        //   $validator = Validator::make($request->all(), [
+            
+        // ]);
+
+        Validator::make($request->all(), [
             'avatar' => '|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'name'=>'required',
@@ -78,7 +96,8 @@ class OwnerController extends Controller
             'clinic_time'=>'required',
             'phone'=>'required',
             'address'=>'required',
-        ]);
+        ])->validate();
+          
 
          $avatar = $request->file('avatar');
          $logo = $request->file('clinic_logo');
@@ -89,6 +108,8 @@ class OwnerController extends Controller
                 $avatar->move(public_path('storages/owner/'),$name);
                 $avatar_path='storages/owner/'.$name;
                   
+            }else{
+                $avatar_path=null;
             }
 
             if($logo){
@@ -97,6 +118,8 @@ class OwnerController extends Controller
                 $logo->move(public_path('storages/logo/'),$name);
                 $logo_path='storages/logo/'.$name;
                   
+            }else{
+                $logo_path=null;
             }
 
             $user=new User();
@@ -119,8 +142,8 @@ class OwnerController extends Controller
             'address'=>request('address'),
             'phone'=>request('phone'),
         ]);
-        Session::flash('success', 'Record is successfully added!');
-         return response()->json(['success'=>'0']);
+        // Session::flash('success', 'Record is successfully added!');
+           return response()->json(['message'=>'Successfully Owner account Created','status'=>200]);
 
 
 
@@ -216,13 +239,14 @@ class OwnerController extends Controller
     {
         //
         $owner = Owner::find($id);
-        //dd($doctor->user->id);
+        // dd($owner);
+        // dd($doctor->user->id);
         
 
         // $user=User::find($owner->user->id);
         // $user->delete();
         $owner->delete();
         // $user->save();
-        return response()->json(['success'=>'Record is successfully updated!']);
+          return response()->json(['message'=>'Successfully Owner account deleted','status'=>200]);
     }
 }

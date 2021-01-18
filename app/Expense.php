@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Expense extends Model
 {
     use SoftDeletes;
-    protected $fillable=['date','description','amount','files','owner_id'];
+    protected $fillable=['date','description','amount','files','owner_id','category_id'];
+
+    public function category(){
+    	return $this->belongsTo('App\Category');
+    }
 }

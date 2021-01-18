@@ -9,11 +9,11 @@
    <div class="col-12" style="margin-top: 0;">
     <nav class="mx-5 my-3">
       <div class="nav nav-tabs my-3"  id="nav-tab" role="tablist">
-        <a class="nav-item nav-link text-info active " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Ptient History</a>
+        <a class="nav-item nav-link text-info active " id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Patient History</a>
 
         <a class="nav-item nav-link text-info" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Treatment History</a>
         <?php if(auth()->check() && auth()->user()->hasAnyRole('Super_Admin|Admin|Reception')): ?>
-        <a class="nav-item nav-link text-warning " id="nav-transter-tab" data-toggle="tab" href="#nav-transfer" role="tab" aria-controls="nav-profile" aria-selected="false">Transfer History</a>
+        <a class="nav-item nav-link text-warning " id="nav-transter-tab" data-toggle="tab" href="#nav-transfer" role="tab" aria-controls="nav-profile" aria-selected="false">Referral History</a>
          <?php endif; ?>
         <input type="hidden" value="<?php echo e($patient->id); ?>" name="PatientId">
       </div>
@@ -106,12 +106,14 @@
           <?php $__currentLoopData = $treatments; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k=>$treatment): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <div class="card my-3 ml-5">
             <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
+              <h2 class="mb-0 d-inline-block">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse<?php echo e($i); ?>" aria-expanded="true" aria-controls="collapseOne">
                   <?php echo e($treatment->created_at); ?>
 
+
                 </button>
               </h2>
+              <a href="<?php echo e(route('pdf-create-treatment-report',$treatment->id)); ?>" target="_blank" class="btn btn-info float-right ">Print</a>
             </div>
 
             <div id="collapse<?php echo e($i); ?>" class="collapse <?=($k==0)? 'show':''?>" aria-labelledby="headingOne bg-secondary" data-parent="#accordionExample">

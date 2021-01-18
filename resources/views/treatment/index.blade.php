@@ -75,11 +75,16 @@
 		                   {"data":"patient.age"},
 		                   {"data":"patient.id",
 		                   render:function(data){
+		                   	let url="{{route('bill-check-out',':pid')}}";
+		                   	url=url.replace(':pid',data);
 		                   	return `
 		                   	@role('Doctor')
 		                   	<button class="btn btn-primary btn-sm d-inline-block btnEdit "  data-id="${data}"><i class="ni ni-settings"></i></button>
 		                   	@endrole
-		                        <button class="btn btn-warning btn-sm d-inline-block btn-Detail "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
+		                        <button class="btn btn-warning btn-sm d-inline-block btn-checkout "  data-id="${data}"><i class="ni ni-circle-08"></i></button>
+		                        @role('Reception')
+		                        <a class="btn btn-success btn-sm d-inline-block "  href="${url}">check out</a>
+		                        @endrole
 		                        {{--@role('Doctor')
 		                                  <button class="btn btn-danger btn-sm d-inline-block btnDelete " data-id="${data}"> <i class="ni ni-fat-delete"></i></button>  @endrole--}}`
 

@@ -37,6 +37,7 @@
   <!-- CSS Files -->
   <link href="<?php echo e(asset('template/assets/css/argon-dashboard.css?v=1.1.1')); ?>" rel="stylesheet" />
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css">
 
  <!--  <link href="<?php echo e(asset('template/table/datatables/dataTables.bootstrap4.min.css')); ?>" rel="stylesheet"> -->
 
@@ -47,6 +48,9 @@
   <link href="<?php echo e(asset('dist/css/select2.min.css')); ?>" rel="stylesheet" />
   
   <style type="text/css">
+    html,body{
+      height: 100%;
+    }
     @media (max-width: 720px){
         .profilemedia{
            text-align: center;
@@ -56,6 +60,14 @@
             padding-top: 0px;
         }
     }
+
+    @media (min-width: 768px){
+      .main-content .container-fluid {
+          padding-left: 20px !important;
+          padding-right: 20px !important;
+      }
+    }
+
 
     .sfont{
       font-size: 0.875rem;
@@ -92,7 +104,7 @@
   <div id = "dialog-4" title = "Dialog Title goes here...">
         
       </div>
-  <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+  <nav class="navbar navbar-vertical fixed-left navbar-expand-md  navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#sidenav-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle navigation">
@@ -200,7 +212,19 @@
           </li>
           
           <?php if(auth()->check() && auth()->user()->hasRole('Admin')): ?>
-          
+
+          <li class="nav-item">
+            <a class="nav-link " href="/expenseList">
+              <i class="ni ni-align-left-2 text-orange"></i> Expense
+            </a>
+          </li> 
+
+          <li class="nav-item">
+            <a class="nav-link " href="/report">
+              <i class="ni ni-align-left-2 text-orange"></i> Report
+            </a>
+          </li> 
+        
           <li class="nav-item">
             <a class="nav-link " href="/med">
               <i class="ni ni-align-left-2 text-orange"></i> Medicine
@@ -229,6 +253,11 @@
               <i class="ni ni-circle-08 text-yellow"></i> Reception
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('patient.index')); ?>">
+              <i class="ni ni-circle-08 text-blue"></i> Patient
+            </a>
+          </li>
           <?php endif; ?>
           <?php if(auth()->check() && auth()->user()->hasRole('Reception')): ?>
           <li class="nav-item">
@@ -241,18 +270,29 @@
               <i class="ni ni-circle-08 text-yellow"></i> Now
             </a>
           </li>
-          <?php endif; ?>
-
-         <li class="nav-item">
-            <a class="nav-link " href="<?php echo e(route('patient.index')); ?>">
-              <i class="ni ni-circle-08 text-blue"></i> Patient
+          <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('patient.create')); ?>">
+              <i class="ni ni-circle-08 text-yellow"></i> New Patient
             </a>
           </li>
+           <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('patientlistforRec')); ?>">
+              <i class="ni ni-circle-08 text-yellow"></i>  Patient list
+            </a>
+          </li>
+          <?php endif; ?>
+
+         
          
          <?php if(auth()->check() && auth()->user()->hasRole('Doctor')): ?>
           <li class="nav-item">
             <a class="nav-link " href="<?php echo e(route('appointpatient')); ?>">
               <i class="ni ni-watch-time text-orange"></i> Incharge Patients
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="<?php echo e(route('patient.index')); ?>">
+              <i class="ni ni-circle-08 text-blue"></i> Patient
             </a>
           </li>
           <?php endif; ?>
@@ -480,8 +520,10 @@
   <!--   Optional JS   -->
   <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.min.js')); ?>"></script>
   <script src="<?php echo e(asset('template/assets/js/plugins/chart.js/dist/Chart.extension.js')); ?>"></script>
+  
 
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <!-- <script src="<?php echo e(asset('template/assets/js/moment.min.js')); ?>"></script> -->
   <!--   Argon JS   -->
   <!-- <script src="<?php echo e(asset('template/assets/js/argon-dashboard.min.js?v=1.1.1')); ?>"></script> -->
   <!-- <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script> -->

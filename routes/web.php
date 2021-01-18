@@ -1,5 +1,6 @@
 <?php
 
+use App\Doctor;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -230,16 +231,48 @@ Route::get('/checkMonthlyMedAdding','MedicineController@checkMonthlyMedAdding')-
 Route::post('reset_password_without_token', 'AccountsController@validatePasswordRequest');
 Route::post('reset_password_with_token', 'AccountsController@resetPassword');
 
+// for monthly usage medicine
+
+Route::get('/getMonghtlyuseageMedicine','MedicineController@getMonghtlyuseageMedicine')->name('getMonghtlyuseageMedicine');
 
 
 
+// for changes view for reception start
+
+Route::get('patientlistforRec', function(){
+	  $id=Auth::user()->receptions[0]->owner->id;
+      $doctors=Doctor::where('owner_id',$id)->get();
+	return view('patients.patientlistforRec',compact('doctors'));
+})->name('patientlistforRec');
+
+Route::get('/getpatientlistforRec','PatientController@getpatientlistforRec')->name('getpatientlistforRec');
+
+Route::get('/getpatientlistforRecforSingleDoctor','PatientController@getpatientlistforRecforSingleDoctor')->name('getpatientlistforRecforSingleDoctor');
 
 
+Route::post('/makingTreatmentwithPRN','TreatmentController@makingTreatmentwithPRN')->name('makingTreatmentwithPRN');
+
+// for changes view for reception end 
+
+// for owner expense report view  start
+ Route::get('/expenseList','ExpenseController@expenseList')->name('expenseList');
+
+ Route::get('/sampleReport','ExpenseController@sampleReport')->name('sampleReport');
+ Route::get('/report','ExpenseController@report')->name('report');
+ Route::post('/getexpenseReport','ExpenseController@getexpenseReport')->name('getexpenseReport');
+ Route::post('/filterExpensbyCategory','ExpenseController@filterExpensbyCategory')->name('filterExpensbyCategory');
+
+Route::post('/printIncomeListpdf','PdfController@printIncomeListpdf')->name('printIncomeListpdf');
+
+Route::get('/bill-check-out/{pid}','PatientController@billCheckOut')->name('bill-check-out');
 
 
+// for owner expense report view  end 
 
+Route::post('/exportExcel','ExpenseController@exportExcel')->name('exportExcel');
 
-
+// for testing pdf generate start
+ Route::get('pdf-create-treatment-report/{id}','PdfController@createTreatmentReport')->name('pdf-create-treatment-report');
 
 
 

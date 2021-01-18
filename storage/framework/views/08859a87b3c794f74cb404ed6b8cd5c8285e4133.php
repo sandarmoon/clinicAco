@@ -217,8 +217,17 @@
                 contentType: false,
                 processData: false,
                 success: (data) => {
+                  if(data.status ==200){
+                       
+                        swal({
+                          icon: "success",
+                          text:data.message
+                        }).then(() => {
+                        window.location.href="<?php echo e(route('owners.index')); ?>";
+                        });;
+                    }
                    
-                 window.location.href="<?php echo e(route('owners.index')); ?>";
+                 
                     
                 },
                 error: function(error){

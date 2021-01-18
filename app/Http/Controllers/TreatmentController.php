@@ -11,6 +11,7 @@ use Yajra\DataTables\Facades\DataTables;
 use App\Http\Resources\TreatmentResource;
 use Auth;
 use App\Doctor;
+use App\Appointment;
 use Carbon;
 class TreatmentController extends Controller
 {
@@ -858,5 +859,36 @@ class TreatmentController extends Controller
                
         }
         return response()->json(['success'=>'Record is successfully updated']);
+    }
+
+    public function makingTreatmentwithPRN(Request $request){
+          // dd($request);
+
+         $token=$request->token;
+         $patient_id=$request->patient_id;
+         $patient=Patient::find($patient_id);
+         $doctor_id=$request->doctor_id;
+
+          $a=Appointment::create([
+            'name'=>$patient->name,
+            'phone'=>$patient->phoneno,
+            'doctor_id'=>$doctor_id,
+            'A_Date'=>Carbon::today()->toDateString(),
+            'TokenNo'=>$token,
+            'status'=>1
+        ]);
+
+            Treatment::create([
+                 "doctor_id"=>$doctor_id,
+                 "patient_id"=>$patient_id,
+                 "charges"=>0,
+                 "appointment_id"=>$a->id
+                 
+            ]);
+            
+
+             return response()->json(['message'=>'Successfully Made Treatment appoinment','status'=>1]);
+       
+        // $A_Date=$request->A_Date;
     }
 }

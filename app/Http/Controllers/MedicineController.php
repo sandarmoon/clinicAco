@@ -602,6 +602,20 @@ class MedicineController extends Controller
 
 
     }
+
+    public function getMonghtlyuseageMedicine(){
+         $id=Auth::user()->owners[0]->id;
+         $dateS = Carbon::now()->startOfMonth();
+         $dateE = Carbon::now()->endofMonth(); 
+
+          $treatments=Treatment::with('medicines')
+                    ->whereHas('doctor',function($q) use ($id){
+                        $q->where('owner_id','=',$id);
+                    })
+                    ->whereBetween('created_at',array($dateS,$dateE))->whereNotNull('gc_level')->get();
+                    dd($treatments);
+
+    }
 }
 
 
